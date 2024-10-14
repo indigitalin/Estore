@@ -1,7 +1,7 @@
 <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
-            Settings Page
+            Profile settings
         </h2>
 
         <nav>
@@ -9,7 +9,7 @@
                 <li>
                     <a class="font-medium" href="index.html">Dashboard /</a>
                 </li>
-                <li class="font-medium text-primary">Settings</li>
+                <li class="font-medium text-primary">Profile</li>
             </ol>
         </nav>
     </div>
@@ -21,7 +21,7 @@
                         Personal Information
                     </h3>
                 </div>
-                <div class="p-7">
+                <div class="p-7 pt-0">
                     <form wire:submit="update">
                         <div class="flex flex-wrap -mx-2">
                             <div class="w-full md:w-1/2 p-2">
