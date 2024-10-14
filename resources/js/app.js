@@ -1,18 +1,26 @@
-import './bootstrap';
-// // import 'flowbite'
-import '../../vendor/masmerise/livewire-toaster/resources/js'; // 👈
-// // import './bundle'
+require('./bootstrap');
 
-// // other app stuff...
+import "bootstrap/dist/css/bootstrap.min.css"
 
-import 'boxicons'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
-// import { initFlowbite } from 'flowbite';
+import { createApp } from 'vue';
+import App from './components/App.vue'
+import router from './router';
+import store from './store';
+import helper from './helper';
+import axios from 'axios'
 
-// document.addEventListener("livewire:navigating", () => {
-//     initFlowbite();
-// });
+axios.defaults.withCredentials = true;
 
-// document.addEventListener("livewire:navigated", () => {
-//     initFlowbite();
-// });
+store.dispatch('getUser').then(() => {
+    const app = createApp(App).use(router).use(store).use(VueSweetalert2)
+    app.config.globalProperties.$axios = axios
+    
+    /**
+     * Load custom helper into global properties here.
+     */
+    app.config.globalProperties.$helper = helper
+    app.mount("#app");
+})

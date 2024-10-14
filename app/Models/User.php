@@ -2,25 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    use SoftDeletes;
-    /**
-     * The attributes that are lazy loaded.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'name',
-        'avatar_url',
-    ];
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -28,13 +19,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstname',
-        'lastname',
-        'phone',
-        'status',
+        'name',
         'email',
         'password',
-        'email_verified_at'
     ];
 
     /**
@@ -48,27 +35,21 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function setPasswordAttribute($value)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $this->attributes['password'] = Hash::make($value);;
     }
 
-    public function getNameAttribute(){
-        return "{$this->firstname} {$this->lastname}";
-    }
-
-    public function getAvatarUrlAttribute(){
-        return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name='.$this->name);
-    }
-
-    public function client(){
-        return $this->hasOne(Client::class);
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }
