@@ -79,7 +79,7 @@
                     </h3>
                 </div>
                 <div class="p-7">
-                    <form wire:submit="updateAvatar" x-data="imagePreviewer()">
+                    <form wire:submit="updateAvatar" x-data="imagePreviewer">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="rounded-full">
                                 <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover" src="{{ $this->avatar_url }}" alt="user photo">

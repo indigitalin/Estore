@@ -59,6 +59,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     </div>
     <!-- ===== Page Wrapper End ===== -->
     <x-toaster-hub class="text-md" />
+    @stack('scripts')
 </body>
 
 </html>
