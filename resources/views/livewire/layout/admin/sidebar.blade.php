@@ -214,20 +214,20 @@
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/admin" :class="page === 'ecommerce' && '!text-white'">Staff Users
+                                        href="/admin">Staff Users
                                     </a>
                                 </li>
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/admin" :class="page === 'ecommerce' && '!text-white'">Roles and
+                                        href="/admin">Roles and
                                         Responsibilities
                                     </a>
                                 </li>
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                                        href="/admin" :class="page === 'ecommerce' && '!text-white'">Company
+                                        href="/admin">Company
                                         Settings
                                     </a>
                                 </li>

@@ -691,7 +691,7 @@ body{
   z-index: 1;
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-  font-family: Satoshi, sans-serif;
+  font-family: Satoshi, sans-serif !important;
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 400;
@@ -1816,7 +1816,7 @@ body{
 }
 .bg-black{
   --tw-bg-opacity: 1;
-  background-color: rgb(28 36 52 / var(--tw-bg-opacity));
+  background-color: rgb(28 36 52 / var(--tw-bg-opacity)) !important;
 }
 .bg-boxdark{
   --tw-bg-opacity: 1;
