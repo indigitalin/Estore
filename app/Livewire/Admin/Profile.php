@@ -19,8 +19,8 @@ class Profile extends Component
     public string|null $phone_number;
     public string|null $phone;
     public string $email;
-    public string|null $avatar_url;
-    public ?UploadedFile $avatar = null;
+    public string|null $picture_url;
+    public ?UploadedFile $picture = null;
 
     public function mount(): void
     {
@@ -29,7 +29,7 @@ class Profile extends Component
         $this->lastname = $user->lastname;
         $this->phone_number = $user->phone;
         $this->email = $user->email;
-        $this->avatar_url = $user->avatar_url;
+        $this->picture_url = $user->picture_url;
     }
 
     public function rules(): array
@@ -39,7 +39,7 @@ class Profile extends Component
             'lastname' => ['bail','required', 'string', 'max:255'],
             'phone' => ['bail','required', 'numeric', 'digits:10', Rule::unique(User::class)->ignore(auth()->user()->id)],
             'email' => ['bail','required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore(auth()->user()->id)],
-            //'avatar' => 'bail|sometimes|nullable|file|mimes:wemp,jpg,png,jpeg|max:2mb'
+            //'picture' => 'bail|sometimes|nullable|file|mimes:wemp,jpg,png,jpeg|max:2mb'
         ];
     }
 
@@ -65,14 +65,14 @@ class Profile extends Component
 
     public function updateAvatar(){
         $validated = $this->validate([
-            'avatar' => 'bail|required|image|mimes:webp,jpg,png,jpeg|max:2048'
+            'picture' => 'bail|required|image|mimes:webp,jpg,png,jpeg|max:2048'
         ]);
         
-        if ($this->avatar) {
-            $this->removeFile(auth()->user()->avatar);
-            $picturePath = $this->uploadFile(file : $this->avatar, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
+        if ($this->picture) {
+            $this->removeFile(auth()->user()->picture);
+            $picturePath = $this->uploadFile(file : $this->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
             auth()->user()->update([
-                'avatar' => $picturePath,
+                'picture' => $picturePath,
             ]);
         }
         \Toaster::success(__("Profile image has been updated successfully."));

@@ -53,7 +53,7 @@
                                     <x-text-input placeholder="Your phone number" x-mask="(999) 9999-999"
                                         wire:model="phone_number" id="phone_number" class="block mt-1 w-full"
                                         type="tel" name="phone_number" required />
-                                        <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                 </div>
                             </div>
                         </div>
@@ -82,17 +82,17 @@
                     <form wire:submit="updateAvatar" x-data="imagePreviewer">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="rounded-full">
-                                <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover" src="{{ $this->avatar_url }}" alt="user photo">
+                                <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover" src="{{ $this->picture_url }}" alt="user photo">
                             </div>
                             <div>
                                 <span class="mb-1.5 font-medium text-black dark:text-white">Edit your photo</span>
-                                <label class="text-blue-600 cursor-pointer block" for="avatar">Upload photo</label>
+                                <label class="text-blue-600 cursor-pointer block" for="picture">Upload photo</label>
                             </div>
                         </div>
 
                         <div id="FileUpload" @dragover.prevent @dragleave="dragging = false" @drop.prevent="handleDrop($event)"
                             class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
-                            <input @change="fileChosen($event)" type="file" name="avatar" wire:model="avatar" id="avatar" accept="image/jpeg, image/png, image/webp, image/jpg" 
+                            <input @change="fileChosen($event)" type="file" name="picture" wire:model="picture" id="picture" accept="image/jpeg, image/png, image/webp, image/jpg" 
                                 class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <span
@@ -108,7 +108,7 @@
                                 </p>
                             </div>
                         </div>
-                        <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                         <div class="flex flex-wrap mt-5">
                             <a href="" wire:navigate class="flex ms-auto">
                                 <x-secondary-button type="button" class="text-center  me-2 h-100">
@@ -129,9 +129,9 @@
 <script>
     function imagePreviewer() {
         return {
-            imagePreview: '{!! $this->avatar_url !!}', // Initial preview URL from backend
+            imagePreview: '{!! $this->picture_url !!}', // Initial preview URL from backend
             dragging: false, // State for drag events
-            defaultImage : '{!! $this->avatar_url !!}',
+            defaultImage : '{!! $this->picture_url !!}',
             fileChosen(event) {
                 const file = event.target.files[0];
 

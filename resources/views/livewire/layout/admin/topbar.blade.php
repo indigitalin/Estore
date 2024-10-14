@@ -139,7 +139,7 @@ new class extends Component {
             <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
                 <a class="flex items-center gap-4" href="#" @click.prevent="dropdownOpen = ! dropdownOpen">
                     <span class="h-12 w-12 rounded-full">
-                        <img class="rounded-full w-12 h-12" src="{{ auth()->user()->avatar_url }}" alt="User" />
+                        <img class="rounded-full w-12 h-12" src="{{ auth()->user()->picture_url }}" alt="User" />
                     </span>
 
                     <svg :class="dropdownOpen && 'rotate-180'" class="hidden fill-current sm:block" width="12"
