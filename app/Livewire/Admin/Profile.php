@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 
 class Profile extends Component
 {
@@ -15,6 +16,7 @@ class Profile extends Component
     public string|null $phone;
     public string $email;
     public string|null $avatar_url;
+    public ?UploadedFile $avatar = null;
 
     public function mount(): void
     {
@@ -33,6 +35,7 @@ class Profile extends Component
             'lastname' => ['bail','required', 'string', 'max:255'],
             'phone' => ['bail','required', 'numeric', 'digits:10', Rule::unique(User::class)->ignore(auth()->user()->id)],
             'email' => ['bail','required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore(auth()->user()->id)],
+            //'avatar' => 'bail|sometimes|nullable|file|mimes:wemp,jpg,png,jpeg|max:2mb'
         ];
     }
 
@@ -53,6 +56,14 @@ class Profile extends Component
         $validated = $this->validate();
         auth()->user()->update($validated);
         \Toaster::success(__("Profile has been updated successfully."));
+        $this->dispatch('success');
+    }
+
+    public function updateAvatar(){
+        $validated = $this->validate([
+            'avatar' => 'bail|required|image|mimes:webp,jpg,png,jpeg|max:2mb'
+        ]);
+        \Toaster::success(__("Profile image has been updated successfully."));
         $this->dispatch('success');
     }
 }

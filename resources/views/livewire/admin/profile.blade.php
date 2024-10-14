@@ -54,14 +54,16 @@
                                     <x-text-input placeholder="Your phone number" x-mask="(999) 9999-999"
                                         wire:model="phone_number" id="phone_number" class="block mt-1 w-full"
                                         type="tel" name="phone_number" required />
-                                    <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                                 </div>
                             </div>
                         </div>
                         <div class="flex flex-wrap mt-5">
-                            <x-secondary-button type="button" class="text-center ms-auto me-2">
-                                {{ __('Cancel') }}
-                            </x-secondary-button>
+                            <a href="" wire:navigate class="flex ms-auto">
+                                <x-secondary-button type="button" class="text-center  me-2 h-100">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+                            </a>
                             <x-primary-button class="text-center">
                                 {{ __('Update profile') }}
                             </x-primary-button>
@@ -78,20 +80,20 @@
                     </h3>
                 </div>
                 <div class="p-7">
-                    <form action="#">
+                    <form wire:submit="updateAvatar" x-data="imagePreviewer()">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="rounded-full">
-                                <img class="w-15 h-15 rounded-full" src="{{ $this->avatar_url }}" alt="user photo">
+                                <img :src="imagePreview" class="w-15 h-15 rounded-full" src="{{ $this->avatar_url }}" alt="user photo">
                             </div>
                             <div>
                                 <span class="mb-1.5 font-medium text-black dark:text-white">Edit your photo</span>
-                                <div class="text-blue-600 cursor-pointer">Upload photo</div>
+                                <label class="text-blue-600 cursor-pointer block" for="avatar">Upload photo</label>
                             </div>
                         </div>
 
                         <div id="FileUpload"
                             class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
-                            <input type="file" accept="image/*"
+                            <input @change="fileChosen($event)" type="file" id="avatar" accept="image/jpeg, image/png, image/webp, image/jpg" 
                                 class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <span
@@ -114,15 +116,18 @@
                                     or drag and drop
                                 </p>
                                 <p class="mt-1.5 text-sm font-medium">
-                                    SVG, PNG, JPG or GIF
+                                    PNG, JPG, WEBP (max 2mb)
                                 </p>
                             </div>
+                            
                         </div>
-
+                        <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
                         <div class="flex flex-wrap mt-5">
-                            <x-secondary-button type="button" class="text-center ms-auto me-2">
-                                {{ __('Cancel') }}
-                            </x-secondary-button>
+                            <a href="" wire:navigate class="flex ms-auto">
+                                <x-secondary-button type="button" class="text-center  me-2 h-100">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+                            </a>
                             <x-primary-button class="text-center">
                                 {{ __('Save') }}
                             </x-primary-button>
@@ -133,3 +138,40 @@
         </div>
     </div>
 </div>
+@livewireScripts
+<script>
+    function imagePreviewer() {
+        return {
+            imagePreview: '{!! $this->avatar_url !!}',
+            fileChosen(event) {
+                const file = event.target.files[0];
+
+                // // Validate file type
+                // const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+                // if (!validTypes.includes(file.type)) {
+                //     alert('Invalid file type. Please select an image (JPEG, PNG, GIF).');
+                //     //event.target.value = ''; // Clear the input
+                //     //this.imagePreview = ''; // Reset the preview
+                //     return;
+                // }
+
+                // // Validate file size (max 2 MB)
+                // const maxSize = 2 * 1024 * 1024; // 2 MB
+                // if (file.size > maxSize) {
+                //     alert('File size exceeds 2 MB. Please select a smaller image.');
+                //     //event.target.value = ''; // Clear the input
+                //     //this.imagePreview = ''; // Reset the preview
+                //     return;
+                // }
+
+                // If valid, read the file and set the preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imagePreview = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+    }
+</script>
+@livewireScripts

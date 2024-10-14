@@ -696,7 +696,7 @@ body{
   line-height: 1.5rem;
   font-weight: 400;
   --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity));
+  /* color: rgb(100 116 139 / var(--tw-text-opacity)); */
 }
 
 *, ::before, ::after{
