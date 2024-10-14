@@ -21,6 +21,7 @@
                         Personal Information
                     </h3>
                 </div>
+                
                 <div class="p-7 pt-0">
                     <form wire:submit="update">
                         <div class="flex flex-wrap -mx-2">
