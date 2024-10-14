@@ -19,7 +19,7 @@ new #[Layout('layouts.guest')] class extends Component {
         $this->form->authenticate();
 
         Session::regenerate();
-
+        \Toaster::success(__("Hello :name, welcome back!", ['name' => auth()->user()->name]));
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
