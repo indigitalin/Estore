@@ -36,7 +36,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
                 <!-- ====== Forms Section Start -->
                 <div
-                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    class="rounded-sm bg-white rounded-sm dark:border-strokedark dark:bg-boxdark">
                     <div class="flex flex-wrap items-center">
                         <div class="hidden w-full xl:block xl:w-1/2">
                             <div class="py-17.5 text-center">
