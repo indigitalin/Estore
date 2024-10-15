@@ -76,6 +76,28 @@ class User extends Authenticatable
         return image_url($this->avatar);
     }
 
+    public function getPhoneNumberAttribute(){
+        $value = $this->phone;
+        return '+1 (' . substr($value, 1, 3) . ') ' . substr($value, 4, 3) . '-' . substr($value, 7);
+
+
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('M d,Y');
+    }
+
+    public function getLastLoginAttribute($value){
+        return $value != null ? \Carbon\Carbon::parse($value)->format('M d,Y h:i A') : '';
+    }
+
+    public function getStatusLabelAttribute()
+    {
+      
+        return $this->status == "1" ? 'Active' : 'Inactive';
+    }
+
     public function client(){
         return $this->hasOne(Client::class);
     }

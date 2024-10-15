@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Admin\Products\Forms;
+namespace App\Livewire\Admin\Forms\Products;
 
 use App\Models\Product;
-use Livewire\Form;
+use Livewire\Forms;
 use Illuminate\Validation\Rule;
 
-class ProductForm extends Form
+class UsersForm extends Form
 {
     public ?Product $product = null;
 
