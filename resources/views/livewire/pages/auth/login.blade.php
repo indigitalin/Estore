@@ -24,7 +24,7 @@ new #[Layout('layouts.guest')] class extends Component {
     }
 }; ?>
 
-<div class="  mt-6 px-6 py-10 bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
+<div class="mt-6 px-6 py-10 bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
 
     <!-- ===== Content Area Start ===== -->
     <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
@@ -33,7 +33,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
                 <!-- ====== Forms Section Start -->
                 <div
-                    class="rounded-sm bg-white rounded-sm dark:border-strokedark dark:bg-boxdark">
+                    class="rounded-sm bg-white dark:border-strokedark dark:bg-boxdark">
                     <div class="flex flex-wrap items-center">
                         <div class="hidden w-full xl:block xl:w-1/2">
                             <div class="py-17.5 text-center">

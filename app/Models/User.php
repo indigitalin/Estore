@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'name',
-        'avatar_url',
+        'picture_url',
     ];
 
     /**
@@ -35,7 +35,7 @@ class User extends Authenticatable
         'email',
         'password',
         'email_verified_at',
-        'avatar'
+        'picture'
     ];
 
     /**
@@ -65,15 +65,15 @@ class User extends Authenticatable
         return "{$this->firstname} {$this->lastname}";
     }
 
-    public function getAvatarAttribute($avatar){
-        return $avatar ? : 'default.png';
+    public function getPictureAttribute($picture){
+        return $picture ? : 'default.png';
     }
 
-    public function getAvatarUrlAttribute($avatar){
-        if($this->avatar == 'default.png'){
+    public function getPictureUrlAttribute($picture){
+        if($this->picture == 'default.png'){
             return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name='.$this->name);
         }
-        return image_url($this->avatar);
+        return image_url($this->picture);
     }
 
     public function getPhoneNumberAttribute(){
