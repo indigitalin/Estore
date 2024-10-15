@@ -64,7 +64,7 @@
                                     wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
                                     <box-icon name='edit'></box-icon>
                                 </span>
-                                <span role="button">
+                                <span role="button" wire:click="destroy({{ $role->id }})">
                                     <box-icon name='trash'></box-icon>
                                 </span>
                             </td>

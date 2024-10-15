@@ -19,4 +19,10 @@ class Role extends ModalComponent
             RoleModel::get()
         );
     }
+
+    public function destroy(string $roleId){
+        RoleModel::findOrfail($roleId)->delete();
+        $this->dispatch('refresh-list');
+        \Toaster::success(__("Role deleted successfully."));
+    }
 }
