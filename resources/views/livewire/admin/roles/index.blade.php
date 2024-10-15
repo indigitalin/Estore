@@ -53,7 +53,7 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">

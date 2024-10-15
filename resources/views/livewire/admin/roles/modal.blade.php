@@ -1,10 +1,11 @@
 <div class="p-6">
+    <div class="text-xl font-semibold mb-5">{{ $this->role ? 'Edit role' : 'Create new role' }}</div>
     <form wire:submit="{{ $this->role ? 'update' : 'store' }}">
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="form.name" id="name" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
-        </div>
+        </div> 
         <div class="mt-4">
             <x-input-label :value="__('Permissions')" />
             <div class="mt-4">
