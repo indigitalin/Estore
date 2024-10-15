@@ -11,7 +11,7 @@
     {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    @livewire('wire-elements-modal')
+
 </head>
 
 <body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -28,6 +28,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         </div>
     </div>
     <x-toaster-hub class="text-md" />
+    @livewire('wire-elements-modal')
     @stack('scripts')
 </body>
 </html>

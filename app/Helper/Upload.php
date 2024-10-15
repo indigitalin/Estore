@@ -16,7 +16,7 @@ trait Upload{
      * Remove file from storage
      */
     public function removeFile(string $file){
-        if($file != 'default.png'){
+        if($file != 'default.png' && $file != ''){
             Storage::disk(env('UPLOAD_CHANNEL'))->delete($file);
         }
     }

@@ -10,7 +10,7 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
 
     // Route::get('/products', \App\Livewire\Admin\Product::class)->name('products.index');
-    Route::get('/users', \App\Livewire\Admin\Users\UserModal::class)->name('users.index');
+    Route::get('/users', \App\Livewire\Admin\Users\UserIndex::class)->name('users.index');
     Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
     Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
 });

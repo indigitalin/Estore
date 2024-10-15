@@ -78,7 +78,7 @@ class User extends Authenticatable
 
     public function getPhoneNumberAttribute(){
         $value = $this->phone;
-        return '+1 (' . substr($value, 1, 3) . ') ' . substr($value, 4, 3) . '-' . substr($value, 7);
+        return '+91 (' . substr($value, 1, 3) . ') ' . substr($value, 4, 3) . '-' . substr($value, 7);
 
 
     }

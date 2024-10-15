@@ -3,7 +3,10 @@
         <h2 class="text-xl text-gray-800 dark:text-gray-200 leading-tight mb-5">
             {{ __('Users') }}
         </h2>
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', elementAttributes: {'size':'7xl'} })" class="mb-4">
+        <input type="text" wire:model="search" placeholder="Search users..." />
+        <x-primary-button 
+            wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component'})" 
+            class="mb-4">
             New User
         </x-primary-button>
        
@@ -129,8 +132,59 @@
 
                 </tbody>
             </table>
+
+            {{ $users->links() }}
         </div>
     </div>
 
     <!-- ====== Table Three End -->
 </div>
+
+
+
+@push('scripts')
+<script>
+    function imagePreviewer() {
+        return {
+            imagePreview: 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=', // Initial preview URL from backend
+            dragging: false, // State for drag events
+            defaultImage : 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=',
+            fileChosen(event) {
+                const file = event.target.files[0];
+
+                // Validate file type
+                const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+                if (!validTypes.includes(file.type)) {
+                    Toaster.warning('Invalid file type. Please select an image (PNG, WEBP, JPG)');
+                    event.target.value = ''; // Clear the input
+                    this.imagePreview = this.defaultImage; // Reset the preview
+                    return;
+                }
+
+                // Validate file size (max 2 MB)
+                const maxSize = 2 * 1024 * 1024; // 2 MB
+                if (file.size > maxSize) {
+                    Toaster.warning('File size exceeds 2 MB. Please select a smaller image.');
+                    event.target.value = ''; // Clear the input
+                    this.imagePreview = this.defaultImage; // Reset the preview
+                    return;
+                }
+
+                // If valid, read the file and set the preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imagePreview = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
+            handleDrop(event) {
+                this.dragging = false; // Reset dragging state
+                const files = event.dataTransfer.files;
+                if (files.length > 0) {
+                    this.fileChosen({ target: { files } }); // Call fileChosen with dropped files
+                }
+            }
+        };
+    }
+</script>
+@endpush
