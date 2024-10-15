@@ -11,7 +11,7 @@ class UsersForm extends Form
     public ?User $user = null;
 
     public string $firstname,$lastname;
-    public bool $status = 0;
+    public bool $status;
     public string $phone,$email,$password;
     public string $picture,$type;
 
