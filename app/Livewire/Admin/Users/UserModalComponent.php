@@ -29,6 +29,7 @@ class UserModalComponent extends ModalComponent
 
     public function render(): View
     {
+        
         return view('livewire.admin.users.user-modal');
     }
 }
