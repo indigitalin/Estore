@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\Roles;
 
-use App\Models\Role;
+use App\Models\{Role, Permission};
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 
@@ -38,6 +38,8 @@ class Modal extends ModalComponent
 
     public function render(): View
     {
-        return view('livewire.admin.roles.modal');
+        return view('livewire.admin.roles.modal')->withPermissions(
+            Permission::whereType('admin')->get()->groupBy('section'),
+        );
     }
 }

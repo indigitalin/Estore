@@ -38,9 +38,16 @@ class RoleForm extends Form
     public function rules(): array
     {
         return [
-            'name' => [
-                'required'
-            ],
+            'name' => ['required', function ($attribute, $value, $fail) {
+                $exists = \App\Models\Role::whereName($value)
+                    ->whereUserId(auth()->user()->id)
+                    ->whereNot('id', $this->role->id ?? null)
+                    ->exists();
+
+                if ($exists) {
+                    $fail('The role already exists, please use different one.');
+                }
+            }],
         ];
     }
 }
