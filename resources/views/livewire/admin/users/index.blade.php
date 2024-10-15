@@ -3,7 +3,10 @@
         <h2 class="text-xl text-gray-800 dark:text-gray-200 leading-tight mb-5">
             {{ __('Users') }}
         </h2>
-        <button class="">Create New</button>
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.products.product-modal' })" class="mb-4">
+            New User
+        </x-primary-button>
+       
     </div>
 
     <div
@@ -47,8 +50,8 @@
                             <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0 ">
-                                        <img src={{ $user->avatar_url }}
-                                            class="rounded-full" alt="Brand" />
+                                        <img src="{{ $user->picture_url }}"
+                                            class="rounded-full w-15" alt="Brand" />
                                     </div>
                                     <p class="hidden font-medium text-black dark:text-white sm:block">
                                         {{ $user->name }}

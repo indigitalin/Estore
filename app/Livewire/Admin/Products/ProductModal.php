@@ -9,7 +9,7 @@ use LivewireUI\Modal\ModalComponent;
 class ProductModal extends ModalComponent
 {
     public ?Product $product = null;
-    public \App\Livewire\Admin\Products\Forms\ProductForm $form;
+    public \App\Livewire\Admin\Forms\ProductForm $form;
 
     public function mount(Product $product = null): void
     {

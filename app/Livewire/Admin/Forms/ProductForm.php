@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire\Admin\Forms\Products;
+namespace App\Livewire\Admin\Forms;
 
 use App\Models\Product;
-use Livewire\Forms;
+use Livewire\Form;
 use Illuminate\Validation\Rule;
 
 class ProductForm extends Form

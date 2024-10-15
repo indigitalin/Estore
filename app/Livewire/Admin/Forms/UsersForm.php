@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Livewire\Admin\Forms\Products;
+namespace App\Livewire\Admin\Forms;
 
-use App\Models\Product;
-use Livewire\Forms;
+use App\Models\User;
+use Livewire\Form;
 use Illuminate\Validation\Rule;
 
 class UsersForm extends Form
 {
-    public ?Product $product = null;
+    public ?User $user = null;
 
-    public string $name = '';
-    public string $description = '';
+    public string $firstname,$lastname;
+    public bool $status = 0;
+    public string $phone,$email,$password;
+    public string $picture,$type;
 
-    public function setProduct(?Product $product = null): void
+    public function setUser(?Product $product = null): void
     {
         $this->product = $product;
         $this->name = $product->name;
