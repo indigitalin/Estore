@@ -9,11 +9,11 @@ use Illuminate\Validation\Rule;
 class RoleForm extends Form
 {
     public ?Role $role = null;
-
     public string|null $name;
 
     public function setRole(?Role $role = null): void
     {
+        $this->role = $role;
         $this->name = $role->name;
     }
 
@@ -25,6 +25,13 @@ class RoleForm extends Form
             'name' => $this->name,
             'guard_name' => 'web',
         ]);
+        $this->reset();
+    }
+
+    public function update(): void
+    {
+        $this->validate();
+        $this->role->update($this->only(['name']));
         $this->reset();
     }
 

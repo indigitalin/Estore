@@ -21,9 +21,19 @@ class Modal extends ModalComponent
     public function store(): void
     {
         $this->form->store();
+        $this->success(__("Role created successfully."));
+    }
+
+    public function update(): void
+    {
+        $this->form->update();
+        $this->success(__("Role updated successfully."));
+    }
+
+    private function success(string $message){
         $this->closeModal();
         $this->dispatch('refresh-list');
-        \Toaster::success(__("Role created successfully."));
+        \Toaster::success($message);
     }
 
     public function render(): View

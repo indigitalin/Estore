@@ -64,7 +64,7 @@
                             </td>
                             <td 
                                 class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <span role="button">
+                                <span role="button" wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
                                     <box-icon name='edit'></box-icon>
                                 </span>
                                 <span role="button">
