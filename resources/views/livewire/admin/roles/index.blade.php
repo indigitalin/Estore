@@ -46,25 +46,22 @@
                 <tbody>
                     @forelse ($roles as $role)
                         <tr>
-                            <td 
-                                class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->id }}
                             </td>
-                            <td 
-                                class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->name }}
                             </td>
-                            <td 
-                                class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a href="#" class="text-indigo-600"> {{ $role->permissions()->count() }} permissions</a>
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                                <a href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                    permissions</a>
                             </td>
-                            <td 
-                                class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                {{ $role->created_at->diffForHumans(); }}
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                                {{ $role->created_at->diffForHumans() }}
                             </td>
-                            <td 
-                                class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <span role="button" wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                                <span role="button"
+                                    wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
                                     <box-icon name='edit'></box-icon>
                                 </span>
                                 <span role="button">
