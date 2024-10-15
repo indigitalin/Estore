@@ -15,11 +15,16 @@ class UsersForm extends Form
     public string $phone,$email,$password;
     public string $picture,$type;
 
-    public function setUser(?Product $product = null): void
+    public function setUser(?User $user = null): void
     {
-        $this->product = $product;
-        $this->name = $product->name;
-        $this->description = $product->description;
+        $this->user = $user;
+        $this->firstname = $user->firstname;
+        $this->lastname = $user->lastname;
+        $this->phone = $user->phone;
+        $this->email = $user->email;
+        $this->password = $user->password;
+        $this->status = $user->status;
+        $this->picture = $user->picture;
     }
 
     public function save(): void
@@ -27,9 +32,9 @@ class UsersForm extends Form
         $this->validate();
 
         if (empty($this->product)) {
-            Product::create($this->only(['name', 'description']));
+            User::create($this->only(['firstname', 'lastname','phone', 'email','password', 'status','picture']));
         } else {
-            $this->product->update($this->only(['name', 'description']));
+            $this->user->update($this->only(['firstname', 'lastname','phone', 'email','password', 'status','picture']));
         }
 
         $this->reset();
@@ -38,11 +43,27 @@ class UsersForm extends Form
     public function rules(): array
     {
         return [
-            'name'        => [
-                'required',
-                Rule::unique('products', 'name')->ignore($this->component->product),
+            'picture' => [
+                'nullable'
             ],
-            'description' => [
+            'firstname' => [
+                'required',
+            ],
+            'lastname' => [
+                'required'
+            ],
+            'phone'        => [
+                'required',
+                Rule::unique('users', 'phone')->ignore($this->component->user),
+            ],
+            'email' => [
+                'required',
+                Rule::unique('users', 'email')->ignore($this->component->user),
+            ],
+            'password'        => [
+                'required'
+            ],
+            'status' => [
                 'required'
             ],
         ];
@@ -51,8 +72,13 @@ class UsersForm extends Form
     public function validationAttributes(): array
     {
         return [
-            'name' => 'name',
-            'description' => 'description',
+            'firstname' => 'firstname',
+            'lastname' => 'lastname',
+            'phone' => 'phone',
+            'email' => 'email',
+            'password' => 'password',
+            'status' => 'status',
+            'picture' => 'picture'
         ];
     }
 }

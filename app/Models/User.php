@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at',
         'picture'
     ];
-
+   
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -3,7 +3,7 @@
         <h2 class="text-xl text-gray-800 dark:text-gray-200 leading-tight mb-5">
             {{ __('Users') }}
         </h2>
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.products.product-modal' })" class="mb-4">
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', elementAttributes: {'size':'7xl'} })" class="mb-4">
             New User
         </x-primary-button>
        
