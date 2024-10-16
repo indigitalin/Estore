@@ -14,15 +14,19 @@ class UsersForm extends Form
     use \App\Helper\Upload;
     public ?User $user = null;
     use WithFileUploads;
-    public string|null $firstname,$lastname;
-    public bool|null $status;
-    public string|null $phone,$email,$password;
-    public string|null $type;
-    public string|null $confirm_password;
-    public string|null $phone_number,$actual_picture;
+    public string|null $firstname = null;
+    public string|null $lastname = null;
+    public bool|null $status = false;
+    public string|null $phone = null;
+    public string|null $email = null;
+    public string|null $password = null;
+    public string|null $type = 'customer';
+    public string|null $confirm_password  = null;
+    public string|null $phone_number  = null;
+    public string|null $actual_picture  = null;
     public ?UploadedFile $picture = null;
     
-    public string|null $picture_url ;
+    public string|null $picture_url = null ;
 
     public function setUser(?User $user = null): void
     {
@@ -49,7 +53,7 @@ class UsersForm extends Form
     
         $this->prepareValidation();
         $this->validate();
-          
+      
         try {
 
             if ($this->picture != null) {
@@ -84,7 +88,7 @@ class UsersForm extends Form
 
     public function rules(): array
     {
-      
+
         return [
             'firstname' => ['required'],
             'lastname' => ['required'],
@@ -92,7 +96,7 @@ class UsersForm extends Form
                 'required',
                 'numeric',
                 'digits:10',
-                Rule::unique('users', 'phone')->ignore($this->user ? $this->user->id : null),
+                Rule::unique(User::class)->ignore($this->user ? $this->user->id : null),
             ],
             'email' => [
                 'required',
@@ -115,6 +119,7 @@ class UsersForm extends Form
     public function prepareValidation(): void
     {
         $this->phone = str_replace('-', '', filter_var($this->phone_number, FILTER_SANITIZE_NUMBER_INT));
+        $this->status = $this->status ? '1' : '0';
     }
 
     public function validationAttributes(): array
