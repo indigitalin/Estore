@@ -13,7 +13,7 @@
             </ol>
         </nav>
     </div>
-    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+    <div class="rounded-sm shadow-default border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
             <h3 class="font-medium text-black dark:text-white">
                 Account password
