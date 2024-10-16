@@ -1,16 +1,26 @@
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <div class="">
-        <h2 class="text-xl text-gray-800 dark:text-gray-200 leading-tight mb-5">
-            {{ __('Users') }}
+<div class="">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-title-md2 font-bold text-black dark:text-white">
+            Users
         </h2>
-        <input type="text" wire:model="search" placeholder="Search users..." />
-        <x-primary-button 
-            wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component'})" 
-            class="mb-4">
-            New User
+
+        <nav>
+            <ol class="flex items-center gap-2">
+                <li>
+                    <a class="font-medium" href="index.html">Dashboard /</a>
+                </li>
+                <li class="font-medium text-primary">Users</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="">
+        <p>Manage your staff members easily. Search, view, and edit staff information.</p>
+    </div>
+    <div class="flex">
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component'})"  class="mb-4 ms-auto">
+            Create new user
         </x-primary-button>
     </div>
-
     <div
         class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="max-w-full overflow-x-auto">
