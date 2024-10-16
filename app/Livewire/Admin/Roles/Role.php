@@ -20,8 +20,9 @@ class Role extends ModalComponent
         );
     }
 
-    public function destroy(string $roleId){
-        RoleModel::findOrfail($roleId)->delete();
+    #[On('destroy')]
+    public function destroy(string $id){
+        RoleModel::findOrfail($id)->delete();
         $this->dispatch('refresh-list');
         \Toaster::success(__("Role deleted successfully."));
     }
