@@ -23,6 +23,9 @@
         '2xl' => 'sm:max-w-2xl',
         'w-full' => 'w-full  max-h-full'
     ][$maxWidth];
+
+
+    
     @endphp
 
     
@@ -38,7 +41,7 @@
         <div class="relative">
             <div class="flex w-full mb-7 fixed bg-white z-[9999]">
                 <div class="w-1/2 text-2xl dark:text-white">
-                    {{ $ModalTitle }}
+                    {{ $modalTitle }}
                 </div>
             
                 <div class="w-1/2 text-right">
