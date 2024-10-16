@@ -10,21 +10,25 @@ class RoleForm extends Form
 {
     public ?Role $role = null;
     public string|null $name;
+    public array|null $permissions;
+    public array|null $nos;
 
     public function setRole(?Role $role = null): void
     {
         $this->role = $role;
         $this->name = $role->name;
+        $this->permissions = $role->permissions->pluck('id')->toArray();
     }
 
     public function store(): void
     {
         $this->validate();
-        Role::create([
+        $role = Role::create([
             'user_id' => auth()->user()->id,
             'name' => $this->name,
             'guard_name' => 'web',
         ]);
+        $role->permissions()->sync($this->permissions);
         $this->reset();
     }
 
@@ -32,12 +36,19 @@ class RoleForm extends Form
     {
         $this->validate();
         $this->role->update($this->only(['name']));
+        $this->role->permissions()->sync($this->permissions);
         $this->reset();
+    }
+
+    public function destroy() : void{
+        $this->role->delete();
     }
 
     public function rules(): array
     {
         return [
+            'permissions' => 'sometimes|nullable|array',
+            'permissions.*' => 'exists:permissions,id',
             'name' => ['required', function ($attribute, $value, $fail) {
                 $exists = \App\Models\Role::whereName($value)
                     ->whereUserId(auth()->user()->id)

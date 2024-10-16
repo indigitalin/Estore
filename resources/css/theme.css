@@ -616,23 +616,23 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 
 input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
+  color: #9ca3af !important; /* 2 */
 }
 
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
+  color: #9ca3af !important; /* 2 */
 }
 
 input::-ms-input-placeholder, textarea::-ms-input-placeholder {
   opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
+  color: #9ca3af !important; /* 2 */
 }
 
 input::placeholder,
 textarea::placeholder {
   opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
+  color: #9ca3af !important; /* 2 */
 }
 
 /*
@@ -1770,11 +1770,11 @@ body{
 }
 .border-stroke{
   --tw-border-opacity: 1;
-  border-color: rgb(226 232 240 / var(--tw-border-opacity));
+  border-color: rgb(226 232 240 / var(--tw-border-opacity)) !important;
 }
 .border-strokedark{
   --tw-border-opacity: 1;
-  border-color: rgb(46 58 71 / var(--tw-border-opacity));
+  border-color: rgb(46 58 71 / var(--tw-border-opacity)) !important;
 }
 .border-transparent{
   border-color: transparent;
@@ -3789,4 +3789,3 @@ body{
     padding-right: 1.875rem;
   }
 }
-

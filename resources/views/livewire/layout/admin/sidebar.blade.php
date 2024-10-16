@@ -4,7 +4,7 @@
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <a href="/" class="text-white text-2xl flex items-center">
-            <box-icon color="white" name='store-alt'></box-icon> <span class="ms-2
+            <box-icon color="#dee4ee" name='store-alt'></box-icon> <span class="ms-2
             ">Estore</span>
         </a>
 
@@ -24,6 +24,7 @@
         <nav class="mt-5 px-4 py-4 lg:mt-9 lg:px-6" x-data="{ selected: $persist('Dashboard') }">
             <!-- Menu Group -->
             <div>
+                <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">MENU</h3>
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Dashboard -->
                     <li>
@@ -33,7 +34,7 @@
                             @click="selected = (selected === 'Dashboard' ? '':'Dashboard')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') && (page === 'Dashboard') }"
                             :class="page === 'Dashboard' && 'bg-graydark'">
-                            <box-icon type='solid' color="white" name='dashboard'></box-icon>
+                            <box-icon type='solid' color="#dee4ee" name='dashboard'></box-icon>
                             Dashboard
                         </a>
                     </li>
@@ -43,7 +44,7 @@
                             href="#" @click="selected = (selected === 'Dashboard' ? '':'Dashboard')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') && (page === 'Dashboard') }"
                             :class="page === 'Dashboard' && 'bg-graydark'">
-                            <box-icon name='user-circle' color="white"></box-icon>
+                            <box-icon name='user-circle' color="#dee4ee"></box-icon>
                             Clients
                         </a>
                     </li>
@@ -55,7 +56,7 @@
                                 'bg-graydark dark:bg-meta-4': (selected === 'UiElements') || (
                                     page === 'alerts' || page === 'buttons')
                             }">
-                            <box-icon name='user-voice' type='solid' color="white" ></box-icon>
+                            <box-icon name='user-voice' type='solid' color="#dee4ee" ></box-icon>
                             HR
 
                             <svg class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
@@ -94,7 +95,7 @@
                                 'bg-graydark dark:bg-meta-4': (selected === 'AuthPages') || (
                                     page === 'register' || page === 'login')
                             }">
-                            <box-icon name='store' color="white" ></box-icon>
+                            <box-icon name='store' color="#dee4ee" ></box-icon>
 
                             Stores
 
@@ -136,7 +137,7 @@
                                 'bg-graydark dark:bg-meta-4': (selected === 'Websites') || (
                                     page === 'formElements' || page === 'formLayout')
                             }">
-                            <box-icon type='logo' name='chrome' color="white"></box-icon>
+                            <box-icon type='logo' name='chrome' color="#dee4ee"></box-icon>
 
                             Websites
 
@@ -176,7 +177,7 @@
                                 'bg-graydark dark:bg-meta-4': (selected === 'Settings') || (
                                     page === 'ecommerce' || page === 'analytics' || page === 'stocks')
                             }">
-                            <box-icon name='cog' color="white"></box-icon>
+                            <box-icon name='cog' color="#dee4ee"></box-icon>
 
                             Settings
 
