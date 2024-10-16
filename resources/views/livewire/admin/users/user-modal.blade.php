@@ -33,34 +33,34 @@
         <div class="grid grid-cols-2 gap-4">
             <div class="">
                 <x-input-label for="first_name" :value="__('First Name')" />
-                <x-text-input wire:model="form.firstname" id="first_name" class="mt-1 block w-full" type="text" />
+                <x-text-input placeholder="First name" wire:model="form.firstname" id="first_name" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.firstname')" class="mt-2" />
             </div>
 
             <div>
                 <x-input-label for="last_name" :value="__('Last Name')" />
-                <x-text-input wire:model="form.lastname" id="last_name" class="mt-1 block w-full" type="text" />
+                <x-text-input placeholder="Last name" wire:model="form.lastname" id="last_name" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.lastname')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="phone" :value="__('Phone')" />
-                <x-text-input x-mask="(999) 9999-999" wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
+                <x-text-input placeholder="Phone number" x-mask="(999) 9999-999" wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
                     type="text" />
                 <x-input-error :messages="$errors->get('form.phone_number')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input wire:model="form.email" id="email" class="mt-1 block w-full" type="text" />
+                <x-text-input placeholder="Email" wire:model="form.email" id="email" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="password" :value="__('Password')" />
-                <x-text-input wire:model="form.password" id="password" class="mt-1 block w-full" type="text" />
+                <x-text-input placeholder="Password" wire:model="form.password" id="password" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                <x-text-input wire:model="form.confirm_password" id="confirm_password" class="mt-1 block w-full"
+                <x-text-input placeholder="Confirm password" wire:model="form.confirm_password" id="confirm_password" class="mt-1 block w-full"
                     type="text" />
                 <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
             </div>
@@ -78,13 +78,18 @@
                 :checked="true" />
             <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
         </div>
-        <div class="mt-4">
+        <div class="mt-5 flex">
+            <x-secondary-button type="button" wire:click="$dispatch('closeModal')" class="ms-auto me-2">
+                Cancel
+            </x-secondary-button>
             <x-primary-button>
-                Save
+                @if ($this->user)
+                    Update user
+                @else
+                    Create user
+                @endif
             </x-primary-button>
         </div>
-
-
     </form>
 </div>
 
