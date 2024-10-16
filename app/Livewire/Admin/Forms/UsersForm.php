@@ -61,9 +61,9 @@ class UsersForm extends Form
             }
  
             if (empty($this->user)) {
-                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']));
+                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture', 'type']));
             } else {
-                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])); 
+                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'type'])); 
             }
             if($this->picture != null){
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
@@ -126,7 +126,8 @@ class UsersForm extends Form
             'email' => 'email',
             'password' => 'password',
             'status' => 'status',
-            'picture' => 'picture'
+            'picture' => 'picture',
+            'type' => 'type',
         ];
     }
 }

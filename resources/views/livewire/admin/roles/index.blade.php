@@ -69,11 +69,11 @@
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <span role="button"
                                     wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
-                                    <box-icon name='edit'></box-icon>
+                                    <box-icon color="#888" name='edit'></box-icon>
                                 </span>
                                 <span role="button"
                                     @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')">
-                                    <box-icon name='trash'></box-icon>
+                                    <box-icon color="#888" name='trash'></box-icon>
                                 </span>
                             </td>
                         </tr>
