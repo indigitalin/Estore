@@ -17,9 +17,17 @@
         <p>Manage your staff members easily. Search, view, and edit staff information.</p>
     </div>
     <div class="flex">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component'})"  class="mb-4 ms-auto">
-            Create new user
-        </x-primary-button>
+        <x-primary-button 
+        wire:click="$dispatch('openModal', {
+            component: 'admin.users.user-modal-component',
+            arguments: {
+                modalTitle: 'Create New User',
+                maxWidth: '2xl'
+            }
+        })"  
+        class="mb-4 ms-auto">
+        {{ __('Create new user') }} 
+    </x-primary-button>
     </div>
     <div
         class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

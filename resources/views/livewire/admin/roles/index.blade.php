@@ -1,4 +1,4 @@
-<div class="">
+<div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             Roles and responsibilities
@@ -17,21 +17,11 @@
         <p>Manage staff roles and permissions. Create new roles, assign permissions, and view role details.</p>
     </div>
     <div class="flex">
-        {{-- <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.roles.modal',arguments: {size: 'sm'} })" class="mb-4 ms-auto">
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.roles.modal' })" class="mb-4 ms-auto">
             Create new role
-        </x-primary-button> --}}
-        <x-primary-button 
-    wire:click="$dispatch('openModal', {
-        component: 'admin.roles.modal',
-        name: 'Test',
-        maxWidth: '2xl',
-        user: null
-    })" 
-    class="mb-4 ms-auto">
-    {{ __('Create new user') }} 
-</x-primary-button>
+        </x-primary-button>
     </div>
-    <div class="rounded-sm border shadow-default border-stroke bg-white">
+    <div class="rounded-sm border border-stroke bg-white">
         <div class="max-w-full overflow-x-auto">
             <table class="w-full table-auto">
                 <thead>
@@ -63,21 +53,19 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})"
-                                    href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->created_at->diffForHumans() }}
                             </td>
-                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <span role="button"
                                     wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
-                                    <box-icon color="#888" name='edit'></box-icon>
+                                    <box-icon name='edit'></box-icon>
                                 </span>
-                                <span role="button"
-                                    @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')">
-                                    <box-icon color="#888" name='trash'></box-icon>
+                                <span role="button"@click="if (confirm('Are you sure you want to delete this role?')) $wire.destroy({{ $role->id }})">
+                                    <box-icon name='trash'></box-icon>
                                 </span>
                             </td>
                         </tr>
@@ -93,5 +81,4 @@
             </table>
         </div>
     </div>
-    @include('livewire.confirm')
 </div>
