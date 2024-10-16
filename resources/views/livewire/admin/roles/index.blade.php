@@ -53,7 +53,8 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})"
+                                    href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
@@ -64,7 +65,11 @@
                                     wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
                                     <box-icon name='edit'></box-icon>
                                 </span>
-                                <span role="button"@click="if (confirm('Are you sure you want to delete this role?')) $wire.destroy({{ $role->id }})">
+                                {{-- <span role="button"@click="if (confirm('Are you sure you want to delete this role?')) $wire.destroy({{ $role->id }})">
+                                    <box-icon name='trash'></box-icon>
+                                </span> --}}
+                                <span role="button"
+                                    wire:click="$dispatch('openModal', { component: 'admin.roles.deleteRole', arguments: { roleId: {{ $role->id }} }})">
                                     <box-icon name='trash'></box-icon>
                                 </span>
                             </td>

@@ -22,7 +22,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="mt-4 flex">
+        <div class="mt-5 flex">
             <x-primary-button class="ms-auto">
                 @if ($this->role)
                     Update role

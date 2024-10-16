@@ -40,6 +40,10 @@ class RoleForm extends Form
         $this->reset();
     }
 
+    public function destroy() : void{
+        $this->role->delete();
+    }
+
     public function rules(): array
     {
         return [
