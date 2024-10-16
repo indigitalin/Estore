@@ -12,7 +12,7 @@ class UserModalComponent extends ModalComponent
 {
     public ?User $user = null;
     public String $modalTitle;
-    public String $maxWidth;
+    public String $maxWidthModal;
 
     public \App\Livewire\Admin\Forms\UsersForm $form;
     use \App\Helper\Upload;
@@ -23,7 +23,7 @@ class UserModalComponent extends ModalComponent
             $this->form->setUser($user);
         }
         $this->modalTitle = $modalTitle;
-        $this->maxWidth = $maxWidth;
+        $this->maxWidthModal = $maxWidth;
     }
 
 
