@@ -36,6 +36,6 @@ class UserIndex extends Component
     public function destroy(string $id){
         User::findOrfail($id)->delete();
         $this->dispatch('refresh-list');
-        \Toaster::success(__("Role deleted successfully."));
+        \Toaster::success(__("User deleted successfully."));
     }
 }

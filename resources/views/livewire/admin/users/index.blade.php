@@ -99,15 +99,16 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5"> 
-                                    <button class="hover:text-primary" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }} }})">
-                                        <box-icon name='pencil' size="sm" color="gray"></box-icon>
-                                    </button>
-                                    <button class="hover:text-primary">
-                                        <box-icon name='show'   size="sm" color="gray"></box-icon>
-                                    </button>
-                                    <button role="button"@click="if (confirm('Are you sure you want to delete this role?')) $wire.destroy({{ $user->id }})">
-                                        <box-icon name='trash'></box-icon>
-                                    </button>
+                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }} }})">
+                                        <box-icon name='edit' ></box-icon>
+                                    </span>
+                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-view', arguments: { user: {{ $user }} }})">
+                                        <box-icon name='show'></box-icon>
+                                    </span>
+                                    <span role="button"
+                                    @click="confirmAction({{ $user->id }}, 'destroy', 'Are you sure want to delete?')">
+                                    <box-icon name='trash'></box-icon>
+                                </span>
                                 </div>
                             </td>
                         </tr>
@@ -126,13 +127,14 @@
             {{ $users->links() }}
         </div>
     </div>
+    @include('livewire.confirm')
 </div>
 
 @push('scripts')
 <script>
     function imagePreviewer() {
         return {
-            imagePreview: '3232', // Initial preview URL from backend
+            imagePreview: '', // Initial preview URL from backend
             dragging: false, // State for drag events
             defaultImage : '123',
             fileChosen(event) {
