@@ -17,9 +17,19 @@
         <p>Manage staff roles and permissions. Create new roles, assign permissions, and view role details.</p>
     </div>
     <div class="flex">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.roles.modal' })" class="mb-4 ms-auto">
+        {{-- <x-primary-button wire:click="$dispatch('openModal', { component: 'admin.roles.modal',arguments: {size: 'sm'} })" class="mb-4 ms-auto">
             Create new role
-        </x-primary-button>
+        </x-primary-button> --}}
+        <x-primary-button 
+    wire:click="$dispatch('openModal', {
+        component: 'admin.roles.modal',
+        name: 'Test',
+        maxWidth: '2xl',
+        user: null
+    })" 
+    class="mb-4 ms-auto">
+    {{ __('Create new user') }} 
+</x-primary-button>
     </div>
     <div class="rounded-sm border border-stroke bg-white">
         <div class="max-w-full overflow-x-auto">
