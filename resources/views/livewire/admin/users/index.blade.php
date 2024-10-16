@@ -105,8 +105,8 @@
                                     <button class="hover:text-primary">
                                         <box-icon name='show'   size="sm" color="gray"></box-icon>
                                     </button>
-                                    <button class="hover:text-primary">
-                                        <box-icon name='trash'   size="sm" color="gray"></box-icon>
+                                    <button role="button"@click="if (confirm('Are you sure you want to delete this role?')) $wire.destroy({{ $user->id }})">
+                                        <box-icon name='trash'></box-icon>
                                     </button>
                                 </div>
                             </td>

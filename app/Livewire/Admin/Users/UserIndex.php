@@ -32,4 +32,10 @@ class UserIndex extends Component
         return view('livewire.admin.users.index', compact('users'));
     }
 
+    #[On('destroy')]
+    public function destroy(string $id){
+        User::findOrfail($id)->delete();
+        $this->dispatch('refresh-list');
+        \Toaster::success(__("Role deleted successfully."));
+    }
 }

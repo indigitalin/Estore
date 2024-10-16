@@ -22,7 +22,7 @@ class UsersForm extends Form
     public string|null $phone_number,$actual_picture;
     public ?UploadedFile $picture = null;
     
-    public string $picture_url ;
+    public string|null $picture_url ;
 
     public function setUser(?User $user = null): void
     {
@@ -61,9 +61,9 @@ class UsersForm extends Form
             }
  
             if (empty($this->user)) {
-                $this->user = User::create($this->only(['firstname', 'lastname', 'phone','type', 'email', 'password', 'status', 'picture']));
+                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']));
             } else {
-                $this->user->update($this->only(['firstname', 'lastname', 'phone','type', 'email', 'password', 'status'])); 
+                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])); 
             }
             if($this->picture != null){
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
