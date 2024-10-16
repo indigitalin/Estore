@@ -40,7 +40,10 @@ class UserModalComponent extends ModalComponent
     public function render(): View
     {
   
-        return view('livewire.admin.users.user-modal');
+        return view('livewire.admin.users.user-modal', [
+            'modalTitle' => $this->modalTitle,
+            'maxWidthModal' => $this->maxWidthModal,
+        ]);
     }
 
     private function ToasterAlert(array $msg){

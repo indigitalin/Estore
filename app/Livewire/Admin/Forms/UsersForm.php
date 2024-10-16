@@ -31,6 +31,7 @@ class UsersForm extends Form
         $this->lastname = $user->lastname;
         $this->phone_number = $user->phone;
         $this->email = $user->email;
+        $this->type = $user->type;
         $this->password = '';
         $this->status = $user->status;
         // $this->picture = $user->picture;
@@ -60,9 +61,9 @@ class UsersForm extends Form
             }
  
             if (empty($this->user)) {
-                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']));
+                $this->user = User::create($this->only(['firstname', 'lastname', 'phone','type', 'email', 'password', 'status', 'picture']));
             } else {
-                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])); 
+                $this->user->update($this->only(['firstname', 'lastname', 'phone','type', 'email', 'password', 'status'])); 
             }
             if($this->picture != null){
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
