@@ -12,7 +12,7 @@
 
 
     @props([
-        'modalTitle' => '',
+        'modalTitle' => 'Modal title',
         'maxWidthModal' => '2xl',
     ])
 
@@ -68,7 +68,7 @@
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-bind:class="modalWidth"
-                class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden  transform transition-all sm:w-full {{ $maxWidthModal }} sm:mx-auto sm:align-middle"
+                class="inline-block mt-8 pt-8 w-full align-bottom bg-white rounded-lg text-left overflow-hidden  transform transition-all sm:w-full {{ $maxWidthModal }} sm:mx-auto sm:align-middle"
                 id="modal-container" x-trap.noscroll.inert="show && showActiveComponent" aria-modal="true">
 
                 @forelse($components as $id => $component)
