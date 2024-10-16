@@ -1,8 +1,8 @@
 <div x-data="{ open: false, modelId: null, action: null, message: '' }"
     @open-modal.window="open = true; modelId = $event.detail.modelId; action = $event.detail.action; message = $event.detail.message"
-    x-show="open" x-cloak class="fixed inset-0 flex items-center justify-center z-50">
+    x-show="open" x-cloak class="fixed inset-0 flex items-center justify-center z-[9999]">
 
-    <div class="bg-black bg-opacity-50 absolute inset-0" @click="open = false"></div>
+    <div class="bg-gray-500 opacity-75 absolute inset-0" @click="open = false"></div>
 
     <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 z-50">
         <div class="">
@@ -19,3 +19,21 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        function confirmAction(modelId, action, message) {
+            window.dispatchEvent(new CustomEvent('open-modal', {
+                detail: {
+                    modelId: modelId,
+                    action: action,
+                    message: message
+                }
+            }));
+        }
+        function actionConfirmed(modelId, action) {
+            Livewire.dispatch(action, {
+                id: modelId
+            });
+        }
+    </script>
+@endpush
