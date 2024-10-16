@@ -22,7 +22,7 @@ class UsersForm extends Form
     public string|null $phone_number,$actual_picture;
     public ?UploadedFile $picture = null;
     
-    public string $picture_url ;
+    public string|null $picture_url ;
 
     public function setUser(?User $user = null): void
     {
@@ -31,6 +31,7 @@ class UsersForm extends Form
         $this->lastname = $user->lastname;
         $this->phone_number = $user->phone;
         $this->email = $user->email;
+        $this->type = $user->type;
         $this->password = '';
         $this->status = $user->status;
         // $this->picture = $user->picture;
