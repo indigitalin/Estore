@@ -2,7 +2,7 @@
     <form wire:submit="save" x-data="imagePreviewer">
         <div class="mb-4 flex items-center gap-3 justify-center">
             <div class="rounded-full">
-                <img :src="imagePreview" class="w-30 h-30 rounded-full object-cover" src="https://ui-avatars.com/api//?background=5c60f5&color=fff&name=" alt="user photo">
+                <img :src="imagePreview" class="w-30 h-30 rounded-full object-cover" src="" alt="user photo">
             </div>
             <div>
                
@@ -67,7 +67,7 @@
             <div class="">
                 <div class="mt-3">
                     <x-input-label for="type" :value="__('User Type')" />
-                    <x-select id="type" wire:model="form.type" :options="['Admin', 'Staff']" />
+                    <x-select id="type" wire:model="form.type" :options="['Admin' => 'admin', 'Staff' => 'staff']" />
                     <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                 </div>
             </div>
