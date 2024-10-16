@@ -23,7 +23,10 @@
             </div>
         </div>
         <div class="mt-5 flex">
-            <x-primary-button class="ms-auto">
+            <x-secondary-button type="button" wire:click="$dispatch('closeModal')" class="ms-auto me-2">
+                Cancel
+            </x-secondary-button>
+            <x-primary-button>
                 @if ($this->role)
                     Update role
                 @else

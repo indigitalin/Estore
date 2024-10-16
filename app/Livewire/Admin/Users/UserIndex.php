@@ -19,7 +19,7 @@ class UserIndex extends Component
     protected $listeners = ['refreshList' => '$refresh'];
 
     #[On('refresh-list')]
-        public function refresh() {}
+    public function refresh() {}
 
     public function render(): View
     {

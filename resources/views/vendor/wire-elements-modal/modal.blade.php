@@ -9,20 +9,20 @@
 
     @props([
         'modalTitle' => '',
-        'maxWidthModal' => '2xl'
+        'maxWidth' => '2xl'
     ])
     
  
 
     @php
-    $maxWidthModal = [
+    $maxWidth = [
         'sm' => 'sm:max-w-sm',
         'md' => 'sm:max-w-md',
         'lg' => 'sm:max-w-lg',
         'xl' => 'sm:max-w-xl',
         '2xl' => 'sm:max-w-2xl',
         'w-full' => 'w-full  max-h-full'
-    ][$maxWidthModal];
+    ][$maxWidth];
 
 
     
@@ -38,7 +38,7 @@
             class="fixed inset-0 z-[9999] overflow-y-auto"
             style="display: none;"
     >
-        <div class="relative">
+        <div class="relative" >
             <div class="flex w-full mb-7 fixed bg-white z-[9999]">
                 <div class="w-1/2 text-2xl dark:text-white">
                     {{ $modalTitle }}
@@ -83,7 +83,7 @@
         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         x-bind:class="modalWidth"
-        class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden  transform transition-all sm:w-full {{ $maxWidthModal }} sm:mx-auto sm:align-middle"
+        class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden  transform transition-all sm:w-full {{ $maxWidth }} sm:mx-auto sm:align-middle"
         id="modal-container"
         x-trap.noscroll.inert="show && showActiveComponent"
         aria-modal="true"
