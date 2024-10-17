@@ -36,7 +36,7 @@
         x-on:keydown.escape.window="closeModalOnEscape()" x-show="show" class="fixed inset-0 z-[9999] overflow-y-auto"
         style="display: none;">
         <div class="relative">
-            <div class="flex drop-shadow-1 w-full mb-7 p-3 fixed bg-white z-[9999]">
+            <div class="flex drop-shadow-1 w-full mb-7 p-3 fixed bg-blue-50 z-[9999]">
                 <div class="w-1/2 text-2xl flex items-center dark:text-white font-semibold">
                     {{ $modalTitle }}
                 </div>
@@ -56,7 +56,7 @@
                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0" class="fixed inset-0 transition-all transform">
-                <div class="absolute inset-0 bg-white"></div>
+                <div class="absolute inset-0 bg-blue-50"></div>
             </div>
 
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
