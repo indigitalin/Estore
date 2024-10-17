@@ -1,4 +1,4 @@
-<div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
+<div class="">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             Roles and responsibilities
@@ -28,7 +28,7 @@
             {{ __('Create new role') }}
         </x-primary-button>
     </div>
-    <div class="rounded-sm border border-stroke bg-white">
+    <div class="rounded-sm shadow-default border border-stroke bg-white">
         <div class="max-w-full overflow-x-auto">
             <table class="w-full table-auto">
                 <thead>

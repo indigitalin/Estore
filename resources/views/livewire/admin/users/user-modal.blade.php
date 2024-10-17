@@ -57,13 +57,13 @@
             </div>
             <div>
                 <x-input-label for="password" :value="__('Password')" />
-                <x-text-input placeholder="Password" wire:model="form.password" id="password" class="mt-1 block w-full" type="text" />
+                <x-password-input placeholder="Password" wire:model="form.password" id="password" class="mt-1 block w-full" />
                 <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                <x-text-input placeholder="Confirm password" wire:model="form.confirm_password" id="confirm_password" class="mt-1 block w-full"
-                    type="text" />
+                <x-password-input placeholder="Confirm password" wire:model="form.confirm_password" id="confirm_password" class="mt-1 block w-full"
+                    />
                 <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
             </div>
             <div class="">
