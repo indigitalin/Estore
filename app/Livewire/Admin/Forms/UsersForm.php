@@ -16,7 +16,7 @@ class UsersForm extends Form
     use WithFileUploads;
     public string|null $firstname = null;
     public string|null $lastname = null;
-    public bool|null $status = false;
+    public string|null $status;
     public string|null $phone = null;
     public string|null $email = null;
     public string|null $password = null;
@@ -50,10 +50,11 @@ class UsersForm extends Form
 
     public function save()
     {
-    
+        
         $this->prepareValidation();
+       
         $this->validate();
-      
+       
         try {
 
             if ($this->picture != null) {
@@ -61,7 +62,6 @@ class UsersForm extends Form
                     $this->removeFile($this->actual_picture);
                 }
                 $picturePath = $this->uploadFile(file : $this->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
-              
             }
  
             if (empty($this->user)) {
@@ -69,6 +69,7 @@ class UsersForm extends Form
             } else {
                 $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'type'])); 
             }
+
             if($this->picture != null){
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
             }
@@ -105,11 +106,11 @@ class UsersForm extends Form
                 Rule::unique('users', 'email')->ignore($this->user ? $this->user->id : null),
             ],
             'password' => [
-                'required',
+                $this->user ? 'nullable' : 'required', 
                 'same:confirm_password',
                 new \App\Rules\StrongPassword,
             ],
-            'confirm_password' => ['required'],
+            'confirm_password' => [$this->user ? 'nullable' : 'required',],
             'type' => ['required'],
             'status' => ['nullable'],
             'picture' => ["bail","nullable","image","mimes:webp,jpg,png,jpeg","max:2048"],
@@ -118,8 +119,9 @@ class UsersForm extends Form
 
     public function prepareValidation(): void
     {
+       
         $this->phone = str_replace('-', '', filter_var($this->phone_number, FILTER_SANITIZE_NUMBER_INT));
-        $this->status = $this->status ? '1' : '0';
+        $this->status = isset($this->status) ? '1' : '0';
     }
 
     public function validationAttributes(): array

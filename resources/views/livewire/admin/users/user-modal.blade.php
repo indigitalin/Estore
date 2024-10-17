@@ -1,5 +1,7 @@
 <div class="p-6">
-    <form wire:submit="save" x-data="imagePreviewer">
+    {{-- <form wire:submit="save" x-data="imagePreviewer({{ $this->user ? '1234434' : '' }}')"> --}}
+    <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' }}')">
+
         <div class="mb-4 flex items-center gap-3 justify-center">
             <div class="rounded-full">
                 <img :src="imagePreview" class="w-30 h-30 rounded-full object-cover" src="" alt="user photo">
@@ -46,7 +48,7 @@
                 <x-input-label for="phone" :value="__('Phone')" />
                 <x-text-input placeholder="Phone number" x-mask="(999) 9999-999" wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
                     type="text" />
-                <x-input-error :messages="$errors->get('form.phone_number')" class="mt-2" />
+                <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="email" :value="__('Email')" />
@@ -67,15 +69,16 @@
             <div class="">
                 <div class="mt-3">
                     <x-input-label for="type" :value="__('User Type')" />
-                    <x-select id="type" wire:model="form.type" :options="['Admin' => 'admin', 'Staff' => 'staff']" />
+                    <x-select id="type"  wire:model="form.type" :options="['admin' => 'Admin', 'staff' => 'Staff']"  :selected="$user ? $user->type : null" />
                     <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                 </div>
             </div>
 
         </div>
+        
         <div class="mt-5">
             <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')" :value="1"
-                :checked="true" />
+                :checked="$user && $user->status == '1' ? true : false"  />
             <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
         </div>
         <div class="mt-5 flex">

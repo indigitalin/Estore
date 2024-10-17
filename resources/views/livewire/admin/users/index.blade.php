@@ -68,7 +68,7 @@
                                             class="rounded-full w-15" alt="Brand" />
                                     </div>
                                     <div class="">
-                                        <p class="hidden font-medium text-black dark:text-white sm:block">
+                                        <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
                                             {{ $user->name }}
                                         </p>
                                         <i class="text-black dark:text-white text-sm capitalize">{{ $user->type }}</i>
@@ -80,7 +80,7 @@
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex flex-col">
                                     <a href="mailto:{{ $user->email }}"><i class="text-black dark:text-white">{{ $user->email }}</i></a>   
-                                    <a href="tel:{{ $user->phoneNumber }}"><i class="text-black dark:text-white">{{ $user->phoneNumber }}</i></a>
+                                    <a href="tel:{{ $user->phone }}"><i class="text-black dark:text-white">{{ $user->phoneNumber }}</i></a>
                                 </div>
                             </td>
                            
@@ -93,18 +93,19 @@
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                               
                                 <p
-                                    class="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
+                                    class="inline-flex rounded-full {{ $user->status == 1  ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $user->status == 1  ? 'text-success' : 'text-danger' }} ">
                                     {{ $user->status_label }}
                                 </p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5"> 
-                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }} }})">
-                                        <box-icon name='edit' ></box-icon>
-                                    </span>
                                     <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-view', arguments: { user: {{ $user }} }})">
                                         <box-icon name='show'></box-icon>
                                     </span>
+                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }} }})">
+                                        <box-icon name='edit' ></box-icon>
+                                    </span>
+                                    
                                     <span role="button"
                                     @click="confirmAction({{ $user->id }}, 'destroy', 'Are you sure want to delete?')">
                                     <box-icon name='trash'></box-icon>
@@ -132,9 +133,9 @@
 
 @push('scripts')
 <script>
-    function imagePreviewer() {
+    function imagePreviewer(defaultImage = 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=') {
         return {
-            imagePreview: '', // Initial preview URL from backend
+            imagePreview: defaultImage, // Initial preview URL from backend
             dragging: false, // State for drag events
             defaultImage : '123',
             fileChosen(event) {
