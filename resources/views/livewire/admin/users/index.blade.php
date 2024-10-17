@@ -22,7 +22,7 @@
             component: 'admin.users.user-modal-component',
             arguments: {
                 modalTitle: 'Create New User',
-                maxWidth: '2xl'
+                maxWidthModal: '2xl'
             }
         })"  
         class="mb-4 ms-auto">
@@ -99,10 +99,10 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5"> 
-                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-view', arguments: { user: {{ $user }} }})">
+                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-view', arguments: { user: {{ $user }}, modalTitle: 'Details for {{ $user->name }}', maxWidthModal: '2xl' }})">
                                         <box-icon name='show'></box-icon>
                                     </span>
-                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }} }})">
+                                    <span role="button" wire:click="$dispatch('openModal', { component: 'admin.users.user-modal-component', arguments: { user: {{ $user }}, modalTitle: 'Edit {{ $user->name }} user', maxWidthModal: '2xl' }})">
                                         <box-icon name='edit' ></box-icon>
                                     </span>
                                     

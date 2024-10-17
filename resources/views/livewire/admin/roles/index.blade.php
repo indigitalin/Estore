@@ -20,9 +20,10 @@
         <x-primary-button
             wire:click="$dispatch('openModal', {
                 component: 'admin.roles.modal',
-                name: 'Test',
-                maxWidth: '2xl',
-                user: null
+                    arguments: {
+                    modalTitle: 'Create New Role',
+                    maxWidthModal: 'md'
+                }
             })"
             class="mb-4 ms-auto">
             {{ __('Create new role') }}
@@ -60,7 +61,7 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }} }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }},modalTitle: '{{ $role->name }} Role Permisions', maxWidthModal: 'md' }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
@@ -68,7 +69,7 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <span role="button"
-                                    wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }} }})">
+                                    wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }},modalTitle: 'Edit for  {{ $role->name }} Role', maxWidthModal: 'md' }})">
                                     <box-icon color="#888" name='edit'></box-icon>
                                 </span>
                                 <span role="button"

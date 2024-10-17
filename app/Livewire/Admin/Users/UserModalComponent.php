@@ -19,14 +19,11 @@ class UserModalComponent extends ModalComponent
     use WithFileUploads;
   
     
-    public function mount(User $user = null, $modalTitle = 'Default Title', $maxWidth = '2xl'): void
+    public function mount(User $user = null): void
     {
         if ($user && $user->exists) {
             $this->form->setUser($user);
         }
-
-        $this->modalTitle = $modalTitle;
-        $this->maxWidthModal = $maxWidth;
     }
 
 
@@ -40,10 +37,7 @@ class UserModalComponent extends ModalComponent
     public function render(): View
     {
   
-        return view('livewire.admin.users.user-modal', [
-            'modalTitle' => $this->modalTitle,
-            'maxWidthModal' => $this->maxWidthModal,
-        ]);
+        return view('livewire.admin.users.user-modal');
     }
 
     private function ToasterAlert(array $msg){
@@ -55,6 +49,11 @@ class UserModalComponent extends ModalComponent
         else{
             \Toaster::error($msg['message']);
         }
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return '2xl';
     }
 
    

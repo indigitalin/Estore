@@ -10,13 +10,14 @@
         </style>
     @endisset
 
+    @php
+        $arguments = reset($components);
+    @endphp
 
     @props([
-        'modalTitle' => 'Modal title',
-        'maxWidthModal' => '2xl',
+        'modalTitle' => $arguments['arguments']['modalTitle'] ?? 'Modal title',
+        'maxWidthModal' => $arguments['arguments']['maxWidth'] ?? '2xl',
     ])
-
-
 
     @php
         $maxWidthModal = [
@@ -25,7 +26,6 @@
             'lg' => 'sm:max-w-lg',
             'xl' => 'sm:max-w-xl',
             '2xl' => 'sm:max-w-2xl',
-            'w-full' => 'w-full  max-h-full',
         ][$maxWidthModal];
 
     @endphp
@@ -60,7 +60,7 @@
             </div>
 
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
+          
             <div x-show="show && showActiveComponent" x-transition:enter="ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -70,8 +70,9 @@
                 x-bind:class="modalWidth"
                 class="inline-block mt-8 pt-8 w-full align-bottom bg-white rounded-lg text-left overflow-hidden  transform transition-all sm:w-full {{ $maxWidthModal }} sm:mx-auto sm:align-middle"
                 id="modal-container" x-trap.noscroll.inert="show && showActiveComponent" aria-modal="true">
-
-                @forelse($components as $id => $component)
+              
+                @forelse($components as $id => $component) 
+                 
                     <div x-show.immediate="activeComponent == '{{ $id }}'" x-ref="{{ $id }}"
                         wire:key="{{ $id }}">
                         @livewire($component['name'], $component['arguments'], key($id))
