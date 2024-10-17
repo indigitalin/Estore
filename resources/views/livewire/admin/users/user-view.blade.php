@@ -27,7 +27,7 @@
                      <span class="font-semibold mt-2">
                         <box-icon name='phone-call' ></box-icon>
                         </span>
-                    <a href="tel:{{ $user->phoneNumber }}" class="text-black dark:text-white ">
+                    <a href="tel:{{ $user->phoneNumber }}" class="text-black dark:text-white outline-none ">
                        
                         {{ $user->phoneNumber }}
                     </a>
@@ -37,7 +37,7 @@
                      <span class="font-semibold mt-2">
                             <box-icon name='envelope' ></box-icon>
                         </span>
-                    <a href="mailto:{{ $user->email }}" class="text-black dark:text-white ">
+                    <a href="mailto:{{ $user->email }}" class="text-black dark:text-white outline-none ">
                        
                         {{ $user->email }}
                     </a>
