@@ -46,7 +46,7 @@
             </div>
             <div>
                 <x-input-label for="phone" :value="__('Phone')" />
-                <x-text-input placeholder="Phone number" x-mask="(999) 9999-999" wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
+                <x-text-input placeholder="Phone number" x-mask="99999 99999" wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
                     type="text" />
                 <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
             </div>
