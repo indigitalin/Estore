@@ -30,6 +30,7 @@ class UsersForm extends Form
 
     public function setUser(?User $user = null): void
     {
+        
         $this->user = $user;
         $this->firstname = $user->firstname;
         $this->lastname = $user->lastname;

@@ -5,7 +5,7 @@
             class="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center" />
         
     </div>
-    {{-- @dump($this) --}}
+
     <div class="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
         <div
             class="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">

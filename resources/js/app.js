@@ -11,3 +11,14 @@ import 'boxicons'
 // document.addEventListener("livewire:navigated", () => {
 //     initFlowbite();
 // });
+
+
+document.addEventListener('livewire:init', () => {
+    Livewire.on('navigate_to', (event) => {
+        if (event) {
+            Livewire.navigate(event);
+        } else {
+            console.error('No valid URL found in the event.');
+        }
+    });
+});
