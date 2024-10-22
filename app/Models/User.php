@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -79,6 +80,21 @@ class User extends Authenticatable
             return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
         }
         return file_url($this->picture);
+    }
+
+    public function scopeSearchAgent($q, Request $request){
+        return $q->when($request->aq, function($q) use($request){
+            return $q->where('firstname', 'LIKE', "%{$request->aq}%")->orWhere('lastname', 'LIKE', "%{$request->aq}%")
+            ->orWhere(function($q) use($request){
+                return $q->whereHas('seller', fn($q) => $q->where('company_name', 'LIKE', "%{$request->aq}%"));
+            });
+        })->when($request->agentCategory, fn($q) => $q->whereHas('ads', fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->agentCategory))));
+    }
+
+
+    
+    public function getRoleNameAttribute(){
+        return $this->getRole->name ?? null;
     }
 
     public function getPhoneNumberAttribute()
