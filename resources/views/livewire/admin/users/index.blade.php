@@ -77,7 +77,7 @@
                                 <i class="text-black dark:text-white">{{ $user->created_at }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <i class="text-black dark:text-white">{{ $user->last_login }}</i>
+                                <i class="text-black dark:text-white">{{ $user->last_login ? $user->last_login->diffForHumans() : 'NA' }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
 

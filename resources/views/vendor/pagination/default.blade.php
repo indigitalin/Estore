@@ -21,7 +21,7 @@
                 {!! __('pagination.previous') !!}
             </x-secondary-button>
         @else
-            <a href="{{ $paginator->previousPageUrl() }}" rel="prev">
+            <a wire:navigate href="{{ $paginator->previousPageUrl() }}" rel="prev">
                 <x-secondary-button class="bg-white me-2">
                     {!! __('pagination.previous') !!}
                 </x-secondary-button>
@@ -30,7 +30,7 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}" rel="next">
+            <a wire:navigate href="{{ $paginator->nextPageUrl() }}" rel="next">
                 <x-secondary-button class="bg-white">
                     {!! __('pagination.next') !!}
                 </x-secondary-button>
