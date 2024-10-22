@@ -134,14 +134,9 @@ class User extends Authenticatable
 
     }
 
-    public function scopeAdminStaffs($q)
-    {
-        return $q->where('id', '!=', auth()->user()->id);
-    }
-
     public function getEmployerIdAttribute()
     {
-        return $this->parent_id ?: $this->id;
+        return $this->parent_id ? : $this->id;
     }
 
     public function setPasswordAttribute($password)
