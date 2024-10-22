@@ -22,7 +22,9 @@ class Index extends Component
         auth()->user()->staffs()->findOrfail($id)->delete();
         $this->dispatch('refresh-list');
         \Toaster::success(__("User deleted successfully."));
-        $this->dispatch('navigate_to', route('admin.users.index'));
+        // $this->dispatch('navigate_to', route('admin.users.index'));
+        // return $this->redirect(route('admin.users.index'), navigate: true);
+
     }
 
     #[On('statusUpdate')]

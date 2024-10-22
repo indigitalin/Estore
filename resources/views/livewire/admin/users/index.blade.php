@@ -81,8 +81,11 @@
                                 <i class="text-black dark:text-white">{{ $user->last_login ? $user->last_login->diffForHumans() : 'NA' }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <x-toggle-button id="status-toggle_{{ $user->id }}" wire:model="form.status" :label="$user->status_label"
-                                :value="1"  @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')" :checked="$user && $user->status == '1' ? true : false" />
+                                <p role="button"  @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')"
+                                    class="inline-flex rounded-full {{ $user->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $user->status == 1 ? 'text-success' : 'text-danger' }} ">
+                                    {{ $user->status_label }}
+                                </p>
+                 
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
                                 <div class="flex items-center space-x-3.5">

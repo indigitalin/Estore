@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('type',['superadmin','admin','client','customer','staff'])->default('customer')->after('status');
             $table->string('picture')->nullable()->after('status');
             $table->softDeletes();
         });
@@ -25,7 +24,6 @@ return new class extends Migration
     {
         //
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('type');
             $table->dropColumn('picture');
             $table->dropColumn('deleted_at');
         });
