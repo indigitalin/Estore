@@ -84,17 +84,6 @@ class User extends Authenticatable
         }
         return file_url($this->picture);
     }
-
-    public function scopeSearchAgent($q, Request $request){
-        return $q->when($request->aq, function($q) use($request){
-            return $q->where('firstname', 'LIKE', "%{$request->aq}%")->orWhere('lastname', 'LIKE', "%{$request->aq}%")
-            ->orWhere(function($q) use($request){
-                return $q->whereHas('seller', fn($q) => $q->where('company_name', 'LIKE', "%{$request->aq}%"));
-            });
-        })->when($request->agentCategory, fn($q) => $q->whereHas('ads', fn($q) => $q->whereHas('categories', fn($q) => $q->whereIn('categories.id', (array) $request->agentCategory))));
-    }
-
-    
     
     public function getRoleNameAttribute(){
         return $this->roles()->pluck('name')->first() ?? null;
@@ -106,8 +95,7 @@ class User extends Authenticatable
 
     public function getPhoneNumberAttribute()
     {
-        $value = $this->phone;
-        return '' . substr($value, 1, 5) . '' . substr($value, 6, 5);
+        return $this->phone;
     }
 
     public function getCreatedAtAttribute($value)
