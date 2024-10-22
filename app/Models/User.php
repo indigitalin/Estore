@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at',
         'picture',
         'type',
-        'parent_id'
+        'parent_id',
     ];
 
     /**
@@ -87,8 +87,6 @@ class User extends Authenticatable
         return '' . substr($value, 1, 5) . '' . substr($value, 6, 5);
     }
 
-    
-
     public function getCreatedAtAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('M d,Y');
@@ -128,5 +126,10 @@ class User extends Authenticatable
     public function getEmployerIdAttribute()
     {
         return $this->parent_id ?: $this->id;
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($password);
     }
 }

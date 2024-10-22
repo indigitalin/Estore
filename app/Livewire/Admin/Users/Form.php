@@ -24,8 +24,7 @@ class Form extends Component
     public function mount($user = null): void
     {
         if ($user) {
-            $this->user = auth()->user()->staffs()->findOrfail($user);
-            $this->form->setUser($this->user);
+            $this->form->setUser($this->user = auth()->user()->staffs()->findOrfail($user));
         }
     }
 
