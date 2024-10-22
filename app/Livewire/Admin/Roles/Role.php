@@ -16,7 +16,7 @@ class Role extends ModalComponent
     public function render(): View
     {
         return view('livewire.admin.roles.index')->withRoles(
-            RoleModel::get()
+            RoleModel::whereNotNull('user_id')->get()
         );
     }
 

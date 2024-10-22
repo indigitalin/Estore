@@ -12,7 +12,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->users  = auth()->user()->staffs()->get();
+        $this->users  = auth()->user()->staffs()->paginate(10);
     }
 
     public function render()

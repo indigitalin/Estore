@@ -20,14 +20,15 @@
     </nav>
 </div>
 
-<div class="">
+<div class="mb-10">
     <p>
        {{ $pageDescription }}
     </p>
 </div>
-
+@if($rightSideBtnText != '' && isset($rightSideBtnText))
 <div class="flex">
     <x-primary-button wire:navigate href="{{ $rightSideBtnRoute }}" class="mb-4 ms-auto">
         {{ $rightSideBtnText }}
     </x-primary-button>
 </div>
+@endif

@@ -7,8 +7,8 @@
             ['text' => $pageTitle, 'link' => ''],
         ];
         $pageDescription = $pageTitle . '  easily. Manage personal information and photo.';
-        $rightSideBtnText = 'Back to List';
-        $rightSideBtnRoute = route('admin.users.index');
+        $rightSideBtnText = '';
+        $rightSideBtnRoute = '';
     @endphp
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
@@ -43,16 +43,8 @@
                                         <x-input-error :messages="$errors->get('form.lastname')" class="mt-2" />
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="phone" :value="__('Phone')" />
-                                        <x-text-input placeholder="Phone number" x-mask="99999 99999"
-                                            wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
-                                            type="text" />
-                                        <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
+                               
+                                <div class="w-full  p-2">
                                     <div class="mt-2">
                                         <x-input-label for="email" :value="__('Email')" />
                                         <x-text-input placeholder="Email" wire:model="form.email" id="email"
@@ -79,8 +71,17 @@
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
+                                        <x-input-label for="phone" :value="__('Phone')" />
+                                        <x-text-input placeholder="Phone number" x-mask="99999 99999"
+                                            wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
                                         <x-input-label for="role" :value="__('User Role')" />
-                                        <x-select id="type" wire:model="form.type" :options="['admin' => 'Admin', 'staff' => 'Staff']"
+                                        <x-select id="type" wire:model="form.type" :options="$roles"
                                             :selected="$user ? $user->type : null" />
                                         <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                                     </div>
@@ -119,8 +120,8 @@
                             </h3>
                         </div>
                         <div class="mb-4 flex flex-col items-center gap-3 justify-center">
-                            <div class="rounded-full">
-                                <img :src="imagePreview" class="w-30 h-30 rounded-full object-cover" src=""
+                            <div class="rounded-full my-3">
+                                <img :src="imagePreview" class="h-15 w-15 rounded-full object-cover" src=""
                                     alt="user photo">
                             </div>
                             <div>
