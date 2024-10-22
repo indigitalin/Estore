@@ -5,7 +5,7 @@
                                     ['text' => 'Dashboard', 'link' => route('admin.index')],
                                     ['text' => 'Users', 'link' => '']
                                 ];
-        $pageDescription    ="Showing users 5 of total 5";
+        $pageDescription    = "Showing {$users->count()} users of total {$users->total()}";
         $rightSideBtnText   = 'Create new user';
         $rightSideBtnRoute  = route('admin.users.create');
     @endphp
@@ -77,7 +77,7 @@
                                 <i class="text-black dark:text-white">{{ $user->created_at }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <i class="text-black dark:text-white">{{ $user->last_login ? $user->last_login->diffForHumans() : 'NA' }}</i>
+                                <i class="text-black dark:text-white">{{ $user->last_login }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
 
