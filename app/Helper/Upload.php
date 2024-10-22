@@ -41,7 +41,7 @@ trait Upload{
         try {
             return $this->pushFIle($file, $path, $maxWidth, $maxHeight, $ratio);
         } catch (\Exception $e) {
-            dd($e);
+            
         }
         return null;
     }
