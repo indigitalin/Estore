@@ -14,7 +14,7 @@
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
     <div class="">
-        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' }}')">
+        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : image_url('/default.png') }}')">
             <div class="grid grid-cols-5 gap-8">
                 <div class="col-span-5 xl:col-span-3">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -162,7 +162,7 @@
 
     @push('scripts')
         <script>
-            function imagePreviewer(defaultImage = 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=') {
+            function imagePreviewer(defaultImage) {
                 return {
                     imagePreview: defaultImage, // Initial preview URL from backend
                     dragging: false, // State for drag events

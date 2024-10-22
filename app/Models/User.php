@@ -77,7 +77,7 @@ class User extends Authenticatable
         if ($this->picture == 'default.png') {
             return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
         }
-        return image_url($this->picture);
+        return file_url($this->picture);
     }
 
     public function getPhoneNumberAttribute()
@@ -110,5 +110,9 @@ class User extends Authenticatable
 
     public function scopeAdminStaffs($q){
         return $q->where('id', '!=', auth()->user()->id);
+    }
+
+    public function getEmployerIdAttribute(){
+        return $this->parent_id ? : $this->id;
     }
 }

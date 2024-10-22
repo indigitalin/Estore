@@ -22,7 +22,7 @@ class Index extends Component
 
     #[On('destroy')]
     public function destroy(string $id){
-        User::findOrfail($id)->delete();
+        User::adminStaffs()->findOrfail($id)->delete();
         $this->dispatch('refresh-list');
         \Toaster::success(__("User deleted successfully."));
         $this->dispatch('navigate_to', route('admin.users.index'));
