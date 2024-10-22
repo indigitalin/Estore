@@ -5,7 +5,7 @@
                                     ['text' => 'Dashboard', 'link' => route('admin.index')],
                                     ['text' => 'Users', 'link' => '']
                                 ];
-        $pageDescription    ="Showing users 5 of total 5";
+        $pageDescription    ="Manage your staff members easily. Search, view, and edit staff information";
         $rightSideBtnText   = 'Create new user';
         $rightSideBtnRoute  = route('admin.users.create');
     @endphp
