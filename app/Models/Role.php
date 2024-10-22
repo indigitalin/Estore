@@ -9,4 +9,8 @@ use Illuminate\Http\Request;
 
 class Role extends \Spatie\Permission\Models\Role{
      use HasFactory;
+
+     public function scopeAdminRoles($q){
+          return $q->whereUserId(auth()->user()->employer_id);
+      }
 }

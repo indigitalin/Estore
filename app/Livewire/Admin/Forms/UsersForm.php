@@ -41,12 +41,7 @@ class UsersForm extends Form
         $this->status = $user->status;
         // $this->picture = $user->picture;
         $this->actual_picture = $user->picture;
-        $this->picture_url = $user->picture_url ? $user->picture_url  : 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=';
-    }
-
-    public function defaultValues(): void{
-     
-        $this->picture_url = 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=';
+        $this->picture_url = $user->picture_url;
     }
 
     public function save()

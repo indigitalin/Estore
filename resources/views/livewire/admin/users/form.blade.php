@@ -1,72 +1,84 @@
 <div class="">
     @php
-        $pageTitle          =   $user ? 'Edit a user' : 'Create a user';
-        $navigationLinks    =   [
-                                    ['text' => 'Dashboard', 'link' => route('admin.index')],
-                                    ['text' => 'Users', 'link' => route('admin.users.index')],
-                                    ['text' => $pageTitle, 'link' => '']
-                                ];
-        $pageDescription    = $pageTitle . '  easily. Manage personal information and photo.';
-        $rightSideBtnText   = 'Back to List';
-        $rightSideBtnRoute  = route('admin.users.index');
+        $pageTitle = $user ? 'Edit a user' : 'Create a user';
+        $navigationLinks = [
+            ['text' => 'Dashboard', 'link' => route('admin.index')],
+            ['text' => 'Users', 'link' => route('admin.users.index')],
+            ['text' => $pageTitle, 'link' => ''],
+        ];
+        $pageDescription = $pageTitle . '  easily. Manage personal information and photo.';
+        $rightSideBtnText = 'Back to List';
+        $rightSideBtnRoute = route('admin.users.index');
     @endphp
-    <x-admin-breadcrumb 
-        :pageTitle=$pageTitle
-        :navigationLinks=$navigationLinks 
-        :pageDescription=$pageDescription
-        :rightSideBtnText=$rightSideBtnText 
-        :rightSideBtnRoute=$rightSideBtnRoute
-    />
+    <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
+        :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
-    <div class="p-6">
-        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' }}')">
+    <div class="">
+        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : image_url('/default.png') }}')">
             <div class="grid grid-cols-5 gap-8">
                 <div class="col-span-5 xl:col-span-3">
-                    <div
-                        class="rounded-sm shadow-default border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Personal information
+                            </h3>
+                        </div>
 
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="first_name" :value="__('First Name')" />
-                                    <x-text-input placeholder="First name" wire:model="form.firstname" id="first_name"
-                                        class="mt-1 block w-full" type="text" />
-                                    <x-input-error :messages="$errors->get('form.firstname')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="first_name" :value="__('First Name')" />
+                                        <x-text-input placeholder="First name" wire:model="form.firstname"
+                                            id="first_name" class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.firstname')" class="mt-2" />
+                                    </div>
                                 </div>
 
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="last_name" :value="__('Last Name')" />
-                                    <x-text-input placeholder="Last name" wire:model="form.lastname" id="last_name"
-                                        class="mt-1 block w-full" type="text" />
-                                    <x-input-error :messages="$errors->get('form.lastname')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="last_name" :value="__('Last Name')" />
+                                        <x-text-input placeholder="Last name" wire:model="form.lastname" id="last_name"
+                                            class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.lastname')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="phone" :value="__('Phone')" />
-                                    <x-text-input placeholder="Phone number" x-mask="99999 99999"
-                                        wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
-                                        type="text" />
-                                    <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="phone" :value="__('Phone')" />
+                                        <x-text-input placeholder="Phone number" x-mask="99999 99999"
+                                            wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input placeholder="Email" wire:model="form.email" id="email"
-                                        class="mt-1 block w-full" type="text" />
-                                    <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="email" :value="__('Email')" />
+                                        <x-text-input placeholder="Email" wire:model="form.email" id="email"
+                                            class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="password" :value="__('Password')" />
-                                    <x-password-input placeholder="Password" wire:model="form.password" id="password"
-                                        class="mt-1 block w-full" />
-                                    <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="password" :value="__('Password')" />
+                                        <x-password-input placeholder="Password" wire:model="form.password"
+                                            id="password" class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
-                                    <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                                    <x-password-input placeholder="Confirm password" wire:model="form.confirm_password"
-                                        id="confirm_password" class="mt-1 block w-full" />
-                                    <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    <div class="mt-2">
+                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
+                                        <x-password-input placeholder="Confirm password"
+                                            wire:model="form.confirm_password" id="confirm_password"
+                                            class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-3">
+                                    <div class="mt-2">
                                         <x-input-label for="role" :value="__('User Role')" />
                                         <x-select id="type" wire:model="form.type" :options="['admin' => 'Admin', 'staff' => 'Staff']"
                                             :selected="$user ? $user->type : null" />
@@ -103,7 +115,7 @@
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
-                                Your Photo
+                                Profile photo
                             </h3>
                         </div>
                         <div class="mb-4 flex flex-col items-center gap-3 justify-center">
@@ -150,7 +162,7 @@
 
     @push('scripts')
         <script>
-            function imagePreviewer(defaultImage = 'https://ui-avatars.com/api//?background=5c60f5&color=fff&name=') {
+            function imagePreviewer(defaultImage) {
                 return {
                     imagePreview: defaultImage, // Initial preview URL from backend
                     dragging: false, // State for drag events

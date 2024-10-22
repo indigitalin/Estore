@@ -4,9 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -38,7 +38,7 @@ class User extends Authenticatable
         'picture',
         'type',
     ];
-   
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -62,22 +62,26 @@ class User extends Authenticatable
         ];
     }
 
-    public function getNameAttribute(){
+    public function getNameAttribute()
+    {
         return "{$this->firstname} {$this->lastname}";
     }
 
-    public function getPictureAttribute($picture){
-        return $picture ? : 'default.png';
+    public function getPictureAttribute($picture)
+    {
+        return $picture ?: 'default.png';
     }
 
-    public function getPictureUrlAttribute($picture){
-        if($this->picture == 'default.png'){
-            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name='.$this->name);
+    public function getPictureUrlAttribute($picture)
+    {
+        if ($this->picture == 'default.png') {
+            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
         }
-        return image_url($this->picture);
+        return file_url($this->picture);
     }
 
-    public function getPhoneNumberAttribute(){
+    public function getPhoneNumberAttribute()
+    {
         $value = $this->phone;
         return '' . substr($value, 1, 5) . '' . substr($value, 6, 5);
     }
@@ -89,17 +93,27 @@ class User extends Authenticatable
         return \Carbon\Carbon::parse($value)->format('M d,Y');
     }
 
-    public function getLastLoginAttribute($value){
+    public function getLastLoginAttribute($value)
+    {
         return $value != null ? \Carbon\Carbon::parse($value)->format('M d,Y h:i A') : '';
     }
 
     public function getStatusLabelAttribute()
     {
-      
+
         return $this->status == "1" ? 'Active' : 'Inactive';
     }
 
-    public function client(){
+    public function client()
+    {
         return $this->hasOne(Client::class);
+    }
+
+    public function scopeAdminStaffs($q){
+        return $q->where('id', '!=', auth()->user()->id);
+    }
+
+    public function getEmployerIdAttribute(){
+        return $this->parent_id ? : $this->id;
     }
 }

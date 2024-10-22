@@ -4,10 +4,9 @@ namespace App\Livewire\Admin\Users;
 use App\Livewire\Component;
 use App\Models\Role;
 use App\Models\User;
-use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
-
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
@@ -19,18 +18,16 @@ class Form extends Component
     protected $listeners = ['refreshList' => '$refresh'];
 
     #[On('refresh-list')]
-    public function refresh() {}
+    public function refresh()
+    {}
 
     public function mount($user = null): void
     {
-      
         if ($user) {
             $this->user = User::findorFail($user);
             $this->form->setUser($this->user);
         }
-       
     }
-
 
     public function render(): View
     {
@@ -49,9 +46,5 @@ class Form extends Component
         $this->dispatch('refresh-list');
         $this->ToasterAlert($response);
         $this->dispatch('navigate_to', route('admin.users.index'));
-        
-
     }
-
-    
 }
