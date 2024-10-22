@@ -2,6 +2,7 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Livewire\Component;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -30,6 +31,12 @@ class Form extends Component
 
     public function render(): View
     {
+       $roles = Role::with('roles')->whereHas(
+                            'roles', function($q){
+                                $q->where('user_id', 'Satff');
+                            }
+                        )->get();
+
         return view('livewire.admin.users.form');
     }
 
