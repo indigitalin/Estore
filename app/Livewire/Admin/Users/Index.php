@@ -12,14 +12,8 @@ class Index extends Component
 
     public function mount()
     {
-        $this->users  = User::all();
+        $this->users  = User::adminStaffs()->get();
     }
-
-    // public function delete($id)
-    // {
-    //     User::find($id)->delete();
-    //     $this->users  = User::all(); // Refresh posts list after deletion
-    // }
 
     public function render()
     {
