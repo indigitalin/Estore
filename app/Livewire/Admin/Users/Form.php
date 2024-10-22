@@ -31,7 +31,7 @@ class Form extends Component
     public function render(): View
     {
         return view('livewire.admin.users.form')->withRoles(
-            Role::adminRoles()->get()
+            Role::adminRoles()->pluck('name','id')
         );
     }
 

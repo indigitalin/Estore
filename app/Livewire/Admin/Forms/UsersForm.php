@@ -61,9 +61,9 @@ class UsersForm extends Form
             }
  
             if (empty($this->user)) {
-                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture', 'type']));
+                $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']));
             } else {
-                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'type'])); 
+                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])); 
             }
 
             $this->user->update([

@@ -5,10 +5,11 @@
                                     ['text' => 'Dashboard', 'link' => route('admin.index')],
                                     ['text' => 'Users', 'link' => '']
                                 ];
-        $pageDescription    ='Manage your staff members easily. Search, view, and edit staff information.';
+        $pageDescription    ="Showing users 5 of total 5";
         $rightSideBtnText   = 'Create new user';
         $rightSideBtnRoute  = route('admin.users.create');
     @endphp
+
     <x-admin-breadcrumb 
         :pageTitle=$pageTitle
         :navigationLinks=$navigationLinks 
