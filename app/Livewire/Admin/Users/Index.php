@@ -8,16 +8,13 @@ use Livewire\Attributes\On;
 
 class Index extends Component
 {
-    public $users ;
-
-    public function mount()
-    {
-        $this->users  = auth()->user()->staffs()->paginate(10);
-    }
+    use WithPagination;
 
     public function render()
     {
-        return view('livewire.admin.users.index');
+        return view('livewire.admin.users.index')->withUsers(
+            auth()->user()->staffs()->paginate(20)
+        );
     }
 
     #[On('destroy')]
