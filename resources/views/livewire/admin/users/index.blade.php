@@ -40,7 +40,7 @@
                             Status
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                            Actions
+                           
                         </th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                             <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0 ">
-                                        <img src="{{ $user->picture_url }}" class="rounded-full w-15" alt="Brand" />
+                                        <img src="{{ $user->picture_url }}" class="rounded-full w-12 h-12 object-cover rounded-full" alt="Brand" />
                                     </div>
                                     <div class="">
                                         <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
@@ -85,20 +85,20 @@
                                     {{ $user->status_label }}
                                 </p>
                             </td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
                                 <div class="flex items-center space-x-3.5">
-                                    <a role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
-                                        <box-icon name='show'></box-icon>
+                                    
+                                    <a x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto" role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
+                                        <box-icon color="#777" name='show'></box-icon>
                                     </a>
-                                    <a role="button" wire:navigate href="{{ route('admin.users.edit', $user) }}">
-                                        <box-icon name='edit'></box-icon>
+                                    <a x-data="{ tooltip: 'Edit user' }" x-tooltip="tooltip" role="button" wire:navigate href="{{ route('admin.users.edit', $user) }}">
+                                        <box-icon color="#777" name='edit'></box-icon>
                                     </a>
 
-                                    <span role="button"
+                                    <span x-data="{ tooltip: 'Delete user' }" x-tooltip="tooltip" role="button"
                                         @click="confirmAction({{ $user->id }}, 'destroy', 'Are you sure want to delete?')">
-                                        <box-icon name='trash'></box-icon>
+                                        <box-icon  color="#777" name='trash'></box-icon>
                                     </span>
-                                    {{-- <button wire:click="delete({{ $post->id }})">Delete</button> --}}
                                 </div>
                             </td>
                         </tr>

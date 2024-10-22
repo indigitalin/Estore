@@ -1,12 +1,11 @@
-    .capitalize{
-        text-transform: capitalize;
-    }
+.capitalize {
+    text-transform: capitalize;
+}
 
-  
-
-    @media (min-width: 640px) {
-        .sm\:max-w-2xl {
-            max-width: 56rem !important;
-        }
+@media (min-width: 640px) {
+    .sm\:max-w-2xl {
+        max-width: 56rem !important;
     }
-    
+}
+
+
