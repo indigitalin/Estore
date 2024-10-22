@@ -114,8 +114,11 @@
                 </tbody>
             </table>
 
-            {{-- {{ $users->links() }} --}}
+            
         </div>
+    </div>
+    <div class="mt-4">
+        {{ $users->links('vendor.pagination.default') }}
     </div>
     @include('livewire.confirm')
 </div>

@@ -81,8 +81,6 @@ class UsersForm extends Form
             $msg['status'] = 'error';
             $msg['message'] = 'There was a problem saving the user: ' . $e->getMessage();
         }
-
-        $this->reset();
         
         return $msg;
     }
