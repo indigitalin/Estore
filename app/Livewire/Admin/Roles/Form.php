@@ -10,7 +10,7 @@ use Livewire\WithFileUploads;
 class Form extends Component
 {
     public $role;
-    public \App\Livewire\Admin\Forms\UsersForm $form;
+    public \App\Livewire\Admin\Forms\RoleForm $form;
     use \App\Helper\Upload;
     use WithFileUploads;
 
@@ -23,7 +23,7 @@ class Form extends Component
     public function mount($role = null): void
     {
         if ($role) {
-            $this->form->setRole($this->user = auth()->user()->staffs()->findOrfail($role));
+            $this->form->setRole($this->role = Role::adminRoles()->findOrfail($role));
         }
     }
 
@@ -37,10 +37,10 @@ class Form extends Component
     public function save()
     {
         $response = $this->form->save();
-        $this->dispatch('refresh-list');
-        $this->ToasterAlert($response);
-        if($response['status'] == 'success')
-        $this->dispatch('navigate_to', route('admin.users.index'));
+        $this->toasterAlert($response);
+        if($response['status'] == 'success'){
+            return $this->redirect(route('admin.roles.index'), navigate: true);
+        }
     }
 
 }

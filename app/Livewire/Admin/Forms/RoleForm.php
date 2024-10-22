@@ -20,28 +20,29 @@ class RoleForm extends Form
         $this->permissions = $role->permissions->pluck('id')->toArray();
     }
 
-    public function store(): void
+    public function save()
     {
-        $this->validate();
-        $role = Role::create([
-            'user_id' => auth()->user()->id,
-            'name' => $this->name,
-            'guard_name' => 'web',
-        ]);
-        $role->permissions()->sync($this->permissions);
-        $this->reset();
-    }
+        try {
 
-    public function update(): void
-    {
-        $this->validate();
-        $this->role->update($this->only(['name']));
-        $this->role->permissions()->sync($this->permissions);
-        $this->reset();
-    }
+            $this->role = $this->role ? : Role::create([
+                'user_id' => auth()->user()->id,
+                'name' => $this->name,
+                'guard_name' => 'web',
+            ]);
+            $this->role->update($this->only(['name']));
+            $this->role->permissions()->sync($this->permissions);
 
-    public function destroy() : void{
-        $this->role->delete();
+            return ([
+                'status' => 'success',
+                'message' => $this->role->wasRecentlyCreated ? 'Role created successfully.' : 'Role updated successfully.'
+            ]);
+
+        } catch (Exception $e) {
+            return ([
+                'status' => 'error',
+                'message' => "Something went wrong. {$e->getMessage()}",
+            ]);
+        }
     }
 
     public function rules(): array

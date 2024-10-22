@@ -9,7 +9,7 @@ class Show extends Component
     public $user;
 
     
-    public \App\Livewire\Admin\Forms\UsersForm $form;
+    public \App\Livewire\Admin\Forms\UserForm $form;
     
     public function mount(User $user = null): void
     {

@@ -19,7 +19,7 @@ class Index extends Component
 
     #[On('destroy')]
     public function destroy(string $id){
-        RoleModel::findOrfail($id)->delete();
+        Role::adminRoles()->findOrfail($id)->delete();
         $this->dispatch('refresh-list');
         \Toaster::success(__("Role deleted successfully."));
     }

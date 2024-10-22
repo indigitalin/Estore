@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
 use Illuminate\Http\UploadedFile;
 
-class UsersForm extends Form
+class UserForm extends Form
 {
     use \App\Helper\Upload;
     public ?User $user = null;

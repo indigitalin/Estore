@@ -55,18 +55,19 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a x-data="{ tooltip: '{{ $role->permissions()->pluck('name')->implode(', ') }}' }" x-tooltip="tooltip" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a x-data="{ tooltip: '{{ $role->permissions()->pluck('name')->implode(', ') }}' }" x-tooltip="tooltip" href="#" class="text-indigo-600">
+                                    {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->created_at->diffForHumans() }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <span x-data="{ tooltip: 'Edit role'}" x-tooltip="tooltip" role="button"
-                                    wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }},modalTitle: 'Edit for  {{ $role->name }} Role', maxWidthModal: 'md' }})">
+                                <a x-data="{ tooltip: 'Edit role' }" x-tooltip="tooltip" role="button"
+                                href="{{ route('admin.roles.edit', ['role' => $role]) }}" wire:navigate>
                                     <box-icon color="#888" name='edit'></box-icon>
-                                </span>
-                                <span x-data="{ tooltip: 'Delete role'}" x-tooltip="tooltip" role="button"
+                                </a>
+                                <span x-data="{ tooltip: 'Delete role' }" x-tooltip="tooltip" role="button"
                                     @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')">
                                     <box-icon color="#888" name='trash'></box-icon>
                                 </span>

@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="p-7 pt-0">
-                            <div>
+                            <div class="mt-4">
                                 <x-input-label for="name" :value="__('Role name')" />
                                 <x-text-input placeholder="Role name" wire:model="form.name" id="name"
                                     class="mt-1 block w-full" type="text" />
@@ -48,6 +48,19 @@
                                         </div>
                                     @endforeach
                                 </div>
+                            </div>
+                            <div class="mt-5 flex">
+                                <x-secondary-button wire:navigate href="{{ route('admin.users.index') }}"
+                                    class="ms-auto me-2">
+                                    Cancel
+                                </x-secondary-button>
+                                <x-primary-button>
+                                    @if ($this->role)
+                                        Update role
+                                    @else
+                                        Create role
+                                    @endif
+                                </x-primary-button>
                             </div>
                         </div>
 

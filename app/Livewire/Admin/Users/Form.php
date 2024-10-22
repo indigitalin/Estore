@@ -11,7 +11,7 @@ use Livewire\WithFileUploads;
 class Form extends Component
 {
     public $user;
-    public \App\Livewire\Admin\Forms\UsersForm $form;
+    public \App\Livewire\Admin\Forms\UserForm $form;
     use \App\Helper\Upload;
     use WithFileUploads;
 
