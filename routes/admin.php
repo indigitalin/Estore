@@ -10,7 +10,6 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
 
     Route::group(['prefix'=>'users', 'as' => 'users.','namespace' => '\App\Livewire\Admin\Users'], function(){
-       
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
         Route::get('/{user}', Show::class)->name('show');
@@ -25,5 +24,11 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
     Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
 
-    Route::get('/roles', \App\Livewire\Admin\Roles\Role::class)->name('roles.index');
+    Route::group(['prefix'=>'roles', 'as' => 'roles.','namespace' => '\App\Livewire\Admin\Roles'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{role}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+
+    // Route::get('/roles', \App\Livewire\Admin\Roles\Role::class)->name('roles.index');
 });

@@ -85,18 +85,18 @@
                                 :value="1"  @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')" :checked="$user && $user->status == '1' ? true : false" />
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
-                                <div class="flex items-center space-x-3.5">
+                                <div class="">
                                     
                                     <a x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto" role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
-                                        <box-icon color="#777" name='show'></box-icon>
+                                        <box-icon color="#888" name='show'></box-icon>
                                     </a>
                                     <a x-data="{ tooltip: 'Edit user' }" x-tooltip="tooltip" role="button" wire:navigate href="{{ route('admin.users.edit', $user) }}">
-                                        <box-icon color="#777" name='edit'></box-icon>
+                                        <box-icon color="#888" name='edit'></box-icon>
                                     </a>
 
                                     <span x-data="{ tooltip: 'Delete user' }" x-tooltip="tooltip" role="button"
                                         @click="confirmAction({{ $user->id }}, 'destroy', 'Are you sure want to delete?')">
-                                        <box-icon  color="#777" name='trash'></box-icon>
+                                        <box-icon  color="#888" name='trash'></box-icon>
                                     </span>
                                 </div>
                             </td>

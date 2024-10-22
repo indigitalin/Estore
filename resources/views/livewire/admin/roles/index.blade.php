@@ -61,18 +61,18 @@
                                 {{ $role->name }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a wire:click="$dispatch('openModal', { component: 'admin.roles.permissions', arguments: { role: {{ $role }},modalTitle: '{{ $role->name }} Role Permisions', maxWidthModal: 'md' }})" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
+                                <a x-data="{ tooltip: '{{ $role->permissions()->pluck('name')->implode(', ') }}' }" x-tooltip="tooltip" href="#" class="text-indigo-600"> {{ $role->permissions()->count() }}
                                     permissions</a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->created_at->diffForHumans() }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <span role="button"
+                                <span x-data="{ tooltip: 'Edit role'}" x-tooltip="tooltip" role="button"
                                     wire:click="$dispatch('openModal', { component: 'admin.roles.modal', arguments: { role: {{ $role }},modalTitle: 'Edit for  {{ $role->name }} Role', maxWidthModal: 'md' }})">
                                     <box-icon color="#888" name='edit'></box-icon>
                                 </span>
-                                <span role="button"
+                                <span x-data="{ tooltip: 'Delete role'}" x-tooltip="tooltip" role="button"
                                     @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')">
                                     <box-icon color="#888" name='trash'></box-icon>
                                 </span>
