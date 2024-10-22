@@ -1,12 +1,12 @@
 <div class="">
     @php
-        $pageTitle = $user ? 'Edit a user' : 'Create a user';
+        $pageTitle = $user ? 'Edit user' : 'Create user';
         $navigationLinks = [
             ['text' => 'Dashboard', 'link' => route('admin.index')],
             ['text' => 'Users', 'link' => route('admin.users.index')],
             ['text' => $pageTitle, 'link' => ''],
         ];
-        $pageDescription = $pageTitle . '  easily. Manage personal information and photo.';
+        $pageDescription = '';
         $rightSideBtnText = '';
         $rightSideBtnRoute = '';
     @endphp

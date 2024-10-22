@@ -38,6 +38,9 @@
                             Permissions
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
+                            Users
+                        </th>
+                        <th class="px-4 py-4 font-medium text-black dark:text-white">
                             Last updated
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
@@ -58,6 +61,9 @@
                                 <a x-data="{ tooltip: '{{ $role->permissions()->pluck('name')->implode(', ') }}' }" x-tooltip="tooltip" href="#" class="text-indigo-600">
                                     {{ $role->permissions()->count() }}
                                     permissions</a>
+                            </td>
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                                {{ $role->users()->count() }} users
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->created_at->diffForHumans() }}

@@ -16,8 +16,8 @@
 
             @foreach ($navigationLinks as $link)
                 <li>
-                    <a class="{{ $link['link'] == '' ? 'text-primary' : '' }} font-medium"
-                        {{ $link['link'] == '' ? '' : 'href=' . route('admin.index') }}>{{ $link['text'] }}
+                    <a wire:navigate class="{{ $link['link'] == '' ? 'text-primary' : '' }} font-medium"
+                        {{ $link['link'] == '' ? '' : 'href=' . $link['link'] }}>{{ $link['text'] }}
                         {{ $loop->last ? '' : '/' }}</a>
                 </li>
             @endforeach

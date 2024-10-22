@@ -6,7 +6,7 @@
             ['text' => 'Users', 'link' => route('admin.roles.index')],
             ['text' => $pageTitle, 'link' => ''],
         ];
-        $pageDescription = $pageTitle . '  easily. Manage personal information and photo.';
+        $pageDescription = '';
         $rightSideBtnText = '';
         $rightSideBtnRoute = '';
     @endphp
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('admin.users.index') }}"
+                                <x-secondary-button wire:navigate href="{{ route('admin.roles.index') }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>
