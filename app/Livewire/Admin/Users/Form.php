@@ -36,10 +36,8 @@ class Form extends Component
     public function save()
     {
         $response = $this->form->save();
-        // $this->dispatch('refresh-list');
-        // $this->ToasterAlert($response);
-        // $this->dispatch('navigate_to', route('admin.users.index'));
-
-        
+        $this->dispatch('refresh-list');
+        $this->ToasterAlert($response);
+        $this->dispatch('navigate_to', route('admin.users.index'));
     }
 }
