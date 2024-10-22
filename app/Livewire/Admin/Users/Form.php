@@ -31,13 +31,9 @@ class Form extends Component
 
     public function render(): View
     {
-       $roles = Role::with('roles')->whereHas(
-                            'roles', function($q){
-                                $q->where('user_id', 'Satff');
-                            }
-                        )->get();
-
-        return view('livewire.admin.users.form');
+        return view('livewire.admin.users.form')->withRoles(
+            Role::adminRoles()->get()
+        );
     }
 
     public function save()
