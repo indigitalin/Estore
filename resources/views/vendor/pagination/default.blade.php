@@ -1,5 +1,5 @@
 <div class="flex items-center">
-    {{-- <div class="me-auto">
+    <div class="me-auto">
         <p class="text-gray-700 leading-5 dark:text-gray-400">
             {!! __('Showing') !!}
             @if ($paginator->firstItem())
@@ -13,7 +13,7 @@
             <span class="font-medium">{{ $paginator->total() }}</span>
             {!! __('results') !!}
         </p>
-    </div> --}}
+    </div>
     <nav role="navigation" aria-label="Pagination Navigation" class="flex">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())

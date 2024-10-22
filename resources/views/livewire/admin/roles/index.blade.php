@@ -1,7 +1,7 @@
 <div class="">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
-            Roles and responsibilities
+            Roles and Responsibilities
         </h2>
 
         <nav>
@@ -14,7 +14,7 @@
         </nav>
     </div>
     <div class="">
-        <p>Manage staff roles and permissions. Create new roles, assign permissions, and view role details.</p>
+        <p>Manage user roles and permissions. Create new roles, assign permissions, and view role details.</p>
     </div>
     <div class="flex">
         <a class="ms-auto" href="{{ route('admin.roles.create') }}" wire:navigate>
@@ -68,15 +68,19 @@
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 {{ $role->created_at->diffForHumans() }}
                             </td>
-                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a x-data="{ tooltip: 'Edit role' }" x-tooltip="tooltip" role="button"
-                                href="{{ route('admin.roles.edit', ['role' => $role]) }}" wire:navigate>
-                                    <box-icon color="#888" name='edit'></box-icon>
-                                </a>
-                                <span x-data="{ tooltip: 'Delete role' }" x-tooltip="tooltip" role="button"
-                                    @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')">
-                                    <box-icon color="#888" name='trash'></box-icon>
-                                </span>
+                            <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
+                                <div class="flex items-center">
+                                    <x-action-button class x-data="{ tooltip: 'Delete role' }" x-tooltip="tooltip" role="button"
+                                        class="ms-auto me-2" href="{{ route('admin.roles.edit', ['role' => $role]) }}"
+                                        wire:navigate>
+                                        <box-icon size="20px" color="#888" name='edit'></box-icon>
+                                    </x-action-button>
+                                    <x-action-button
+                                        @click="confirmAction({{ $role->id }}, 'destroy', 'Are you sure want to delete?')"
+                                        class x-data="{ tooltip: 'Delete role' }" x-tooltip="tooltip" role="button">
+                                        <box-icon size="20px" color="#888" name='trash'></box-icon>
+                                    </x-action-button>
+                                </div>
                             </td>
                         </tr>
                     @empty

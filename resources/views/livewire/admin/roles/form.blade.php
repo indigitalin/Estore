@@ -1,6 +1,6 @@
 <div class="">
     @php
-        $pageTitle = $role ? 'Edit role' : 'Create role';
+        $pageTitle = $role ? 'Edit Role' : 'Create Role';
         $navigationLinks = [
             ['text' => 'Dashboard', 'link' => route('admin.index')],
             ['text' => 'Users', 'link' => route('admin.roles.index')],

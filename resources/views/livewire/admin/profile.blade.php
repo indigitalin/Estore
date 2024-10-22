@@ -78,7 +78,7 @@
                         Your Photo
                     </h3>
                 </div>
-                <div class="p-7">
+                <div class="p-7 pt-0 mt-4">
                     <form wire:submit="updateAvatar" x-data="imagePreviewer">
                         <div class="mb-4 flex items-center gap-3">
                             <div class="rounded-full">
