@@ -21,31 +21,25 @@ class Form extends Component
     public function refresh() {}
 
     public function mount($user = null): void
-    {
-      
+    {      
         if ($user) {
             $this->user = User::findorFail($user);
             $this->form->setUser($this->user);
         }
-       
     }
-
 
     public function render(): View
     {
-       
         return view('livewire.admin.users.form');
     }
 
     public function save()
     {
         $response = $this->form->save();
-        $this->dispatch('refresh-list');
-        $this->ToasterAlert($response);
-        $this->dispatch('navigate_to', route('admin.users.index'));
+        // $this->dispatch('refresh-list');
+        // $this->ToasterAlert($response);
+        // $this->dispatch('navigate_to', route('admin.users.index'));
+
         
-
     }
-
-    
 }
