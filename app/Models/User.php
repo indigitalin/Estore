@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at',
         'picture',
         'type',
+        'parent_id'
     ];
 
     /**
@@ -108,11 +109,23 @@ class User extends Authenticatable
         return $this->hasOne(Client::class);
     }
 
-    public function scopeAdminStaffs($q){
+    public function staffs()
+    {
+        if ($this->parent_id) {
+            return $this->hasMany(self::class, 'parent_id', 'parent_id')->where('id', '!=', auth()->user()->id);
+        } else {
+            return $this->hasMany(self::class, 'parent_id', 'id')->where('id', '!=', auth()->user()->id);
+        }
+
+    }
+
+    public function scopeAdminStaffs($q)
+    {
         return $q->where('id', '!=', auth()->user()->id);
     }
 
-    public function getEmployerIdAttribute(){
-        return $this->parent_id ? : $this->id;
+    public function getEmployerIdAttribute()
+    {
+        return $this->parent_id ?: $this->id;
     }
 }

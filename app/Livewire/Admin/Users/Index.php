@@ -12,7 +12,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->users  = User::adminStaffs()->get();
+        $this->users  = auth()->user()->staffs()->get();
     }
 
     public function render()
@@ -22,7 +22,7 @@ class Index extends Component
 
     #[On('destroy')]
     public function destroy(string $id){
-        User::adminStaffs()->findOrfail($id)->delete();
+        auth()->user()->staffs()->findOrfail($id)->delete();
         $this->dispatch('refresh-list');
         \Toaster::success(__("User deleted successfully."));
         $this->dispatch('navigate_to', route('admin.users.index'));

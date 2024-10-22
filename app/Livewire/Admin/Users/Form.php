@@ -23,7 +23,7 @@ class Form extends Component
     public function mount($user = null): void
     {
         if ($user) {
-            $this->user = User::findorFail($user);
+            $this->user = auth()->user()->staffs()->findOrfail($user);
             $this->form->setUser($this->user);
         }
     }

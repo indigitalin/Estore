@@ -66,6 +66,10 @@ class UsersForm extends Form
                 $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'type'])); 
             }
 
+            $this->user->update([
+                'parent_id' => auth()->user()->employer_id
+            ]);
+
             if($this->picture != null){
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
             }
