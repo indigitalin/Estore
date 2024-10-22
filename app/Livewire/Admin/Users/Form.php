@@ -40,6 +40,7 @@ class Form extends Component
         $response = $this->form->save();
         $this->dispatch('refresh-list');
         $this->ToasterAlert($response);
+        if($response['status'] == 'success')
         $this->dispatch('navigate_to', route('admin.users.index'));
     }
 }
