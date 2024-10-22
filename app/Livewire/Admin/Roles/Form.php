@@ -2,15 +2,14 @@
 namespace App\Livewire\Admin\Roles;
 
 use App\Livewire\Component;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\{Role, Permission};
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
 class Form extends Component
 {
-    public $user;
+    public $role;
     public \App\Livewire\Admin\Forms\UsersForm $form;
     use \App\Helper\Upload;
     use WithFileUploads;
@@ -21,17 +20,17 @@ class Form extends Component
     public function refresh()
     {}
 
-    public function mount($user = null): void
+    public function mount($role = null): void
     {
-        if ($user) {
-            $this->form->setUser($this->user = auth()->user()->staffs()->findOrfail($user));
+        if ($role) {
+            $this->form->setRole($this->user = auth()->user()->staffs()->findOrfail($role));
         }
     }
 
     public function render(): View
     {
-        return view('livewire.admin.users.form')->withRoles(
-            Role::adminRoles()->pluck('name','id')
+        return view('livewire.admin.roles.form')->withPermissions(
+            Permission::whereType('admin')->get()->groupBy('section')
         );
     }
 
@@ -44,5 +43,4 @@ class Form extends Component
         $this->dispatch('navigate_to', route('admin.users.index'));
     }
 
-    
 }

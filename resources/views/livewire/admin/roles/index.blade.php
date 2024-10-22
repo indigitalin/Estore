@@ -17,17 +17,11 @@
         <p>Manage staff roles and permissions. Create new roles, assign permissions, and view role details.</p>
     </div>
     <div class="flex">
-        <x-primary-button
-            wire:click="$dispatch('openModal', {
-                component: 'admin.roles.modal',
-                    arguments: {
-                    modalTitle: 'Create New Role',
-                    maxWidthModal: 'md'
-                }
-            })"
-            class="mb-4 ms-auto">
-            {{ __('Create new role') }}
-        </x-primary-button>
+        <a class="ms-auto" href="{{ route('admin.roles.create') }}" wire:navigate>
+            <x-primary-button class="mb-4 ms-auto">
+                {{ __('Create new role') }}
+            </x-primary-button>
+        </a>
     </div>
     <div class="rounded-sm shadow-default border border-stroke bg-white">
         <div class="max-w-full overflow-x-auto">
