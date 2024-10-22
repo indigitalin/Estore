@@ -57,5 +57,27 @@ class PermissionSeeder extends Seeder
             'section' => 'Roles',
             'type' => 'admin',
         ]]);
+
+        Permission::insert([[
+            'name' => 'Create Clients',
+            'guard_name' => 'web',
+            'section' => 'Clients',
+            'type' => 'admin',
+        ],[
+            'name' => 'Edit Clients',
+            'guard_name' => 'web',
+            'section' => 'Clients',
+            'type' => 'admin',
+        ],[
+            'name' => 'Delete Clients',
+            'guard_name' => 'web',
+            'section' => 'Clients',
+            'type' => 'admin',
+        ],[
+            'name' => 'View Clients',
+            'guard_name' => 'web',
+            'section' => 'Clients',
+            'type' => 'admin',
+        ]]);
     }
 }
