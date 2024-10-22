@@ -48,6 +48,7 @@
                 <tbody>
 
                     @forelse ($users as $user)
+     
                         <tr>
                             <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
@@ -58,7 +59,7 @@
                                         <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
                                             {{ $user->name }}
                                         </p>
-                                        <i class="text-black dark:text-white text-sm capitalize">{{ $user->type }}</i>
+                                        <i class="text-black dark:text-white text-sm capitalize">{{ $user->role_name }}</i>
                                     </div>
 
                                 </div>
@@ -80,11 +81,8 @@
                                 <i class="text-black dark:text-white">{{ $user->last_login }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-
-                                <p
-                                    class="inline-flex rounded-full {{ $user->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $user->status == 1 ? 'text-success' : 'text-danger' }} ">
-                                    {{ $user->status_label }}
-                                </p>
+                                <x-toggle-button id="status-toggle_{{ $user->id }}" wire:model="form.status" :label="$user->status_label"
+                                :value="1"  @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')" :checked="$user && $user->status == '1' ? true : false" />
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
                                 <div class="flex items-center space-x-3.5">

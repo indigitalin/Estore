@@ -81,9 +81,9 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="role" :value="__('User Role')" />
-                                        <x-select id="type" wire:model="form.type" :options="$roles"
-                                            :selected="$user ? $user->type : null" />
-                                        <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
+                                        <x-select id="role" wire:model="form.role" :options="$roles"
+                                            :selected="$user ? $user->role : null" />
+                                        <x-input-error :messages="$errors->get('form.role')" class="mt-2" />
                                     </div>
                                 </div>
 

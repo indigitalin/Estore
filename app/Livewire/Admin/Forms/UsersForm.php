@@ -20,7 +20,7 @@ class UsersForm extends Form
     public string|null $phone = null;
     public string|null $email = null;
     public string|null $password = null;
-    public string|null $type = 'customer';
+    public string|null $role = null;
     public string|null $confirm_password  = null;
     public string|null $phone_number  = null;
     public string|null $actual_picture  = null;
@@ -36,7 +36,7 @@ class UsersForm extends Form
         $this->lastname = $user->lastname;
         $this->phone_number = $user->phone;
         $this->email = $user->email;
-        $this->type = $user->type;
+        $this->role = $user->role_id;
         $this->password = '';
         $this->status = $user->status;
         // $this->picture = $user->picture;
@@ -74,6 +74,8 @@ class UsersForm extends Form
                 $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
             }
 
+            $this->user->roles()->sync($this->role);
+
             $msg['status'] = 'success';
             $msg['message'] = 'User succesfully created';
 
@@ -109,7 +111,7 @@ class UsersForm extends Form
                 new \App\Rules\StrongPassword,
             ],
             'confirm_password' => [$this->user ? 'nullable' : 'required',],
-            'type' => ['required'],
+            'role' => ['required'],
             'status' => ['nullable'],
             'picture' => ["bail","nullable","image","mimes:webp,jpg,png,jpeg","max:2048"],
         ];
@@ -122,17 +124,17 @@ class UsersForm extends Form
         $this->status = isset($this->status) ? '1' : '0';
     }
 
-    public function validationAttributes(): array
-    {
-        return [
-            'firstname' => 'firstname',
-            'lastname' => 'lastname',
-            'phone' => 'phone',
-            'email' => 'email',
-            'password' => 'password',
-            'status' => 'status',
-            'picture' => 'picture',
-            'type' => 'type',
-        ];
-    }
+    // public function validationAttributes(): array
+    // {
+    //     return [
+    //         'firstname' => 'firstname',
+    //         'lastname' => 'lastname',
+    //         'phone' => 'phone',
+    //         'email' => 'email',
+    //         'password' => 'password',
+    //         'status' => 'status',
+    //         'picture' => 'picture',
+    //         'role' => 'role',
+    //     ];
+    // }
 }

@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     use SoftDeletes;
+    use HasRoles;
     /**
      * The attributes that are lazy loaded.
      *
@@ -82,6 +84,19 @@ class User extends Authenticatable
         }
         return file_url($this->picture);
     }
+    
+    public function getRoleNameAttribute(){
+        return $this->roles()->pluck('name')->first() ?? null;
+    }
+
+    public function getRoleIdAttribute(){
+        return $this->roles()->pluck('id')->first() ?? null;
+    }
+
+    public function getPhoneNumberAttribute()
+    {
+        return $this->phone;
+    }
 
     public function getCreatedAtAttribute($value)
     {
@@ -96,7 +111,7 @@ class User extends Authenticatable
     public function getStatusLabelAttribute()
     {
 
-        return $this->status == "1" ? 'Active' : 'Inactive';
+        return $this->status == "1" ? 'Active' : 'Suspended';
     }
 
     public function client()
