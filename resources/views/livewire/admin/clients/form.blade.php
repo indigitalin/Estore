@@ -200,6 +200,22 @@
                                         <x-input-error :messages="$errors->get('form.postcode')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="country_id" :value="__('Country')" />
+                                        <x-select id="country_id" wire:change="updateStates" wire:model="form.country_id" :options="$countries"
+                                            :selected="$this->form->country_id" />
+                                        <x-input-error :messages="$errors->get('form.country_id')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="state_id" :value="__('State')" />
+                                        <x-select id="state_id" wire:model="form.state_id" :options="$states"
+                                            :selected="$this->form->state_id" />
+                                        <x-input-error :messages="$errors->get('form.state_id')" class="mt-2" />
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-5 flex">
                                 <x-secondary-button wire:navigate href="{{ route('admin.clients.index') }}"

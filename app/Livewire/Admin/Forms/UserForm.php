@@ -102,7 +102,7 @@ class UserForm extends Form
                 new \App\Rules\StrongPassword,
             ],
             'confirm_password' => [$this->user ? 'nullable' : 'required'],
-            'role' => ['required'],
+            'role' => ['required', 'exists:roles,id'],
             'status' => ['nullable'],
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
         ];

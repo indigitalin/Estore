@@ -15,6 +15,7 @@ class Form extends Component
     use \App\Helper\Upload;
     use WithFileUploads;
 
+    public $states = []; // Add this to store the states
     protected $listeners = ['refreshList' => '$refresh'];
 
     #[On('refresh-list')]
@@ -28,12 +29,24 @@ class Form extends Component
          */
         if ($client) {
             $this->form->setClient($this->client = Client::whereHas('user')->findOrfail($client));
+            $this->updateStates(defaultState : $this->client->state_id); // Preload states if editing a client
         }
+    }
+
+    // Method to update the states based on the selected country
+    public function updateStates($defaultState = null)
+    {
+        $this->states = \App\Models\State::whereCountryId($this->form->country_id)->pluck('name','id');
+
+        // Clear state selection if the country changes
+        $this->form->state_id = $defaultState;
     }
 
     public function render(): View
     {
-        return view('livewire.admin.clients.form');
+        return view('livewire.admin.clients.form')->withCountries(
+            \App\Models\Country::pluck('name','id')
+        );
     }
 
     public function save()

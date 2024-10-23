@@ -46,6 +46,8 @@ class ClientForm extends Form
     public string|null $address = null;
     public string|null $city = null;
     public string|null $postcode = null;
+    public string|null $country_id = null;
+    public string|null $state_id = null;
 
     public ?UploadedFile $logo = null;
     public string|null $logo_url = null;
@@ -82,6 +84,8 @@ class ClientForm extends Form
             $this->address = $client->address;
             $this->city = $client->city;
             $this->postcode = $client->postcode;
+            $this->country_id = $client->country_id;
+            $this->state_id = $client->state_id;
         }
     }
 
@@ -160,6 +164,8 @@ class ClientForm extends Form
             'status' => ['nullable'],
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
             'logo' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
+            'state_id' => ['nullable', 'sometimes', 'exists:states,id'],
+            'country_id' => ['nullable', 'sometimes', 'exists:countries,id']
         ];
     }
 
@@ -169,7 +175,7 @@ class ClientForm extends Form
      */
     protected function updateClient(Client $client): void
     {
-        $client->update($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode']));
+        $client->update($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode', 'state_id', 'country_id']));
 
         /**
          * Update client user
@@ -197,6 +203,6 @@ class ClientForm extends Form
         $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']) + [
             'password' => $this->password, // Password is hashed by mutator
         ]);
-        $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode']));
+        $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode', 'state_id', 'country_id']));
     }
 }
