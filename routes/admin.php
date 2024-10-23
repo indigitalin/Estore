@@ -29,6 +29,7 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::group(['prefix'=>'clients', 'as' => 'clients.','namespace' => '\App\Livewire\Admin\Clients'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
+        Route::get('/{client}', Show::class)->name('show');
         Route::get('/{client}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 

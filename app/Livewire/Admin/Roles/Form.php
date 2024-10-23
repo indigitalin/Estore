@@ -22,6 +22,9 @@ class Form extends Component
 
     public function mount($role = null): void
     {
+        /**
+         * Set role if role id is passed in route
+         */
         if ($role) {
             $this->form->setRole($this->role = Role::adminRoles()->findOrfail($role));
         }

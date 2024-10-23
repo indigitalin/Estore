@@ -2,7 +2,8 @@
 namespace App\Livewire\Admin\Clients;
 
 use App\Livewire\Component;
-use App\Models\{User, Client};
+
+use App\Models\Client;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
@@ -22,8 +23,11 @@ class Form extends Component
 
     public function mount($client = null): void
     {
+        /**
+         * Set client if client id is passed in route
+         */
         if ($client) {
-            $this->form->setClient($this->client = Client::findOrfail($client));
+            $this->form->setClient($this->client = Client::whereHas('user')->findOrfail($client));
         }
     }
 

@@ -16,6 +16,9 @@ class ClientForm extends Form
     use \App\Helper\Upload;
     use WithFileUploads;
 
+    /**
+     * Client user
+     */
     public string|null $firstname = null;
     public string|null $lastname = null;
     public string|null $status;
@@ -29,6 +32,9 @@ class ClientForm extends Form
     public ?UploadedFile $picture = null;
     public string|null $picture_url = null;
 
+    /**
+     * Client
+     */
     public string|null $business_name = null;
     public string|null $industry = null;
     public string|null $description = null;
@@ -43,33 +49,51 @@ class ClientForm extends Form
     public function setClient(?Client $client = null): void
     {
         $this->client = $client;
+        if ($client) {
+            /**
+             * Client user
+             */
+            $this->firstname = $client->user->firstname;
+            $this->lastname = $client->user->lastname;
+            $this->phone_number = $client->user->phone;
+            $this->email = $client->user->email;
+            $this->status = $client->user->status;
+            // $this->picture = $client->user->picture;
+            $this->actual_picture = $client->user->picture;
+            $this->picture_url = $client->user->picture_url;
+
+            /**
+             * Client
+             */
+            $this->business_name = $client->business_name;
+            $this->industry = $client->industry;
+            $this->description = $client->description;
+            $this->address = $client->address;
+            $this->city = $client->city;
+            $this->pan = $client->pan;
+            $this->gst = $client->gst;
+            $this->whatsapp_number = $client->whatsapp;
+            $this->whatsapp = $client->whatsapp;
+            $this->website = $client->website;
+        }
     }
 
     public function save()
     {
-        
-        try {
-            $this->prepareValidation();
+        $this->prepareValidation();
         $this->validate();
+        try {
             if ($this->client) {
-                $this->client->user->update(
-                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])
-                );
-                $this->client->update(
-                    $this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp'])
-                );
+                // Update existing user and client
+                $this->updateClient($this->client);
             } else {
-                $user = User::create(
-                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])
-                );
-                $this->client = $user->client()->create(
-                    $this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp'])
-                );
+                // Create new user and client
+                $this->createUser();
             }
 
             return ([
                 'status' => 'success',
-                'message' => 1 ? 'Client created successfully.' : 'Client updated successfully.',
+                'message' => $this->client->wasRecentlyCreated ? 'Client created successfully.' : 'Client updated successfully.',
                 'redirect' => route('admin.clients.index'),
             ]);
 
@@ -81,6 +105,9 @@ class ClientForm extends Form
         }
     }
 
+    /**
+     * Before validation, prepare the values and do necessary changes
+     */
     public function prepareValidation(): void
     {
 
@@ -99,8 +126,8 @@ class ClientForm extends Form
             'address' => ['sometimes', 'nullable'],
             'gst' => ['sometimes', 'nullable', 'max:15'],
             'pan' => ['sometimes', 'nullable', 'max:10'],
-            'whatsapp' => ['nullable', 'sometimes','numeric','digits:10'],
-            'website' => ['nullable', 'sometimes','string','max:128'],
+            'whatsapp' => ['nullable', 'sometimes', 'numeric', 'digits:10'],
+            'website' => ['nullable', 'sometimes', 'string', 'max:128'],
 
             'firstname' => ['required', 'max:64'],
             'lastname' => ['required', 'max:64'],
@@ -125,5 +152,38 @@ class ClientForm extends Form
             'status' => ['nullable'],
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
         ];
+    }
+
+    /**
+     * Update client and client user
+     * @param Client $client
+     */
+    protected function updateClient(Client $client): void
+    {
+        $client->update($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website']));
+
+        /**
+         * Update client user
+         */
+        $client->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'status']));
+
+        /**
+         * Update password only if requested to update
+         * Password is hashed by mutator, so need to hash here
+         */
+        if ($this->password) {
+            $client->user->update($this->only(['password']));
+        }
+    }
+
+    /**
+     * Create new user and client
+     */
+    protected function createClient(): void
+    {
+        $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status']) + [
+            'password' => $this->password, // Password is hashed by mutator
+        ]);
+        $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website']));
     }
 }

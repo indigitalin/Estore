@@ -25,6 +25,7 @@ class Client extends Model
         'pan',
         'gst',
         'whatsapp',
+        'website',
     ];
 
     public function user()

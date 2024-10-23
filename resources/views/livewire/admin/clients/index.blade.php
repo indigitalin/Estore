@@ -89,11 +89,22 @@
                                     class="inline-flex rounded-full {{ $client->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $client->status == 1 ? 'text-success' : 'text-danger' }} ">
                                     {{ $client->status_label }}
                                 </p>
-
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">
+                                    <x-action-button x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto me-2"
+                                        role="button" wire:navigate href="{{ route('admin.clients.show', $client) }}">
+                                        <box-icon size="20px" color="#888" name='show'></box-icon>
+                                    </x-action-button>
+                                    <x-action-button x-data="{ tooltip: 'Edit client' }" x-tooltip="tooltip" role="button" class="me-2"
+                                        wire:navigate href="{{ route('admin.clients.edit', $client) }}">
+                                        <box-icon size="20px" color="#888" name='edit'></box-icon>
+                                    </x-action-button>
 
+                                    <x-action-button x-data="{ tooltip: 'Delete client' }" x-tooltip="tooltip" role="button"
+                                        @click="confirmAction({{ $client->id }}, 'destroy', 'Are you sure want to delete?')">
+                                        <box-icon size="20px" color="#888" name='trash'></box-icon>
+                                    </x-action-button>
                                 </div>
                             </td>
                         </tr>

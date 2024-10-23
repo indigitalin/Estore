@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('pan', 10)->nullable();
             $table->string('gst', 15)->nullable();
             $table->string('whatsapp', 10)->nullable();
+            $table->string('website', 128)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

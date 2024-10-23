@@ -12,6 +12,9 @@ class Index extends Component
 
     public function render()
     {
+        /**
+         * Load roles created by current user or their employer
+         */
         return view('livewire.admin.roles.index')->withRoles(
             Role::adminRoles()->paginate(10)
         );
