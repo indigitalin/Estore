@@ -95,6 +95,16 @@
                             Users
                         </a>
                     </li>
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        wire:navigate href="{{ route('admin.subscriptions.index') }}" @click="selected = (selected === 'Subscription' ? '':'Subscription')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Subscription') && (page === 'Subscription') }"
+                            :class="page === 'Subscription' && 'bg-graydark'">
+                            <box-icon name='user-check' color="#dee4ee"></box-icon>
+                            Subscription Plans
+                        </a>
+                    </li>
+                  
                   
                     <!-- Menu Item Stores -->
                     <li>
