@@ -17,17 +17,19 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     })->middleware('wirenavigate');
 
 
-
-    // Route::get('/products', \App\Livewire\Admin\Product::class)->name('products.index');
-    // Route::get('/users', \App\Livewire\Admin\Users\UserIndex::class)->name('users.index');
-    // Route::get('/users/create', \App\Livewire\Admin\Users\UserIndex::class)->name('users.create');
-    Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
-    Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
+    // Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
+    // Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
 
     Route::group(['prefix'=>'roles', 'as' => 'roles.','namespace' => '\App\Livewire\Admin\Roles'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
         Route::get('/{role}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+
+    Route::group(['prefix'=>'clients', 'as' => 'clients.','namespace' => '\App\Livewire\Admin\Clients'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{client}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 
     // Route::get('/roles', \App\Livewire\Admin\Roles\Role::class)->name('roles.index');

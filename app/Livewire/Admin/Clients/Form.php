@@ -1,16 +1,16 @@
 <?php
-namespace App\Livewire\Admin\Roles;
+namespace App\Livewire\Admin\Clients;
 
 use App\Livewire\Component;
-use App\Models\{Role, Permission};
+use App\Models\{User, Client};
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
 class Form extends Component
 {
-    public $role;
-    public \App\Livewire\Admin\Forms\RoleForm $form;
+    public $client;
+    public \App\Livewire\Admin\Forms\ClientForm $form;
     use \App\Helper\Upload;
     use WithFileUploads;
 
@@ -20,18 +20,16 @@ class Form extends Component
     public function refresh()
     {}
 
-    public function mount($role = null): void
+    public function mount($client = null): void
     {
-        if ($role) {
-            $this->form->setRole($this->role = Role::adminRoles()->findOrfail($role));
+        if ($client) {
+            $this->form->setClient($this->client = Client::findOrfail($client));
         }
     }
 
     public function render(): View
     {
-        return view('livewire.admin.roles.form')->withPermissions(
-            Permission::whereType('admin')->get()->groupBy('section')
-        );
+        return view('livewire.admin.clients.form');
     }
 
     public function save()

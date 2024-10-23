@@ -75,7 +75,7 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <p role="button"
-                                    @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')"
+                                    @click="actionConfirmed({{ $user->id }}, 'status')"
                                     class="inline-flex rounded-full {{ $user->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $user->status == 1 ? 'text-success' : 'text-danger' }} ">
                                     {{ $user->status_label }}
                                 </p>

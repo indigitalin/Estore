@@ -6,13 +6,17 @@ use Masmerise\Toaster\Toaster;
 class Component extends BaseComponent
 {
 
-    public function ToasterAlert(array $msg){
+    public function toasterAlert(array $response){
        
-        if($msg['status'] == 'success'){
-            Toaster::success($msg['message']);
+        if($response['status'] == 'success'){
+            Toaster::success($response['message']);
         }
         else{
-            Toaster::error($msg['message']);
+            Toaster::error($response['message']);
+        }
+
+        if(isset($response['redirect']) && $response['redirect']){
+            return $this->redirect($response['redirect'], navigate: true);
         }
     }
 

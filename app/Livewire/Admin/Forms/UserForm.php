@@ -12,8 +12,9 @@ use Illuminate\Http\UploadedFile;
 class UserForm extends Form
 {
     use \App\Helper\Upload;
-    public ?User $user = null;
     use WithFileUploads;
+
+    public ?User $user = null;
     public string|null $firstname = null;
     public string|null $lastname = null;
     public string|null $status;
@@ -25,7 +26,6 @@ class UserForm extends Form
     public string|null $phone_number  = null;
     public string|null $actual_picture  = null;
     public ?UploadedFile $picture = null;
-    
     public string|null $picture_url = null ;
 
     public function setUser(?User $user = null): void

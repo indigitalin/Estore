@@ -95,5 +95,8 @@
             </table>
         </div>
     </div>
+    <div class="mt-4">
+        {{ $roles->links('vendor.pagination.default') }}
+    </div>
     @include('livewire.confirm')
 </div>

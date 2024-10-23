@@ -32,4 +32,21 @@ class Client extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getStatusLabelAttribute()
+    {
+        return $this->status == "1" ? 'Active' : 'Suspended';
+    }
+
+    public function getLogoAttribute($logo)
+    {
+        return $logo ?: 'default.png';
+    }
+
+    public function getLogoUrlAttribute($logo)
+    {
+        if ($this->logo == 'default.png') {
+            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->business_name);
+        }
+        return file_url($this->logo);
+    }
 }

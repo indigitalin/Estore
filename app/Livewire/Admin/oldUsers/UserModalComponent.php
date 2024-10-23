@@ -31,7 +31,7 @@ class UserModalComponent extends ModalComponent
     public function save(): void
     {
         $response = $this->form->save();
-        $this->ToasterAlert($response);
+        $this->toasterAlert($response);
     }
 
     public function render(): View
@@ -40,7 +40,7 @@ class UserModalComponent extends ModalComponent
         return view('livewire.admin.users.user-modal');
     }
 
-    private function ToasterAlert(array $msg){
+    private function toasterAlert(array $msg){
         $this->closeModal();
         $this->dispatch('refresh-list');
         if($msg['status'] == 'success'){

@@ -11,7 +11,6 @@ class RoleForm extends Form
     public ?Role $role = null;
     public string|null $name;
     public array|null $permissions;
-    public array|null $nos;
 
     public function setRole(?Role $role = null): void
     {
@@ -34,10 +33,11 @@ class RoleForm extends Form
 
             return ([
                 'status' => 'success',
-                'message' => $this->role->wasRecentlyCreated ? 'Role created successfully.' : 'Role updated successfully.'
+                'message' => $this->role->wasRecentlyCreated ? 'Role created successfully.' : 'Role updated successfully.',
+                'redirect' => route('admin.roles.index'),
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return ([
                 'status' => 'error',
                 'message' => "Something went wrong. {$e->getMessage()}",

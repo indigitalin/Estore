@@ -38,11 +38,6 @@ class Form extends Component
     public function save()
     {
         $response = $this->form->save();
-        $this->dispatch('refresh-list');
-        $this->ToasterAlert($response);
-        if($response['status'] == 'success'){
-            return $this->redirect(route('admin.users.index'), navigate: true);
-        }
-        // $this->dispatch('navigate_to', route('admin.users.index'));
+        $this->toasterAlert($response);
     }
 }

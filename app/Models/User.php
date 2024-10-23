@@ -98,19 +98,8 @@ class User extends Authenticatable
         return $this->phone;
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return \Carbon\Carbon::parse($value)->format('M d,Y');
-    }
-
-    public function getLastLoginAttribute($value)
-    {
-        return $value != null ? \Carbon\Carbon::parse($value)->format('M d,Y h:i A') : '';
-    }
-
     public function getStatusLabelAttribute()
     {
-
         return $this->status == "1" ? 'Active' : 'Suspended';
     }
 
