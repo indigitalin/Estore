@@ -137,7 +137,7 @@ class User extends Authenticatable
          * Dont worry about default.png
          */
         if ($picture = $this->uploadImage(file: $picture, path: 'avatars', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
-            if ($this->attributes['picture']) {
+            if (($this->attributes['picture'] ?? null)) {
                 // Delete the current picture
                 $this->removeFile($this->attributes['picture']);
             }
