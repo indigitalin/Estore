@@ -17,7 +17,7 @@
         <form wire:submit.prevent="save">
             <div class="grid grid-cols-5 gap-8">
                 <div class="col-span-5 xl:col-span-5">
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                    <div class="rounded-sm border shadow-default border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Role information
@@ -25,12 +25,15 @@
                         </div>
 
                         <div class="p-7 pt-0">
-                            <div class="mt-4">
-                                <x-input-label for="name" :value="__('Role name')" />
-                                <x-text-input placeholder="Role name" wire:model="form.name" id="name"
-                                    class="mt-1 block w-full" type="text" />
-                                <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="mt-4 w-full md:w-1/2 p-2">
+                                    <x-input-label for="name" :value="__('Role name')" />
+                                    <x-text-input placeholder="Role name" wire:model="form.name" id="name"
+                                        class="mt-1 block w-full" type="text" />
+                                    <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
+                                </div>
                             </div>
+                            
                             <div class="mt-4">
                                 <x-input-label :value="__('Permissions')" />
                                 <div class="mt-4">

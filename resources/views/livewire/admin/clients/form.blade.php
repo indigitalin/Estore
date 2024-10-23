@@ -17,7 +17,7 @@
         <form wire:submit.prevent="save">
             <div class="grid grid-cols-5 gap-8">
                 <div class="col-span-5 xl:col-span-3">
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
+                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Personal information
@@ -91,7 +91,7 @@
                         </div>
 
                     </div>
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
+                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Company information
@@ -164,7 +164,7 @@
                         </div>
 
                     </div>
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Company address
@@ -237,7 +237,7 @@
                 <div class="col-span-5 xl:col-span-2">
                     <div class="sticky top-[110px]">
                         <div x-data="imagePreviewer('{{ $client ? $client->user->picture_url : asset('/default.png') }}')"
-                            class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
+                            class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">
                             <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                                 <h3 class="font-medium text-black dark:text-white">
                                     Profile photo
@@ -285,7 +285,7 @@
                             </div>
                         </div>
                         <div x-data="imagePreviewer('{{ $client ? $client->logo_url : asset('/default.png') }}')"
-                            class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                            class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
                             <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                                 <h3 class="font-medium text-black dark:text-white">
                                     Company logo
