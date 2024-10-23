@@ -17,31 +17,12 @@ new class extends Component {
     <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
         <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
             <!-- Hamburger Toggle BTN -->
-            <button
-                class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
-                @click.stop="sidebarToggle = !sidebarToggle">
-                <span class="relative block h-5.5 w-5.5 cursor-pointer">
-                    <span class="du-block absolute right-0 h-full w-full">
-                        <span
-                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white"
-                            :class="{ '!w-full delay-300': !sidebarToggle }"></span>
-                        <span
-                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white"
-                            :class="{ '!w-full delay-400': !sidebarToggle }"></span>
-                        <span
-                            class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white"
-                            :class="{ '!w-full delay-500': !sidebarToggle }"></span>
-                    </span>
-                    <span class="du-block absolute right-0 h-full w-full rotate-45">
-                        <span
-                            class="absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white"
-                            :class="{ '!h-0 delay-[0]': !sidebarToggle }"></span>
-                        <span
-                            class="delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white"
-                            :class="{ '!h-0 dealy-200': !sidebarToggle }"></span>
-                    </span>
-                </span>
-            </button>
+            <button @click.stop="sidebarToggle = !sidebarToggle" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden bg-slate-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                <span class="sr-only">Open sidebar</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                </svg>
+             </button>
         </div>
         <div class="hidden sm:block">
             <form action="https://formbold.com/s/unique_form_id" method="POST">
