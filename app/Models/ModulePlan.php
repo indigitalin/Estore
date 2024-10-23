@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class ModulePlan extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'plan_id',
+        'module_id',
+    ];
+    
+
 }

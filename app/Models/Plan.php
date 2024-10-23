@@ -29,4 +29,8 @@ class Plan extends Model
          
     }
 
+    public function plan_modules(){
+        return $this->hasMany(ModulePlan::class);
+    }
+
 }
