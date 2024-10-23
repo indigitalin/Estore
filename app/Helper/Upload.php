@@ -27,7 +27,7 @@ trait Upload{
      * @param array $param
      * @param string $path
      */
-    public function uploadFiles(array $param, string $path, string $ratio = null){
+    public function uploadImages(array $param, string $path, string $ratio = null){
         $uploaded = [];
         foreach($param ?? [] as $file){
             try { 
@@ -37,12 +37,10 @@ trait Upload{
         return $uploaded;
     }
 
-    public function uploadFile($file, string $path, int $maxWidth = null, int $maxHeight = null, string $ratio = null){
+    public function uploadImage($file, string $path, int $maxWidth = null, int $maxHeight = null, string $ratio = null){
         try {
             return $this->pushFIle($file, $path, $maxWidth, $maxHeight, $ratio);
-        } catch (\Exception $e) {
-            
-        }
+        } catch (\Exception $e) {}
         return null;
     }
 

@@ -52,27 +52,16 @@ class UserForm extends Form
         $this->validate();
        
         try {
-
-            if ($this->picture != null) {
-                if (!empty($this->user)) {
-                    $this->removeFile($this->actual_picture);
-                }
-                $picturePath = $this->uploadFile(file : $this->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
-            }
  
             if (empty($this->user)) {
                 $this->user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']));
             } else {
-                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])); 
+                $this->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture'])); 
             }
 
             $this->user->update([
                 'parent_id' => auth()->user()->employer_id
             ]);
-
-            if($this->picture != null){
-                $this->user->update(['picture' => $picturePath ?? $this->user->picture]);
-            }
 
             $this->user->roles()->sync($this->role);
 

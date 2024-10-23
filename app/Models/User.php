@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Http\Request;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -15,6 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use SoftDeletes;
     use HasRoles;
+    use \App\Helper\Upload;
     /**
      * The attributes that are lazy loaded.
      *
@@ -40,7 +40,7 @@ class User extends Authenticatable
         'email_verified_at',
         'picture',
         'parent_id',
-        'last_login'
+        'last_login',
     ];
 
     /**
@@ -84,12 +84,14 @@ class User extends Authenticatable
         }
         return file_url($this->picture);
     }
-    
-    public function getRoleNameAttribute(){
+
+    public function getRoleNameAttribute()
+    {
         return $this->roles()->pluck('name')->first() ?? null;
     }
 
-    public function getRoleIdAttribute(){
+    public function getRoleIdAttribute()
+    {
         return $this->roles()->pluck('id')->first() ?? null;
     }
 
@@ -120,11 +122,27 @@ class User extends Authenticatable
 
     public function getEmployerIdAttribute()
     {
-        return $this->parent_id ? : $this->id;
+        return $this->parent_id ?: $this->id;
     }
 
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($password);
+    }
+
+    public function setPictureAttribute($picture)
+    {
+        /**
+         * Remove current picture
+         * Dont worry about default.png
+         */
+        if ($this->attributes['picture']) {
+            // Delete the current picture
+            $this->removeFile($this->attributes['picture']);
+        }
+
+        if ($picture = $this->uploadImage(file: $picture, path: 'avatars', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
+            $this->attributes['picture'] = $picture;
+        }
     }
 }

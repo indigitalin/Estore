@@ -164,8 +164,9 @@ class ClientForm extends Form
 
         /**
          * Update client user
+         * Picture upload is handled by mutator
          */
-        $client->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'status']));
+        $client->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']));
 
         /**
          * Update password only if requested to update
@@ -180,8 +181,11 @@ class ClientForm extends Form
      * Create new user and client
      */
     protected function createClient(): void
-    {
-        $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status']) + [
+    {   
+        /**
+         * Picture upload is handled by mutator
+         */
+        $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']) + [
             'password' => $this->password, // Password is hashed by mutator
         ]);
         $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website']));

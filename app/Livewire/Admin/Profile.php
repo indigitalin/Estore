@@ -67,14 +67,10 @@ class Profile extends Component
         $validated = $this->validate([
             'picture' => 'bail|required|image|mimes:webp,jpg,png,jpeg|max:2048'
         ]);
-        
-        if ($this->picture) {
-            $this->removeFile(auth()->user()->picture);
-            $picturePath = $this->uploadFile(file : $this->picture, path : 'avatars', maxHeight : 200, maxWidth : 200, ratio: '1:1');
-            auth()->user()->update([
-                'picture' => $picturePath,
-            ]);
-        }
+        /**
+         * Picture upload is handled by mutator
+         */
+        auth()->user()->update($this->only(['picture']));
         \Toaster::success(__("Profile image has been updated successfully."));
         $this->dispatch('success');
     }
