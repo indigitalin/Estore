@@ -99,7 +99,7 @@ class ClientForm extends Form
                 $this->updateClient($this->client);
             } else {
                 // Create new user and client
-                $this->createUser();
+                $this->createClient();
             }
 
             return ([
