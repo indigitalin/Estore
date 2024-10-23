@@ -6,7 +6,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
-use Livewire\Form;
+use \App\Livewire\Form;
 use Livewire\WithFileUploads;
 
 class ClientForm extends Form
@@ -105,10 +105,7 @@ class ClientForm extends Form
             ]);
 
         } catch (\Exception $e) {
-            return ([
-                'status' => 'error',
-                'message' => "Something went wrong. {$e->getMessage()}",
-            ]);
+            return $this->error($e);
         }
     }
 

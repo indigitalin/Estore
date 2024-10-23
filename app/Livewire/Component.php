@@ -5,9 +5,8 @@ use Masmerise\Toaster\Toaster;
 
 class Component extends BaseComponent
 {
-
     public function toasterAlert(array $response){
-       
+    
         if($response['status'] == 'success'){
             Toaster::success($response['message']);
         }
@@ -19,6 +18,5 @@ class Component extends BaseComponent
             return $this->redirect($response['redirect'], navigate: true);
         }
     }
-
 
 }

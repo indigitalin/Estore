@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin\Forms;
 
 use App\Models\Role;
-use Livewire\Form;
+use \App\Livewire\Form;
 use Illuminate\Validation\Rule;
 
 class RoleForm extends Form
@@ -38,10 +38,7 @@ class RoleForm extends Form
             ]);
 
         } catch (\Exception $e) {
-            return ([
-                'status' => 'error',
-                'message' => "Something went wrong. {$e->getMessage()}",
-            ]);
+            return $this->error($e);
         }
     }
 
