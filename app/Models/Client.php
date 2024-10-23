@@ -26,7 +26,8 @@ class Client extends Model
         'gst',
         'whatsapp',
         'website',
-        'logo'
+        'logo',
+        'postcode',
     ];
 
     public function user()

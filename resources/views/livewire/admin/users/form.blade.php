@@ -47,28 +47,34 @@
                                 <div class="w-full  p-2">
                                     <div class="mt-2">
                                         <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input placeholder="Email" wire:model="form.email" id="email"
-                                            class="mt-1 block w-full" type="text" />
+                                        <x-text-input :disabled="$user" placeholder="Email" wire:model="form.email"
+                                            id="email" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                        <p class="text-sm mt-2 flex items-center text-gray-500"> <box-icon
+                                                color="#777" size="16px" name='error-circle'
+                                                class="me-1"></box-icon> Email can
+                                            not be changed. This user have to login to change their email.</p>
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="password" :value="__('Password')" />
-                                        <x-password-input placeholder="Password" wire:model="form.password"
-                                            id="password" class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                @if (!$this->user)
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="password" :value="__('Password')" />
+                                            <x-password-input placeholder="Password" wire:model="form.password"
+                                                id="password" class="mt-1 block w-full" />
+                                            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                                        <x-password-input placeholder="Confirm password"
-                                            wire:model="form.confirm_password" id="confirm_password"
-                                            class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="confirm_password" :value="__('Confirm Password')" />
+                                            <x-password-input placeholder="Confirm password"
+                                                wire:model="form.confirm_password" id="confirm_password"
+                                                class="mt-1 block w-full" />
+                                            <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="phone" :value="__('Phone')" />
@@ -123,11 +129,13 @@
                             <div class="items-center w-full gap-3 justify-center">
                                 <div class="mb-4 flex items-center gap-3">
                                     <div class="rounded-full">
-                                        <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover" alt="user photo">
+                                        <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover"
+                                            alt="user photo">
                                     </div>
                                     <div>
                                         <span class="mb-1.5 font-medium text-black dark:text-white">Edit photo</span>
-                                        <label class="text-blue-600 cursor-pointer block" for="picture">Upload photo</label>
+                                        <label class="text-blue-600 cursor-pointer block" for="picture">Upload
+                                            photo</label>
                                     </div>
                                 </div>
                                 <div>

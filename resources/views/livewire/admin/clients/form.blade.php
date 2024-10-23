@@ -45,28 +45,33 @@
                                 <div class="w-full  p-2">
                                     <div class="mt-2">
                                         <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input placeholder="Email" wire:model="form.email" id="email"
-                                            class="mt-1 block w-full" type="text" />
+                                        <x-text-input :disabled="$client" placeholder="Email" wire:model="form.email"
+                                            id="email" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                        <p class="text-sm mt-2 flex items-center text-gray-500"> <box-icon
+                                                color="#777" size="16px" name='error-circle' class="me-1"></box-icon> Email can
+                                            not be changed. This user have to login to change their email.</p>
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="password" :value="__('Password')" />
-                                        <x-password-input placeholder="Password" wire:model="form.password"
-                                            id="password" class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                @if (!$client)
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="password" :value="__('Password')" />
+                                            <x-password-input placeholder="Password" wire:model="form.password"
+                                                id="password" class="mt-1 block w-full" />
+                                            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                                        <x-password-input placeholder="Confirm password"
-                                            wire:model="form.confirm_password" id="confirm_password"
-                                            class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="confirm_password" :value="__('Confirm Password')" />
+                                            <x-password-input placeholder="Confirm password"
+                                                wire:model="form.confirm_password" id="confirm_password"
+                                                class="mt-1 block w-full" />
+                                            <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="phone" :value="__('Phone')" />
@@ -86,7 +91,7 @@
                         </div>
 
                     </div>
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Company information
@@ -153,6 +158,46 @@
                                         <x-text-input placeholder="Website" wire:model="form.website" id="website"
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.website')" class="mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Company address
+                            </h3>
+                        </div>
+
+                        <div class="p-7 pt-0">
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="address" :value="__('Address')" />
+                                        <x-text-input placeholder="Address"
+                                            wire:model="form.address" id="address" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.address')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="city" :value="__('City')" />
+                                        <x-text-input placeholder="City"
+                                            wire:model="form.city" id="city" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.city')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="postcode" :value="__('Postcode')" />
+                                        <x-text-input placeholder="Postcode" x-mask="******"
+                                            wire:model="form.postcode" id="postcode"
+                                            class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.postcode')" class="mt-2" />
                                     </div>
                                 </div>
                             </div>

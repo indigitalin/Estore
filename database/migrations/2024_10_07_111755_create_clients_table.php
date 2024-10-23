@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
+            $table->string('postcode', 8)->nullable();
             $table->bigInteger('state_id')->unsigned()->nullable();
             $table->foreign('state_id')->references('id')->on('states')->onDelete("cascade");
             $table->bigInteger('country_id')->unsigned()->nullable();
