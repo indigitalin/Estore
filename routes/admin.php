@@ -16,6 +16,13 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
         Route::get('/{user}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 
+    Route::group(['prefix'=>'subscriptions', 'as' => 'subscriptions.','namespace' => '\App\Livewire\Admin\Subscriptions'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{subscription}', Show::class)->name('show');
+        Route::get('/{subscription}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+    
 
     // Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
     // Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
