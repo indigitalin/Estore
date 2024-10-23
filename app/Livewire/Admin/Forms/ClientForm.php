@@ -28,7 +28,6 @@ class ClientForm extends Form
     public string|null $role = null;
     public string|null $confirm_password = null;
     public string|null $phone_number = null;
-    public string|null $actual_picture = null;
     public ?UploadedFile $picture = null;
     public string|null $picture_url = null;
 
@@ -46,6 +45,9 @@ class ClientForm extends Form
     public string|null $whatsapp = null;
     public string|null $website = null;
 
+    public ?UploadedFile $logo = null;
+    public string|null $logo_url = null;
+
     public function setClient(?Client $client = null): void
     {
         $this->client = $client;
@@ -58,8 +60,6 @@ class ClientForm extends Form
             $this->phone_number = $client->user->phone;
             $this->email = $client->user->email;
             $this->status = $client->user->status;
-            // $this->picture = $client->user->picture;
-            $this->actual_picture = $client->user->picture;
             $this->picture_url = $client->user->picture_url;
 
             /**
@@ -75,6 +75,7 @@ class ClientForm extends Form
             $this->whatsapp_number = $client->whatsapp;
             $this->whatsapp = $client->whatsapp;
             $this->website = $client->website;
+            $this->logo_url = $client->logo_url;
         }
     }
 
@@ -151,6 +152,7 @@ class ClientForm extends Form
             'confirm_password' => [$this->client ? 'nullable' : 'required'],
             'status' => ['nullable'],
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
+            'logo' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
         ];
     }
 
