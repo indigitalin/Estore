@@ -12,9 +12,8 @@
     @endphp
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
-
     <div class="">
-        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $plan ? $plan->picture_url : asset('/default.png') }}')">
+        <form wire:submit.prevent="save">
             <div class="grid grid-cols-1 gap-8">
                 <div class="col-span-5 xl:col-span-3">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -109,54 +108,3 @@
             </div>
         </form>
     </div>
-
-    @push('scripts')
-        <script>
-            function imagePreviewer(defaultImage) {
-                return {
-                    imagePreview: defaultImage, // Initial preview URL from backend
-                    dragging: false, // State for drag events
-                    defaultImage: '123',
-                    fileChosen(event) {
-                        const file = event.target.files[0];
-
-                        // Validate file type
-                        const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
-                        if (!validTypes.includes(file.type)) {
-                            Toaster.warning('Invalid file type. Please select an image (PNG, WEBP, JPG)');
-                            event.target.value = ''; // Clear the input
-                            this.imagePreview = this.defaultImage; // Reset the preview
-                            return;
-                        }
-
-                        // Validate file size (max 2 MB)
-                        const maxSize = 2 * 1024 * 1024; // 2 MB
-                        if (file.size > maxSize) {
-                            Toaster.warning('File size exceeds 2 MB. Please select a smaller image.');
-                            event.target.value = ''; // Clear the input
-                            this.imagePreview = this.defaultImage; // Reset the preview
-                            return;
-                        }
-
-                        // If valid, read the file and set the preview
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            this.imagePreview = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    },
-                    handleDrop(event) {
-                        this.dragging = false; // Reset dragging state
-                        const files = event.dataTransfer.files;
-                        if (files.length > 0) {
-                            this.fileChosen({
-                                target: {
-                                    files
-                                }
-                            }); // Call fileChosen with dropped files
-                        }
-                    }
-                };
-            }
-        </script>
-    @endpush

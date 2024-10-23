@@ -6,7 +6,7 @@ use App\Models\Plan;
 
 class Show extends Component
 {
-    public $user;
+    public $plan;
 
     
     public \App\Livewire\Admin\Forms\SubscriptionForm $form;
@@ -14,8 +14,8 @@ class Show extends Component
     public function mount(Plan $plan = null): void
     {
         if ($plan && $plan->exists) {
-  
             $this->form->setSubscription($plan);
+        
         }
     }
 

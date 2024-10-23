@@ -20,8 +20,9 @@ class Form extends Component
 
     public function mount($plan = null): void
     {
+     
         if ($plan) {
-            Plan::findOrfail($plan);
+            $this->form->setSubscription($this->plan = Plan::findOrfail($plan));
         }
     }
 
