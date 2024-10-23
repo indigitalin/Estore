@@ -1,22 +1,14 @@
 <div class="">
     @php
-        $pageTitle          =   'Users';
-        $navigationLinks    =   [
-                                    ['text' => 'Dashboard', 'link' => route('admin.index')],
-                                    ['text' => 'Users', 'link' => '']
-                                ];
-        $pageDescription    = "Manage your users easily. Search, view, and edit staff information.";
-        $rightSideBtnText   = 'Create new user';
-        $rightSideBtnRoute  = route('admin.users.create');
+        $pageTitle = 'Users';
+        $navigationLinks = [['text' => 'Dashboard', 'link' => route('admin.index')], ['text' => 'Users', 'link' => '']];
+        $pageDescription = 'Manage your users easily. Search, view, and edit staff information.';
+        $rightSideBtnText = 'Create new user';
+        $rightSideBtnRoute = route('admin.users.create');
     @endphp
 
-    <x-admin-breadcrumb 
-        :pageTitle=$pageTitle
-        :navigationLinks=$navigationLinks 
-        :pageDescription=$pageDescription
-        :rightSideBtnText=$rightSideBtnText 
-        :rightSideBtnRoute=$rightSideBtnRoute
-    />
+    <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
+        :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
     <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="max-w-full overflow-x-auto">
@@ -41,25 +33,26 @@
                             Status
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                           
+
                         </th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @forelse ($users as $user)
-     
                         <tr>
                             <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0 ">
-                                        <img src="{{ $user->picture_url }}" class="rounded-full w-12 h-12 object-cover rounded-full" alt="Brand" />
+                                        <img src="{{ $user->picture_url }}"
+                                            class="rounded-full w-12 h-12 object-cover rounded-full" alt="Brand" />
                                     </div>
                                     <div class="">
                                         <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
                                             {{ $user->name }}
                                         </p>
-                                        <i class="text-black dark:text-white text-sm capitalize">{{ $user->role_name }}</i>
+                                        <i
+                                            class="text-black dark:text-white text-sm capitalize">{{ $user->role_name }}</i>
                                     </div>
 
                                 </div>
@@ -81,26 +74,28 @@
                                 <i class="text-black dark:text-white">{{ $user->last_login }}</i>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p role="button"  @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')"
+                                <p role="button"
+                                    @click="actionConfirmed({{ $user->id }}, 'statusUpdate', 'Are you sure want to change?')"
                                     class="inline-flex rounded-full {{ $user->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $user->status == 1 ? 'text-success' : 'text-danger' }} ">
                                     {{ $user->status_label }}
                                 </p>
-                 
+
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
-                                <div class="">
-                                    
-                                    <a x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto" role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
-                                        <box-icon color="#888" name='show'></box-icon>
-                                    </a>
-                                    <a x-data="{ tooltip: 'Edit user' }" x-tooltip="tooltip" role="button" wire:navigate href="{{ route('admin.users.edit', $user) }}">
-                                        <box-icon color="#888" name='edit'></box-icon>
-                                    </a>
+                                <div class="flex items-center">
+                                    <x-action-button x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto me-2"
+                                        role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
+                                        <box-icon size="20px" color="#888" name='show'></box-icon>
+                                    </x-action-button>
+                                    <x-action-button x-data="{ tooltip: 'Edit user' }" x-tooltip="tooltip" role="button" class="me-2"
+                                        wire:navigate href="{{ route('admin.users.edit', $user) }}">
+                                        <box-icon size="20px" color="#888" name='edit'></box-icon>
+                                    </x-action-button>
 
-                                    <span x-data="{ tooltip: 'Delete user' }" x-tooltip="tooltip" role="button"
+                                    <x-action-button x-data="{ tooltip: 'Delete user' }" x-tooltip="tooltip" role="button"
                                         @click="confirmAction({{ $user->id }}, 'destroy', 'Are you sure want to delete?')">
-                                        <box-icon  color="#888" name='trash'></box-icon>
-                                    </span>
+                                        <box-icon size="20px" color="#888" name='trash'></box-icon>
+                                    </x-action-button>
                                 </div>
                             </td>
                         </tr>
@@ -116,7 +111,7 @@
                 </tbody>
             </table>
 
-            
+
         </div>
     </div>
     <div class="mt-4">
