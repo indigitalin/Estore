@@ -48,9 +48,11 @@
                                         <x-text-input :disabled="$client" placeholder="Email" wire:model="form.email"
                                             id="email" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                        @if($client)
                                         <p class="text-sm mt-2 flex items-center text-gray-500"> <box-icon
-                                                color="#777" size="16px" name='error-circle' class="me-1"></box-icon> Email can
-                                            not be changed. This user have to login to change their email.</p>
+                                            color="#777" size="16px" name='error-circle' class="me-1"></box-icon> Email can
+                                        not be changed. This user have to login to change their email.</p>
+                                        @endif
                                     </div>
                                 </div>
                                 @if (!$client)

@@ -9,7 +9,7 @@
                 <li>
                     <a class="font-medium" href="index.html">Dashboard /</a>
                 </li>
-                <li class="font-medium text-primary">Roles</li>
+                <li class="font-medium text-primary">Clients</li>
             </ol>
         </nav>
     </div>
