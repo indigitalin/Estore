@@ -10,7 +10,7 @@ class Client extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    use \App\Helper\Upload;
     protected $fillable = [
         'user_id',
         'business_name',
@@ -26,6 +26,7 @@ class Client extends Model
         'gst',
         'whatsapp',
         'website',
+        'logo'
     ];
 
     public function user()
@@ -41,6 +42,21 @@ class Client extends Model
     public function getLogoAttribute($logo)
     {
         return $logo ?: 'default.png';
+    }
+
+    public function setLogoAttribute($logo)
+    {
+        /**
+         * Upload new image and remove current picture
+         * Dont worry about default.png
+         */
+        if ($logo = $this->uploadImage(file: $logo, path: 'logos', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
+            if ($this->attributes['logo']) {
+                // Delete the current logo
+                $this->removeFile($this->attributes['logo']);
+            }
+            $this->attributes['logo'] = $logo;
+        }
     }
 
     public function getLogoUrlAttribute($logo)

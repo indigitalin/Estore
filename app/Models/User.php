@@ -133,15 +133,14 @@ class User extends Authenticatable
     public function setPictureAttribute($picture)
     {
         /**
-         * Remove current picture
+         * Upload new image and remove current picture
          * Dont worry about default.png
          */
-        if ($this->attributes['picture']) {
-            // Delete the current picture
-            $this->removeFile($this->attributes['picture']);
-        }
-
         if ($picture = $this->uploadImage(file: $picture, path: 'avatars', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
+            if ($this->attributes['picture']) {
+                // Delete the current picture
+                $this->removeFile($this->attributes['picture']);
+            }
             $this->attributes['picture'] = $picture;
         }
     }

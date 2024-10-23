@@ -160,7 +160,7 @@ class ClientForm extends Form
      */
     protected function updateClient(Client $client): void
     {
-        $client->update($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website']));
+        $client->update($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo']));
 
         /**
          * Update client user
@@ -188,6 +188,6 @@ class ClientForm extends Form
         $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']) + [
             'password' => $this->password, // Password is hashed by mutator
         ]);
-        $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website']));
+        $this->client = $user->client()->create($this->only(['business_name', 'industry', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo']));
     }
 }

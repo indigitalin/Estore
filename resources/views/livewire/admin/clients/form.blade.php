@@ -14,7 +14,7 @@
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
     <div class="">
-        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $client ? $client->user->picture_url : asset('/default.png') }}')">
+        <form wire:submit.prevent="save">
             <div class="grid grid-cols-5 gap-8">
                 <div class="col-span-5 xl:col-span-3">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
@@ -150,8 +150,7 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="website" :value="__('Website')" />
-                                        <x-text-input placeholder="Website"
-                                            wire:model="form.website" id="website"
+                                        <x-text-input placeholder="Website" wire:model="form.website" id="website"
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.website')" class="mt-2" />
                                     </div>
@@ -175,47 +174,99 @@
                     </div>
                 </div>
                 <div class="col-span-5 xl:col-span-2">
-                    <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark sticky top-[120px]">
-                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                            <h3 class="font-medium text-black dark:text-white">
-                                Profile photo
-                            </h3>
-                        </div>
-                        <div class="p-7 pt-0 mt-4">
-                            <div class="items-center w-full gap-3 justify-center">
-                                <div class="mb-4 flex items-center gap-3">
-                                    <div class="rounded-full">
-                                        <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover"
-                                            alt="client photo">
-                                    </div>
-                                    <div>
-                                        <span class="mb-1.5 font-medium text-black dark:text-white">Edit photo</span>
-                                        <label class="text-blue-600 cursor-pointer block" for="picture">Upload
-                                            photo</label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="FileUpload" @dragover.prevent @dragleave="dragging = false"
-                                        @drop.prevent="handleDrop($event)"
-                                        class="relative block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
-                                        <input @change="fileChosen($event)" type="file" wire:model="form.picture"
-                                            id="picture" accept="image/jpeg, image/png, image/webp, image/jpg"
-                                            class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
-                                        <div class="flex flex-col items-center justify-center space-y-3">
-                                            <span
-                                                class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                                                <box-icon name='upload' color="black"></box-icon>
-                                            </span>
-                                            <p class="text-sm font-medium">
-                                                <span class="text-primary">Click to upload</span>
-                                                or drag and drop
-                                            </p>
-                                            <p class="mt-1.5 text-sm font-medium">
-                                                PNG, JPG, WEBP (max 2mb)
-                                            </p>
+                    <div class="sticky top-[110px]">
+                        <div x-data="imagePreviewer('{{ $client ? $client->user->picture_url : asset('/default.png') }}')"
+                            class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark mb-7">
+                            <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                                <h3 class="font-medium text-black dark:text-white">
+                                    Profile photo
+                                </h3>
+                            </div>
+                            <div class="p-7 pt-0 mt-4">
+                                <div class="items-center w-full gap-3 justify-center">
+                                    <div class="mb-4 flex items-center gap-3">
+                                        <div class="rounded-full">
+                                            <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover"
+                                                alt="client photo">
+                                        </div>
+                                        <div>
+                                            <span class="mb-1.5 font-medium text-black dark:text-white">Edit
+                                                photo</span>
+                                            <label class="text-blue-600 cursor-pointer block" for="picture">Upload
+                                                photo</label>
                                         </div>
                                     </div>
-                                    <x-input-error :messages="$errors->get('form.picture')" class="mt-2" />
+                                    <div>
+                                        <div @dragover.prevent @dragleave="dragging = false"
+                                            @drop.prevent="handleDrop($event)"
+                                            class="relative block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
+                                            <input @change="fileChosen($event)" type="file"
+                                                wire:model="form.picture" id="picture"
+                                                accept="image/jpeg, image/png, image/webp, image/jpg"
+                                                class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
+                                            <div class="flex flex-col items-center justify-center space-y-3">
+                                                <span
+                                                    class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                                                    <box-icon name='upload' color="black"></box-icon>
+                                                </span>
+                                                <p class="text-sm font-medium">
+                                                    <span class="text-primary">Click to upload</span>
+                                                    or drag and drop
+                                                </p>
+                                                <p class="mt-1.5 text-sm font-medium">
+                                                    PNG, JPG, WEBP (max 2mb)
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('form.picture')" class="mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div x-data="imagePreviewer('{{ $client ? $client->logo_url : asset('/default.png') }}')"
+                            class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                            <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                                <h3 class="font-medium text-black dark:text-white">
+                                    Company logo
+                                </h3>
+                            </div>
+                            <div class="p-7 pt-0 mt-4">
+                                <div class="items-center w-full gap-3 justify-center">
+                                    <div class="mb-4 flex items-center gap-3">
+                                        <div class="rounded-full">
+                                            <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover"
+                                                alt="client photo">
+                                        </div>
+                                        <div>
+                                            <span class="mb-1.5 font-medium text-black dark:text-white">Edit
+                                                logo</span>
+                                            <label class="text-blue-600 cursor-pointer block" for="logo">Upload
+                                                logo</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div @dragover.prevent @dragleave="dragging = false"
+                                            @drop.prevent="handleDrop($event)"
+                                            class="relative block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
+                                            <input @change="fileChosen($event)" type="file" wire:model="form.logo"
+                                                id="logo" accept="image/jpeg, image/png, image/webp, image/jpg"
+                                                class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
+                                            <div class="flex flex-col items-center justify-center space-y-3">
+                                                <span
+                                                    class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                                                    <box-icon name='upload' color="black"></box-icon>
+                                                </span>
+                                                <p class="text-sm font-medium">
+                                                    <span class="text-primary">Click to upload</span>
+                                                    or drag and drop
+                                                </p>
+                                                <p class="mt-1.5 text-sm font-medium">
+                                                    PNG, JPG, WEBP (max 2mb)
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('form.logo')" class="mt-2" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
