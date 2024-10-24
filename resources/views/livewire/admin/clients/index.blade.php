@@ -62,7 +62,7 @@
                                             {{ $client->business_name }}
                                         </p>
                                         <i
-                                            class="text-black dark:text-white text-sm capitalize">{{ $client->industry }}</i>
+                                            class="text-black dark:text-white text-sm capitalize">{{ $client->industry_name }}</i>
                                     </div>
 
                                 </div>

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Industry extends Model
 {
     use HasFactory;
+
+    public function scopeActive($q){
+        return $q->whereStatus(1);
+    }
 }

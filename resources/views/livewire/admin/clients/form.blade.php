@@ -106,9 +106,9 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="last_name" :value="__('Industry')" />
-                                        <x-text-input placeholder="Industry" wire:model="form.industry" id="last_name"
-                                            class="mt-1 block w-full" type="text" />
-                                        <x-input-error :messages="$errors->get('form.industry')" class="mt-2" />
+                                        <x-select id="industry_id" wire:model="form.industry_id" :options="$industries"
+                                            :selected="$this->form->industry_id" />
+                                        <x-input-error :messages="$errors->get('form.industry_id')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
