@@ -14,5 +14,8 @@ class ModulePlan extends Model
         'module_id',
     ];
     
+    public function module_details(){
+        return $this->hasOne(Module::class,'id','module_id');
+    }
 
 }

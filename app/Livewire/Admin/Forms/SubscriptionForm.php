@@ -30,7 +30,7 @@ class SubscriptionForm extends Form
         $this->description = $plan->description;
         $this->popular  = $plan->popular;
         $this->validity = $plan->validity;
-        $this->modules  = $plan->plan_modules->pluck('id')->toArray();
+        $this->modules  = $plan->plan_modules->pluck('module_id')->toArray();
     }
 
     public function save()
