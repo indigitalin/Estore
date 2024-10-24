@@ -63,9 +63,13 @@ class Client extends Model
     public function getLogoUrlAttribute($logo)
     {
         if ($this->logo == 'default.png') {
-            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->business_name);
+            return $this->default_logo_url;
         }
         return file_url($this->logo);
+    }
+
+    public function getDefaultLogoUrlAttribute(){
+        return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->business_name);
     }
 
     public function industry(){

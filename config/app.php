@@ -127,4 +127,8 @@ return [
         'Toaster' => Masmerise\Toaster\Toaster::class,
     ],
 
+    /**
+     * Default country id
+     */
+    'country' => env('DEFUALT_COUNTRY')
 ];

@@ -53,7 +53,7 @@
                                     <x-text-input placeholder="Your phone number" x-mask="99999 99999"
                                         wire:model="phone_number" id="phone_number" class="block mt-1 w-full"
                                         type="tel" name="phone_number" required />
-                                        <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                 </div>
                             </div>
                         </div>
@@ -79,20 +79,23 @@
                     </h3>
                 </div>
                 <div class="p-7 pt-0 mt-4">
-                    <form wire:submit="updateAvatar" x-data="imagePreviewer">
-                        <div class="mb-4 flex items-center gap-3">
+                    <form wire:submit="updateAvatar">
+                        {{-- <div class="mb-4 flex items-center gap-3">
                             <div class="rounded-full">
-                                <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover" src="{{ $this->picture_url }}" alt="user photo">
+                                <img :src="imagePreview" class="w-15 h-15 rounded-full object-cover"
+                                    src="{{ $this->picture_url }}" alt="user photo">
                             </div>
                             <div>
                                 <span class="mb-1.5 font-medium text-black dark:text-white">Edit your photo</span>
                                 <label class="text-blue-600 cursor-pointer block" for="picture">Upload photo</label>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div id="FileUpload" @dragover.prevent @dragleave="dragging = false" @drop.prevent="handleDrop($event)"
+                        {{-- <div id="FileUpload" @dragover.prevent @dragleave="dragging = false"
+                            @drop.prevent="handleDrop($event)"
                             class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
-                            <input @change="fileChosen($event)" type="file" name="picture" wire:model="picture" id="picture" accept="image/jpeg, image/png, image/webp, image/jpg" 
+                            <input @change="fileChosen($event)" type="file" name="picture" wire:model="picture"
+                                id="picture" accept="image/jpeg, image/png, image/webp, image/jpg"
                                 class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none">
                             <div class="flex flex-col items-center justify-center space-y-3">
                                 <span
@@ -107,8 +110,10 @@
                                     PNG, JPG, WEBP (max 2mb)
                                 </p>
                             </div>
-                        </div>
-                        <x-input-error :messages="$errors->get('picture')" class="mt-2" />
+                        </div> --}}
+
+                        <x-image-upload :default="$this->user->default_picture_url" :uploaded="$this->picture_url" :name="'picture'"></x-image-upload>
+
                         <div class="flex flex-wrap mt-5">
                             <a href="" wire:navigate class="flex ms-auto">
                                 <x-secondary-button type="button" class="text-center  me-2 h-100">
@@ -125,49 +130,3 @@
         </div>
     </div>
 </div>
-@push('scripts')
-<script>
-    function imagePreviewer() {
-        return {
-            imagePreview: '{!! $this->picture_url !!}', // Initial preview URL from backend
-            dragging: false, // State for drag events
-            defaultImage : '{!! $this->picture_url !!}',
-            fileChosen(event) {
-                const file = event.target.files[0];
-
-                // Validate file type
-                const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
-                if (!validTypes.includes(file.type)) {
-                    Toaster.warning('Invalid file type. Please select an image (PNG, WEBP, JPG)');
-                    event.target.value = ''; // Clear the input
-                    this.imagePreview = this.defaultImage; // Reset the preview
-                    return;
-                }
-
-                // Validate file size (max 2 MB)
-                const maxSize = 2 * 1024 * 1024; // 2 MB
-                if (file.size > maxSize) {
-                    Toaster.warning('File size exceeds 2 MB. Please select a smaller image.');
-                    event.target.value = ''; // Clear the input
-                    this.imagePreview = this.defaultImage; // Reset the preview
-                    return;
-                }
-
-                // If valid, read the file and set the preview
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.imagePreview = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            },
-            handleDrop(event) {
-                this.dragging = false; // Reset dragging state
-                const files = event.dataTransfer.files;
-                if (files.length > 0) {
-                    this.fileChosen({ target: { files } }); // Call fileChosen with dropped files
-                }
-            }
-        };
-    }
-</script>
-@endpush

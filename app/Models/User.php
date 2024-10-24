@@ -80,9 +80,13 @@ class User extends Authenticatable
     public function getPictureUrlAttribute($picture)
     {
         if ($this->picture == 'default.png') {
-            return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
+            return $this->default_avatar_url;
         }
         return file_url($this->picture);
+    }
+
+    public function getDefaultPictureUrlAttribute(){
+        return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
     }
 
     public function getRoleNameAttribute()

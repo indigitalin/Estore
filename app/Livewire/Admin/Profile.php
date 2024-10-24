@@ -14,6 +14,7 @@ class Profile extends Component
     use \App\Helper\Upload;
     use WithFileUploads;
 
+    public User $user;
     public string $firstname;
     public string $lastname;
     public string|null $phone_number;
@@ -24,7 +25,7 @@ class Profile extends Component
 
     public function mount(): void
     {
-        $user = auth()->user();
+        $this->user = $user = auth()->user();
         $this->firstname = $user->firstname;
         $this->lastname = $user->lastname;
         $this->phone_number = $user->phone;
