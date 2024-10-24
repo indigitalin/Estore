@@ -48,18 +48,26 @@
                             </td>
 
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <div class="flex flex-col">
-                                    <span>
-                                        <i class="text-black dark:text-white">{{ $plan->validity }}</i>
-                                    </span>
+                                <div class="flex items-center gap-3">
+                                    <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
+                                        {{ $plan->validity }}
+                                    </p>
                                 </div>
                             </td>
 
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <i class="text-black dark:text-white">{{ $plan->amount }}</i>
+                                <div class="flex items-center gap-3">
+                                    <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
+                                        {{ $plan->amount }}
+                                    </p>
+                                </div>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <i class="text-black dark:text-white">{{ $plan->last_modified }}</i>
+                                <div class="flex items-center gap-3">
+                                    <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
+                                        {{ $plan->last_modified }}
+                                    </p>
+                                </div>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <p role="button"

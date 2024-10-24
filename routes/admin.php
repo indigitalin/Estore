@@ -9,6 +9,14 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('/profile', \App\Livewire\Admin\Profile::class)->name('profile');
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
 
+
+
+    Route::group(['prefix'=>'logs', 'as' => 'logs.','namespace' => '\App\Livewire\Admin\Logs'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/{log}', Show::class)->name('show');
+        // Route::get('/delete-all',)
+    });
+
     Route::group(['prefix'=>'users', 'as' => 'users.','namespace' => '\App\Livewire\Admin\Users'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
