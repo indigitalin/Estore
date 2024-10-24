@@ -11,9 +11,10 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    const SUPER_ADMIN_ROLE_ID = 1;
-    const CLIENT_ADMIN_ROLE_ID = 2;
-
+    const SUPER_ADMIN_ROLE_ID       = 1;
+    const SUPER_ADMIN_USER_ROLE_ID  = 2;
+    const CLIENT_ADMIN_ROLE_ID      = 3;
+    const CLIENT_ADMIN_ROLE_USER_ID = 4;
     /**
      * Ignore user role names from user when getting user.
      */
