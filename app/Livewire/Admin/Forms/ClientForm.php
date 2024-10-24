@@ -109,7 +109,6 @@ class ClientForm extends Form
             ]);
 
         } catch (\Exception $e) {
-            dd($e);
             return $this->error($e);
         }
     }
