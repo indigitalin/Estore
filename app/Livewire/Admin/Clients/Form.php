@@ -46,6 +46,8 @@ class Form extends Component
     {
         return view('livewire.admin.clients.form')->withCountries(
             \App\Models\Country::pluck('name','id')
+        )->withIndustries(
+            \App\Models\Industry::active()->pluck('name', 'id')
         );
     }
 

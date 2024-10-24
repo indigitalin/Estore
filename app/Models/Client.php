@@ -14,7 +14,7 @@ class Client extends Model
     protected $fillable = [
         'user_id',
         'business_name',
-        'industry',
+        'industry_id',
         'description',
         'address',
         'city',
@@ -66,5 +66,13 @@ class Client extends Model
             return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->business_name);
         }
         return file_url($this->logo);
+    }
+
+    public function industry(){
+        return $this->belongsTo(Industry::class);
+    }
+
+    public function getIndustryNameAttribute(){
+        return $this->industry->name ?? 'Other';
     }
 }

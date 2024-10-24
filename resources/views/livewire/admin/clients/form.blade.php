@@ -85,21 +85,14 @@
                                 </div>
                             </div>
 
-                            <div class="mt-5">
-                                <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
-                                    :value="1" :checked="$client && $client->status == '1' ? true : false" />
-                                <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
-                            </div>
                         </div>
-
                     </div>
-                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">
+                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
                                 Company information
                             </h3>
                         </div>
-
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/1 p-2">
@@ -113,9 +106,9 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="last_name" :value="__('Industry')" />
-                                        <x-text-input placeholder="Industry" wire:model="form.industry" id="last_name"
-                                            class="mt-1 block w-full" type="text" />
-                                        <x-input-error :messages="$errors->get('form.industry')" class="mt-2" />
+                                        <x-select id="industry_id" wire:model="form.industry_id" :options="$industries"
+                                            :selected="$this->form->industry_id" />
+                                        <x-input-error :messages="$errors->get('form.industry_id')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
@@ -163,17 +156,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
-                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                            <h3 class="font-medium text-black dark:text-white">
-                                Company address
-                            </h3>
-                        </div>
-
-                        <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
@@ -218,6 +200,12 @@
                                         <x-input-error :messages="$errors->get('form.state_id')" class="mt-2" />
                                     </div>
                                 </div>
+                                
+                            </div>
+                            <div class="mt-5">
+                                <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
+                                    :value="1" :checked="$client && $client->status == '1' ? true : false" />
+                                <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
                             <div class="mt-5 flex">
                                 <x-secondary-button wire:navigate href="{{ route('admin.clients.index') }}"
