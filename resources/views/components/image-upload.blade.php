@@ -4,12 +4,13 @@
         <input hidden @change="fileChosen($event)" type="file" name="{{ $name }}"
             wire:model="{{ $name }}" id="{{ $name }}"
             accept="image/jpeg, image/png, image/webp, image/jpg" />
-
+        <input hidden wire:model="{{ $name }}_removed">
         <div class="w-full cursor-pointer relative" @dragover.prevent @dragleave="dragging = false"
             @drop.prevent="handleDrop($event)">
             <img class="w-full h-60 object-cover" :src="imagePreview" alt="">
             <label class="block" for="{{ $name }}">
-                <div class="text-center cursor-pointer bg-gray-700/20 absolute start-0 top-0 w-full h-full flex items-center">
+                <div
+                    class="text-center cursor-pointer bg-gray-700/20 absolute start-0 top-0 w-full h-full flex items-center">
                     <div class="m-auto text-center text-white">
                         <div class="">Upload {{ $name }}</div>
                         <box-icon name='upload' color="#fff"></box-icon>
@@ -17,7 +18,7 @@
                 </div>
             </label>
             <div x-show="selected" class="absolute bottom-0 end-0 p-2 z-50">
-                <div @click="removeImage()"
+                <div @click="removeImage(); $wire.set('{{ $name }}_removed', '1')"
                     class="flex items-center justify-center w-9 h-9 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg toggle-full-view hover:bg-gray-100 hover:text-indigo-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     <box-icon name='trash'></box-icon>
                 </div>
@@ -39,8 +40,9 @@
                     imagePreview: uploadedImage, // Initial preview URL from backend
                     dragging: false, // State for drag events
                     uploadedImage: uploadedImage,
-                    defaultImage : defaultImage,
+                    defaultImage: defaultImage,
                     selected: defaultImage != uploadedImage,
+                    removed: false,
                     removeImage() {
                         this.selected = false; // Reset selected state
                         this.imagePreview = this.defaultImage; // Reset preview image

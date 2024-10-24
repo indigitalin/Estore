@@ -22,6 +22,7 @@ class Profile extends Component
     public string $email;
     public string|null $picture_url;
     public ?UploadedFile $picture = null;
+    public int $picture_removed = 0;
 
     public function mount(): void
     {
@@ -66,12 +67,14 @@ class Profile extends Component
 
     public function updateAvatar(){
         $validated = $this->validate([
-            'picture' => 'bail|required|image|mimes:webp,jpg,png,jpeg|max:2048'
+            'picture' => 'bail|required_if:picture_removed,0|nullable|image|mimes:webp,jpg,png,jpeg|max:2048'
+        ],[
+            'picture.required_if' => 'Please select an image',
         ]);
         /**
          * Picture upload is handled by mutator
          */
-        auth()->user()->update($this->only(['picture']));
+        auth()->user()->updatePicture($this->picture, (int) $this->picture_removed);
         \Toaster::success(__("Profile image has been updated successfully."));
         $this->dispatch('success');
     }

@@ -111,8 +111,7 @@
                                 </p>
                             </div>
                         </div> --}}
-
-                        <x-image-upload :default="$this->user->default_picture_url" :uploaded="$this->picture_url" :name="'picture'"></x-image-upload>
+                        <x-image-upload :default="$this->user->default_picture_url" :uploaded="$this->user->picture_url" :name="'picture'"></x-image-upload>
 
                         <div class="flex flex-wrap mt-5">
                             <a href="" wire:navigate class="flex ms-auto">

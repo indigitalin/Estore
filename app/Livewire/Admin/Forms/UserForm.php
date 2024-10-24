@@ -26,6 +26,7 @@ class UserForm extends Form
     public string|null $phone_number = null;
     public ?UploadedFile $picture = null;
     public string|null $picture_url = null;
+    public int $picture_removed = 0;
 
     public function setUser(?User $user = null): void
     {
@@ -53,20 +54,21 @@ class UserForm extends Form
              */
             if (!$this->user) {
                 $this->user = User::create(
-                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture']) + [
+                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status']) + [
                         'parent_id' => auth()->user()->employer_id, // Set current user employer as parent id
                     ]
                 );
             } else {
                 $this->user->update(
-                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status', 'picture'])
+                    $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])
                 );
             }
             /**
              * Sync user role.
              */
             $this->user->roles()->sync($this->role);
-
+            $this->user->updatePicture($this->picture, (int) $this->picture_removed);
+            
             return ([
                 'status' => 'success',
                 'message' => $this->user->wasRecentlyCreated ? 'User created successfully.' : 'User updated successfully.',

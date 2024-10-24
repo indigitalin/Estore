@@ -52,6 +52,8 @@ class ClientForm extends Form
     public ?UploadedFile $logo = null;
     public string|null $logo_url = null;
 
+    public int $picture_removed = 0;
+    public int $logo_removed = 0;
     public function setClient(?Client $client = null): void
     {
         $this->client = $client;
@@ -101,6 +103,9 @@ class ClientForm extends Form
                 // Create new user and client
                 $this->createClient();
             }
+
+            $this->client->updateLogo($this->logo, (int) $this->logo_removed);
+            $this->client->user->updatePicture($this->picture, (int) $this->picture_removed);
 
             return ([
                 'status' => 'success',
@@ -175,13 +180,13 @@ class ClientForm extends Form
      */
     protected function updateClient(Client $client): void
     {
-        $client->update($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode', 'state_id', 'country_id']));
+        $client->update($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'address', 'city', 'postcode', 'state_id', 'country_id']));
 
         /**
          * Update client user
          * Picture upload is handled by mutator
          */
-        $client->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']));
+        $client->user->update($this->only(['firstname', 'lastname', 'phone', 'email', 'status']));
 
         /**
          * Update password only if requested to update
@@ -200,9 +205,9 @@ class ClientForm extends Form
         /**
          * Picture upload is handled by mutator
          */
-        $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status', 'picture']) + [
+        $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status']) + [
             'password' => $this->password, // Password is hashed by mutator
         ]);
-        $this->client = $user->client()->create($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'logo', 'address', 'city', 'postcode', 'state_id', 'country_id']));
+        $this->client = $user->client()->create($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'address', 'city', 'postcode', 'state_id', 'country_id']));
     }
 }

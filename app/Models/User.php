@@ -80,7 +80,7 @@ class User extends Authenticatable
     public function getPictureUrlAttribute($picture)
     {
         if ($this->picture == 'default.png') {
-            return $this->default_avatar_url;
+            return $this->default_picture_url;
         }
         return file_url($this->picture);
     }
@@ -134,18 +134,24 @@ class User extends Authenticatable
         $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($password);
     }
 
-    public function setPictureAttribute($picture)
-    {
+    public function updatePicture($file, int $isRemoved){
         /**
-         * Upload new image and remove current picture
+         * If action is to remove picture, delete picture and set picture as null
+         */
+        if($isRemoved){
+            $this->removeFile($this->picture);
+            $this->update(['picture' => null]);
+        }
+        /**
+         * Upload new picture and remove current picture
          * Dont worry about default.png
          */
-        if ($picture = $this->uploadImage(file: $picture, path: 'avatars', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
+        else if ($picture = $this->uploadImage(file: $file, path: 'avatars', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
             if (($this->attributes['picture'] ?? null)) {
                 // Delete the current picture
-                $this->removeFile($this->attributes['picture']);
+                $this->removeFile($this->picture);
             }
-            $this->attributes['picture'] = $picture;
+            $this->update(['picture' => $picture]);
         }
     }
 }

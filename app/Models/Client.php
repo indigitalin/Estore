@@ -45,18 +45,24 @@ class Client extends Model
         return $logo ?: 'default.png';
     }
 
-    public function setLogoAttribute($logo)
-    {
+    public function updateLogo($file, int $isRemoved){
         /**
-         * Upload new image and remove current picture
+         * If action is to remove logo, delete logo and set logo as null
+         */
+        if($isRemoved){
+            $this->removeFile($this->logo);
+            $this->update(['logo' => null]);
+        }
+        /**
+         * Upload new logo and remove current logo
          * Dont worry about default.png
          */
-        if ($logo = $this->uploadImage(file: $logo, path: 'logos', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
-            if ($this->attributes['logo']) {
+        else if ($logo = $this->uploadImage(file: $file, path: 'logos', maxHeight: 200, maxWidth: 200, ratio: '1:1')) {
+            if (($this->attributes['logo'] ?? null)) {
                 // Delete the current logo
-                $this->removeFile($this->attributes['logo']);
+                $this->removeFile($this->logo);
             }
-            $this->attributes['logo'] = $logo;
+            $this->update(['logo' => $logo]);
         }
     }
 
