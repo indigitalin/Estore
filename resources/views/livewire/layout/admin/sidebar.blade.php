@@ -221,6 +221,14 @@
                                         Responsibilities
                                     </a>
                                 </li>
+                                
+                                <li>
+                                    <a wire:navigate
+                                        class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('admin.logs.index') }}" :class="page === 'logs' && '!text-white'">
+                                        Error Logs
+                                    </a>
+                                </li>
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"

@@ -36,6 +36,7 @@ x-transition:leave-end="opacity-0" x-data="{ open: false, modelId: null, action:
             }));
         }
         function actionConfirmed(modelId, action) {
+            
             Livewire.dispatch(action, {
                 id: modelId
             });
