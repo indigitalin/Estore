@@ -11,6 +11,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    const SUPER_ADMIN_ROLE_ID = 1;
+    const CLIENT_ADMIN_ROLE_ID = 2;
+    
     use HasFactory, Notifiable;
     use SoftDeletes;
     use HasRoles;

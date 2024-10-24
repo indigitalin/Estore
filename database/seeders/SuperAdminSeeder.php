@@ -23,12 +23,17 @@ class SuperAdminSeeder extends Seeder
                 'email_verified_at' => now(),
                 'status' => '1',
             ]);
-        $role = Role::firstOrcreate(
+        $superAdmin = Role::firstOrcreate(
             ['name' => 'super admin'],
             ['guard_name' => 'web']
         );
 
-        $role->givePermissionTo(Permission::all());
-        $user->roles()->sync($role->id);
+        $clientAdmin = Role::firstOrcreate(
+            ['name' => 'client admin'],
+            ['guard_name' => 'web']
+        );
+
+        $superAdmin->givePermissionTo(Permission::all());
+        $user->roles()->sync($superAdmin->id);
     }
 }

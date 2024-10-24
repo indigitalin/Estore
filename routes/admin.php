@@ -4,17 +4,14 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'dashboardAccess:super admin'])->prefix('/admin')->name('admin.')->group(function () {
     Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('index');
     Route::get('/profile', \App\Livewire\Admin\Profile::class)->name('profile');
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
 
-
-
     Route::group(['prefix'=>'logs', 'as' => 'logs.','namespace' => '\App\Livewire\Admin\Logs'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/{log}', Show::class)->name('show');
-        // Route::get('/delete-all',)
     });
 
     Route::group(['prefix'=>'users', 'as' => 'users.','namespace' => '\App\Livewire\Admin\Users'], function(){
@@ -30,10 +27,6 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
         Route::get('/{plan}', Show::class)->name('show');
         Route::get('/{plan}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
-    
-
-    // Route::get('/clients', \App\Livewire\Admin\Clients::class)->name('clients.index');
-    // Route::get('products', \App\Livewire\Admin\Products\ProductList::class)->name('products');
 
     Route::group(['prefix'=>'roles', 'as' => 'roles.','namespace' => '\App\Livewire\Admin\Roles'], function(){
         Route::get('/', Index::class)->name('index');
@@ -48,5 +41,4 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
         Route::get('/{client}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 
-    // Route::get('/roles', \App\Livewire\Admin\Roles\Role::class)->name('roles.index');
 });

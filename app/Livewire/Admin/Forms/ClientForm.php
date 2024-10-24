@@ -208,6 +208,7 @@ class ClientForm extends Form
         $user = User::create($this->only(['firstname', 'lastname', 'phone', 'email', 'status']) + [
             'password' => $this->password, // Password is hashed by mutator
         ]);
+        $user->roles()->sync(User::CLIENT_ADMIN_ROLE_ID);
         $this->client = $user->client()->create($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'address', 'city', 'postcode', 'state_id', 'country_id']));
     }
 }

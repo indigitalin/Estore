@@ -25,7 +25,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 'last_login' => now(),
             ]);
         \Toaster::success(__('Hello :name, welcome back!', ['name' => auth()->user()->name]));
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('index', absolute: false), navigate: true);
     }
 }; ?>
 
