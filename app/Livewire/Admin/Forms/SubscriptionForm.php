@@ -14,7 +14,7 @@ class SubscriptionForm extends Form
     public ?Plan $plan = null;
     public string|null $name = null;
     public string|null $amount = null;
-    public string|null $status;
+    public int|null $status = 0 ;
     public string|null $description = null;
     public string|null $popular = null;
     public string|null $validity = null;
@@ -30,13 +30,12 @@ class SubscriptionForm extends Form
         $this->description = $plan->description;
         $this->popular  = $plan->popular;
         $this->validity = $plan->validity;
-        $this->modules  = $plan->plan_modules->pluck('id')->toArray();
+        $this->modules  = $plan->plan_modules->pluck('module_id')->toArray();
     }
 
     public function save()
     {
         $this->validate();
-
         try {
             /**
              * Create plan if action is to create

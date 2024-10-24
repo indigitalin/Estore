@@ -61,7 +61,7 @@
                                         <x-input-error :messages="$errors->get('form.validity')" class="mt-2" />
                                     </div>
                                 </div>
-                                <div class="w-full mt-4 border-b-2">
+                                <div class="w-full mt-4 border-b-2 p-2">
                                     <x-input-label :value="__('Modules')" />
                                     <div class="flex flex-wrap -mx-2 gap-5">
                                         @foreach ($modules as $section => $items)
@@ -74,23 +74,23 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                
-                            </div>
-                            <div class=" gap-5 -mx-2">
-                                <div class="mt-5">
-                                    <x-toggle-switch id="popular-toggle" wire:model="form.popular" :label="__('Popular')"
-                                        :value="1" :checked="$plan && $plan->popular == '1' ? true : false" />
-                                    <x-input-error :messages="$errors->get('form.popular')" class="mt-2" />
+                                <div class=" w-full p-2 gap-5 -mx-2 p-2">
+                                    <div class="mt-5 p-2">
+                                        <x-toggle-switch id="popular-toggle" wire:model="form.popular" :label="__('Popular')"
+                                            :value="1" :checked="$plan && $plan->popular == '1' ? true : false" />
+                                        <x-input-error :messages="$errors->get('form.popular')" class="mt-2" />
+                                    </div>
+                                    <div class="mt-5 p-2">
+                                        <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
+                                            :value="1" :checked="$plan && $plan->status == '1' ? true : false" />
+                                        <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
+                                    </div>
                                 </div>
-                                <div class="mt-5">
-                                    <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
-                                        :value="1" :checked="$plan && $plan->status == '1' ? true : false" />
-                                    <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
-                                </div>
                             </div>
+                          
                             
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('admin.users.index') }}"
+                                <x-secondary-button wire:navigate href="{{ route('admin.subscriptions.index') }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>
@@ -108,3 +108,4 @@
             </div>
         </form>
     </div>
+
