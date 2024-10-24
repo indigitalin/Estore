@@ -90,7 +90,7 @@
                           
                             
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('admin.users.index') }}"
+                                <x-secondary-button wire:navigate href="{{ route('admin.subscriptions.index') }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>
@@ -108,3 +108,4 @@
             </div>
         </form>
     </div>
+

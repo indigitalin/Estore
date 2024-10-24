@@ -31,28 +31,24 @@ document.addEventListener('livewire:init', () => {
 Alpine.plugin(Tooltip);
 
 
-document.addEventListener("input", (event) => {
+document.addEventListener("input", handleInputChange);
+document.addEventListener("change", handleInputChange);
+
+function handleInputChange(event) {
     const target = event.target;
 
-    if (target.matches("input[type='text'], input[type='number'], input[type='password'], textarea")) {
+    if (target.matches("input[type='text'], input[type='number'], input[type='password'], textarea, select, input[type='checkbox'], input[type='radio']")) {
         // Remove the error message (ul.text-red-600) if it exists
         const errorMessage = target.closest('div').querySelector('ul.text-red-600');
         if (errorMessage) {
             errorMessage.remove();
-            console.log("Error message removed for input field.");
+            console.log(`Error message removed for ${target.tagName.toLowerCase()} element.`);
         }
+        
+        // For 'change' event specifics like select, checkbox, or radio
+        // if (event.type === 'change') {
+        //     console.log(`${target.tagName.toLowerCase()} element changed:`, target.value);
+        // }
     }
-});
+}
 
-document.addEventListener("change", (event) => {
-    const target = event.target;
-
-    if (target.matches("select, input[type='checkbox'], input[type='radio']")) {
-        console.log("Select, checkbox, or radio button changed:", target.value);
-        const errorMessage = target.closest('div').querySelector('ul.text-red-600');
-        if (errorMessage) {
-            errorMessage.remove();
-            console.log("Error message removed for select, checkbox, or radio.");
-        }
-    }
-});
