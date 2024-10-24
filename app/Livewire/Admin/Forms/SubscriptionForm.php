@@ -14,7 +14,7 @@ class SubscriptionForm extends Form
     public ?Plan $plan = null;
     public string|null $name = null;
     public string|null $amount = null;
-    public string|null $status = '0' ;
+    public int|null $status = 0 ;
     public string|null $description = null;
     public string|null $popular = null;
     public string|null $validity = null;
@@ -35,7 +35,6 @@ class SubscriptionForm extends Form
 
     public function save()
     {
-      
         $this->validate();
         try {
             /**
