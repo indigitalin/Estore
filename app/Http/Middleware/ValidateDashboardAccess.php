@@ -16,16 +16,21 @@ class ValidateDashboardAccess
     public function handle(Request $request, Closure $next, string $access): Response
     {
         switch($access){
-            case "superadmin" :
-                if(hasRole('super admin')){
+            case "superAdmin" :
+                
+                if(!hasRole('super admin|super admin user')){
                     return redirect()->route('index');
                 }
             break;
 
-            case "clientadmin" :
-                if(hasRole('client admin')){
+            case "clientAdmin" :
+                if(!hasRole('clientAdmin')){
                     return redirect()->route('index');
                 }
+            break;
+
+            default :
+                abort(403);
             break;
         }
         return $next($request);

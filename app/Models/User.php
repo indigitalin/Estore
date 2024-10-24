@@ -13,6 +13,16 @@ class User extends Authenticatable
 {
     const SUPER_ADMIN_ROLE_ID = 1;
     const CLIENT_ADMIN_ROLE_ID = 2;
+
+    /**
+     * Ignore user role names from user when getting user.
+     */
+    const USER_ROLE_IGNORE_LIST = [
+        // 'super admin',
+        // 'client admin',
+        'super admin user',
+        'client admin user'
+    ];
     
     use HasFactory, Notifiable;
     use SoftDeletes;
@@ -94,12 +104,12 @@ class User extends Authenticatable
 
     public function getRoleNameAttribute()
     {
-        return $this->roles()->pluck('name')->first() ?? null;
+        return $this->roles()->whereNotIn('name', self::USER_ROLE_IGNORE_LIST)->pluck('name')->first() ?? null;
     }
 
     public function getRoleIdAttribute()
     {
-        return $this->roles()->pluck('id')->first() ?? null;
+        return $this->roles()->whereNotIn('name', self::USER_ROLE_IGNORE_LIST)->pluck('id')->first() ?? null;
     }
 
     public function getPhoneNumberAttribute()

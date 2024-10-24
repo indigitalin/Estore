@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 
 class SuperAdminSeeder extends Seeder
 {
@@ -23,17 +21,7 @@ class SuperAdminSeeder extends Seeder
                 'email_verified_at' => now(),
                 'status' => '1',
             ]);
-        $superAdmin = Role::firstOrcreate(
-            ['name' => 'super admin'],
-            ['guard_name' => 'web']
-        );
-
-        $clientAdmin = Role::firstOrcreate(
-            ['name' => 'client admin'],
-            ['guard_name' => 'web']
-        );
-
-        $superAdmin->givePermissionTo(Permission::all());
-        $user->roles()->sync($superAdmin->id);
+        
+        $user->roles()->sync(\App\Models\User::SUPER_ADMIN_ROLE_ID);
     }
 }
