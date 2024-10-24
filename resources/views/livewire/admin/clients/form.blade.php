@@ -15,8 +15,8 @@
 
     <div class="">
         <form wire:submit.prevent="save">
-            <div class="grid grid-cols-5 gap-8">
-                <div class="col-span-5 xl:col-span-3">
+            <div class="grid grid-cols-6 gap-8">
+                <div class="col-span-6 xl:col-span-4">
                     <div
                         class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
@@ -230,7 +230,7 @@
 
                     </div>
                 </div>
-                <div class="col-span-5 xl:col-span-2">
+                <div class="col-span-6 xl:col-span-2">
                     <div class="sticky top-[110px]">
                         <div
                             class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark mb-7">

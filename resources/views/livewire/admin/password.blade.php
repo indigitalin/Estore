@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+<div class="">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             Security settings

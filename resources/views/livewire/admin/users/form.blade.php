@@ -15,8 +15,8 @@
 
     <div class="">
         <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : asset('/default.png') }}')">
-            <div class="grid grid-cols-5 gap-8">
-                <div class="col-span-5 xl:col-span-3">
+            <div class="grid grid-cols-6 gap-8">
+                <div class="col-span-6 xl:col-span-4">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
@@ -120,7 +120,7 @@
                     </div>
 
                 </div>
-                <div class="col-span-5 xl:col-span-2">
+                <div class="col-span-6 xl:col-span-2">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">

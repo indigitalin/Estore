@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+<div class="">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             Profile settings
@@ -12,8 +12,8 @@
             </ol>
         </nav>
     </div>
-    <div class="grid grid-cols-5 gap-8">
-        <div class="col-span-5 xl:col-span-3">
+    <div class="grid grid-cols-6 gap-8">
+        <div class="col-span-6 xl:col-span-4">
             <div class="rounded-sm shadow-default border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                     <h3 class="font-medium text-black dark:text-white">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-5 xl:col-span-2">
+        <div class="col-span-6 xl:col-span-2">
             <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                 <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                     <h3 class="font-medium text-black dark:text-white">
