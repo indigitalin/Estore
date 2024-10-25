@@ -54,7 +54,7 @@ class RoleForm extends Form
                     ->exists();
 
                 if ($exists) {
-                    $fail('The role already exists, please use different one.');
+                    $fail('The role already exists, please create different one.');
                 }
             }],
         ];

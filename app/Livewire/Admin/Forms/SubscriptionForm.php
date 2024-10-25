@@ -64,8 +64,6 @@ class SubscriptionForm extends Form
                 ]);
             }
             
-          
-            
             return ([
                 'status' => 'success',
                 'message' => $this->plan->wasRecentlyCreated ? 'Plan created successfully.' : 'Plan updated successfully.',

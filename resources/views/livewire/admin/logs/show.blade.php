@@ -14,13 +14,11 @@
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
     <div
         class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div class="px-4 pb-6  lg:pb-8 xl:pb-11.5">
+        <div class="">
 
-            <div class="px-6 py-4">
+            <div class="">
                 {!! $log !!}
-
             </div>
-
         </div>
     </div>
 </div>

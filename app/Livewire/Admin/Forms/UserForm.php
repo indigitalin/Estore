@@ -38,7 +38,6 @@ class UserForm extends Form
         $this->email = $user->email;
         $this->role = $user->role_id;
         $this->status = $user->status;
-        $this->actual_picture = $user->picture;
         $this->picture_url = $user->picture_url;
     }
 

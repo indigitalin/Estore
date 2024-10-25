@@ -4,15 +4,20 @@ namespace App\Livewire\Client\Categories;
 use App\Livewire\Form;
 use App\Models\Category;
 use Livewire\Attributes\On;
+use Illuminate\Http\UploadedFile;
+use Livewire\WithFileUploads;
 
 class CategoryForm extends Form
 {
     public ?Category $category = null;
-    public string|null $name;
+    public string|null $name = null;
     public string|null $handle;
     public string|null $status;
     public string|null $description = null;
     public int|null $parent_id = null;
+    public ?UploadedFile $picture = null;
+    public string|null $picture_url = null;
+    public int $picture_removed = 0;
 
     public function setCategory(?Category $category = null): void
     {
@@ -22,6 +27,7 @@ class CategoryForm extends Form
         $this->status = $category->status;
         $this->description = $category->description;
         $this->parent_id = $category->parent_id;
+        $this->picture_url = $category->picture_url;
     }
 
     public function save()
@@ -38,7 +44,7 @@ class CategoryForm extends Form
                     $this->only(['name', 'handle', 'status', 'description', 'parent_id'])
                 );
             }
-
+            $this->category->updatePicture($this->picture, (int) $this->picture_removed);
             return ([
                 'status' => 'success',
                 'message' => $this->category->wasRecentlyCreated ? 'Category created successfully.' : 'Category updated successfully.',
@@ -64,7 +70,19 @@ class CategoryForm extends Form
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'name' => ['required', 'string', 'max:128', function ($attribute, $value, $fail) {
+                $exists = auth()->user()->client->categories()->whereName($value)
+                    ->whereNot('id', $this->category->id ?? null)
+                    ->exists();
+
+                if ($exists) {
+                    $fail('The category already exists, please create different one.');
+                }
+            }],
+            'description' => ['string', 'sometimes', 'nullable'],
+            'status' => ['nullable'],
+            'parent_id' => ['nullable', 'sometimes', 'exists:categories,id'],
+            'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
         ];
     }
 }
