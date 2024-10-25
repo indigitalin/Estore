@@ -61,7 +61,15 @@ class Form extends Component
     public function sendPasswordResetLink(string $id)
     {
         $user = Client::whereHas('user')->findOrfail($id)->user;
-        \Toaster::success(__("Password reset link has been sent successfully."));
+        
+        $status = \Illuminate\Support\Facades\Password::sendResetLink(['email' => $user->email]);
+
+        if ($status != \Illuminate\Support\Facades\Password::RESET_LINK_SENT) {
+            $this->toasterError(__($status));
+            return;
+        }
+
+        $this->toasterSuccess(__("Password reset link has been sent successfully."));
     }
 
 }

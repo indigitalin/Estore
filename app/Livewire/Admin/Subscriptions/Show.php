@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Subscriptions;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use App\Models\Plan;
 
 class Show extends Component

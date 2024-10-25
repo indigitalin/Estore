@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Subscriptions;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use App\Models\{Plan};
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -20,7 +20,7 @@ class Index extends Component
     #[On('destroy')]
     public function destroy(string $id){
         Plan::findOrfail($id)->delete();
-        \Toaster::success(__("Plan deleted successfully."));
+        $this->toasterSuccess(__("Plan deleted successfully."));
     }
 
     #[On('status')]
@@ -30,6 +30,6 @@ class Index extends Component
         $plan->update([
             'status'=> $plan->status == '0' ? '1' : '0'
         ]);
-        \Toaster::success(__("Plan status updated successfully."));
+        $this->toasterSuccess(__("Plan status updated successfully."));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 
 class Password extends Component
@@ -37,7 +37,7 @@ class Password extends Component
         auth()->user()->update([
             'password' => Hash::make($validated['new_password']),
         ]);
-        \Toaster::success(__("Password has been changed successfully."));
+        $this->toasterSuccess(__("Password has been changed successfully."));
         $this->dispatch('success');
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Clients;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use App\Models\User;
 
 class Show extends Component

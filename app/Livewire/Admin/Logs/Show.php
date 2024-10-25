@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Logs;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use Illuminate\Support\Facades\File;
 
 class Show extends Component

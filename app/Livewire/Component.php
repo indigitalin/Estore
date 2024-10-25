@@ -8,10 +8,10 @@ class Component extends BaseComponent
     public function toasterAlert(array $response){
     
         if($response['status'] == 'success'){
-            Toaster::success($response['message']);
+            $this->toasterSuccess($response['message']);
         }
         else{
-            Toaster::error($response['message']);
+            $this->toasterError($response['message']);
         }
 
         if(isset($response['redirect']) && $response['redirect']){
@@ -19,4 +19,11 @@ class Component extends BaseComponent
         }
     }
 
+    public function toasterSuccess(string $message){
+        Toaster::success($message);
+    }
+
+    public function toasterError(string $message){
+        Toaster::error($message);
+    }
 }

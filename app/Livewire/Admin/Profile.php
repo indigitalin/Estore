@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\User;
@@ -61,7 +61,7 @@ class Profile extends Component
     {   $this->prepareValidation();
         $validated = $this->validate();
         auth()->user()->update($validated);
-        \Toaster::success(__("Profile has been updated successfully."));
+        $this->toasterSuccess(__("Profile has been updated successfully."));
         $this->dispatch('success');
     }
 
@@ -75,7 +75,7 @@ class Profile extends Component
          * Picture upload is handled by mutator
          */
         auth()->user()->updatePicture($this->picture, (int) $this->picture_removed);
-        \Toaster::success(__("Profile image has been updated successfully."));
+        $this->toasterSuccess(__("Profile image has been updated successfully."));
         $this->dispatch('success');
     }
 }

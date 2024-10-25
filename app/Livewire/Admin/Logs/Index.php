@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Logs;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -74,7 +74,7 @@ class Index extends Component
             File::delete($filePath);
         }
 
-        \Toaster::success(__("Log file deleted successfully."));
+        $this->toasterSuccess(__("Log file deleted successfully."));
     }
     #[On('destroy_all')]
 
@@ -87,6 +87,6 @@ class Index extends Component
         }
 
 
-        \Toaster::success(__("All Log files are deleted successfully."));
+        $this->toasterSuccess(__("All Log files are deleted successfully."));
     }
 }

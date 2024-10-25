@@ -3,7 +3,7 @@ namespace App\Livewire\Admin\Users;
 
 use App\Models\User;
 use Livewire\Attributes\On;
-use Livewire\Component;
+use App\Livewire\Component;
 use Livewire\WithPagination;
 
 class Index extends Component
@@ -21,7 +21,7 @@ class Index extends Component
     public function destroy(string $id)
     {
         auth()->user()->staffs()->findOrfail($id)->delete();
-        \Toaster::success(__("User deleted successfully."));
+        $this->toasterSuccess(__("User deleted successfully."));
     }
 
     #[On('status')]
@@ -31,6 +31,6 @@ class Index extends Component
         $user->update([
             'status' => $user->status == '0' ? '1' : '0',
         ]);
-        \Toaster::success(__("User status updated successfully."));
+        $this->toasterSuccess(__("User status updated successfully."));
     }
 }

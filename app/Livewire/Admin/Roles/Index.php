@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire\Admin\Roles;
 
-use Livewire\Component;
+use App\Livewire\Component;
 use App\Models\Role;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -24,6 +24,6 @@ class Index extends Component
     public function destroy(string $id){
         Role::adminRoles()->findOrfail($id)->delete();
         $this->dispatch('refresh-list');
-        \Toaster::success(__("Role deleted successfully."));
+        $this->toasterSuccess(__("Role deleted successfully."));
     }
 }

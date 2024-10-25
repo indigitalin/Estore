@@ -3,7 +3,7 @@ namespace App\Livewire\Admin\Clients;
 
 use App\Models\Client;
 use Livewire\Attributes\On;
-use Livewire\Component;
+use App\Livewire\Component;
 use Livewire\WithPagination;
 
 class Index extends Component
@@ -32,7 +32,7 @@ class Index extends Component
         $client->user->staffs()->delete();
         $client->user()->delete();
         $client->delete();
-        \Toaster::success(__("User deleted successfully."));
+        $this->toasterSuccess(__("User deleted successfully."));
     }
 
     #[On('status')]
@@ -49,6 +49,6 @@ class Index extends Component
         $client->user->update([
             'status' => $client->status,
         ]);
-        \Toaster::success(__("User status updated successfully."));
+        $this->toasterSuccess(__("User status updated successfully."));
     }
 }
