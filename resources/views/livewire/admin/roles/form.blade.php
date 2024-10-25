@@ -2,8 +2,8 @@
     @php
         $pageTitle = $role ? 'Edit Role' : 'Create Role';
         $navigationLinks = [
-            ['text' => 'Dashboard', 'link' => route('admin.index')],
-            ['text' => 'Roles', 'link' => route('admin.roles.index')],
+            ['text' => 'Dashboard', 'link' => roleRoute('{role}.index')],
+            ['text' => 'Roles', 'link' => roleRoute('{role}.roles.index')],
             ['text' => $pageTitle, 'link' => ''],
         ];
         $pageDescription = '';
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('admin.roles.index') }}"
+                                <x-secondary-button wire:navigate href="{{ roleRoute('{role}.roles.index') }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>

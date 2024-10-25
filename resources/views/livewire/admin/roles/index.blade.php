@@ -17,7 +17,7 @@
         <p>Manage user roles and permissions. Create new roles, assign permissions, and view role details.</p>
     </div>
     <div class="flex">
-        <a class="ms-auto" href="{{ route('admin.roles.create') }}" wire:navigate>
+        <a class="ms-auto" href="{{ roleRoute('{role}.roles.create') }}" wire:navigate>
             <x-primary-button class="mb-4 ms-auto">
                 {{ __('Create new role') }}
             </x-primary-button>
@@ -71,7 +71,7 @@
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">
                                     <x-action-button class x-data="{ tooltip: 'Delete role' }" x-tooltip="tooltip" role="button"
-                                        class="ms-auto me-2" href="{{ route('admin.roles.edit', ['role' => $role]) }}"
+                                        class="ms-auto me-2" href="{{ roleRoute('{role}.roles.edit', ['role' => $role]) }}"
                                         wire:navigate>
                                         <box-icon size="20px" color="#888" name='edit'></box-icon>
                                     </x-action-button>

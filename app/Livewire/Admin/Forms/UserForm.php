@@ -78,7 +78,7 @@ class UserForm extends Form
             return ([
                 'status' => 'success',
                 'message' => $this->user->wasRecentlyCreated ? 'User created successfully.' : 'User updated successfully.',
-                'redirect' => route('admin.users.index'),
+                'redirect' => roleRoute('{role}.users.index'),
             ]);
 
         } catch (Exception $e) {

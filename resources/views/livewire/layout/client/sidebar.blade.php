@@ -36,6 +36,15 @@
                     </li>
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                        wire:navigate href="{{ route('client.users.index') }}" @click="selected = (selected === 'Users' ? '':'Users')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Users') && (page === 'Users') }"
+                            :class="page === 'Users' && 'bg-graydark'">
+                            <box-icon name='user-check' color="#dee4ee"></box-icon>
+                            Users
+                        </a>
+                    </li>
+                    <li>
+                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="#" @click.prevent="selected = (selected === 'Settings' ? '':'Settings')"
                             :class="{
                                 'bg-graydark dark:bg-meta-4': (selected === 'Settings') || (
@@ -58,6 +67,13 @@
                         <div class="translate transform overflow-hidden"
                             :class="(selected === 'Settings') ? 'block' : 'hidden'">
                             <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                                <li>
+                                    <a wire:navigate
+                                        class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('client.roles.index') }}" :class="page === 'roles-responsibilities' && '!text-white'">Roles and
+                                        Responsibilities
+                                    </a>
+                                </li>
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"

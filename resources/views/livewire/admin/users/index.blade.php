@@ -1,10 +1,10 @@
 <div class="">
     @php
         $pageTitle = 'Users';
-        $navigationLinks = [['text' => 'Dashboard', 'link' => route('admin.index')], ['text' => 'Users', 'link' => '']];
+        $navigationLinks = [['text' => 'Dashboard', 'link' => roleRoute('{role}.index')], ['text' => 'Users', 'link' => '']];
         $pageDescription = 'Manage your users easily. Search, view, and edit staff information.';
         $rightSideBtnText = 'Create new user';
-        $rightSideBtnRoute = route('admin.users.create');
+        $rightSideBtnRoute = roleRoute('{role}.users.create');
     @endphp
 
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
@@ -84,11 +84,11 @@
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-end">
                                 <div class="flex items-center">
                                     <x-action-button x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" class="ms-auto me-2"
-                                        role="button" wire:navigate href="{{ route('admin.users.show', $user) }}">
+                                        role="button" wire:navigate href="{{ roleRoute('{role}.users.show', $user) }}">
                                         <box-icon size="20px" color="#888" name='show'></box-icon>
                                     </x-action-button>
                                     <x-action-button x-data="{ tooltip: 'Edit user' }" x-tooltip="tooltip" role="button" class="me-2"
-                                        wire:navigate href="{{ route('admin.users.edit', $user) }}">
+                                        wire:navigate href="{{ roleRoute('{role}.users.edit', $user) }}">
                                         <box-icon size="20px" color="#888" name='edit'></box-icon>
                                     </x-action-button>
 

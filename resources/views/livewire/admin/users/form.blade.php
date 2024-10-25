@@ -2,8 +2,8 @@
     @php
         $pageTitle = $user ? 'Edit User' : 'Create User';
         $navigationLinks = [
-            ['text' => 'Dashboard', 'link' => route('admin.index')],
-            ['text' => 'Users', 'link' => route('admin.users.index')],
+            ['text' => 'Dashboard', 'link' => roleRoute('{role}.index')],
+            ['text' => 'Users', 'link' => roleRoute('{role}.users.index')],
             ['text' => $pageTitle, 'link' => ''],
         ];
         $pageDescription = '';
@@ -104,7 +104,7 @@
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('admin.users.index') }}"
+                                <x-secondary-button wire:navigate href="{{ roleRoute('{role}.users.index') }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>

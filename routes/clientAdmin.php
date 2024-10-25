@@ -20,4 +20,17 @@ Route::middleware([
         Route::get('/create', Form::class)->name('create');
         Route::get('/{category}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
+
+    Route::group(['prefix'=>'roles', 'as' => 'roles.','namespace' => '\App\Livewire\Admin\Roles'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{role}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+
+    Route::group(['prefix'=>'users', 'as' => 'users.','namespace' => '\App\Livewire\Admin\Users'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{user}', Show::class)->name('show');
+        Route::get('/{user}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
 });

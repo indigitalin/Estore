@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 class RoleForm extends Form
 {
     public ?Role $role = null;
-    public string|null $name;
+    public string|null $name = null;
     public array|null $permissions;
 
     public function setRole(?Role $role = null): void
@@ -34,7 +34,7 @@ class RoleForm extends Form
             return ([
                 'status' => 'success',
                 'message' => $this->role->wasRecentlyCreated ? 'Role created successfully.' : 'Role updated successfully.',
-                'redirect' => route('admin.roles.index'),
+                'redirect' => roleRoute('{role}.roles.index'),
             ]);
 
         } catch (\Exception $e) {
