@@ -11,4 +11,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: true,  // Listen on all network interfaces
+        hmr: {
+            host: '192.168.29.139',  // Set to your desired host
+        },
+    },
 });
