@@ -34,12 +34,12 @@ new #[Layout('layouts.guest')] class extends Component {
 
 
 
-<div class="mt-6 px-6 py-10 bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
+<div class="mt-6 px-6 py-10 max-w-screen-lg w-full bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
 
     <!-- ===== Content Area Start ===== -->
     <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 
-        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+        <div class="mx-auto w-full p-4 md:p-6 2xl:p-10">
 
             <!-- ====== Forms Section Start -->
             <div class="rounded-sm bg-white dark:border-strokedark dark:bg-boxdark">
@@ -48,18 +48,18 @@ new #[Layout('layouts.guest')] class extends Component {
                         <div class="py-17.5 text-center">
                             <div class="px-26 ">
                                 <a class="mb-5.5 inline-block" href="index.html">
-                                    <img class="hidden dark:block" src="src/images/e-store.png" alt="Logo" />
-                                    <img class="dark:hidden" src="src/images/logo/e-store.png" alt="Logo" />
+                                    <img class="hidden dark:block" src="{{ asset('src/images/e-store.png') }}" alt="Logo" />
+                                    <img class="dark:hidden" src="{{ asset('src/images/logo/e-store.png') }}" alt="Logo" />
                                 </a>
                             </div>
                             <div class="text-xl">Recover your account</div>
                             <p class="font-medium 2xl:px-20">
-                                {{ __('Forgot your password? No problem. You can reset') }}
+                                {{ __('Forgot your password? No problem. You can reset your account password') }}
                             </p>
 
                             <div class="px-26">
                                 <span class="mt-15 inline-block">
-                                    <img src="src/images/illustration/illustration-03.svg" alt="illustration" />
+                                    <img src="{{ asset('src/images/illustration/illustration-03.svg') }}" alt="illustration" />
                                 </span>
                             </div>
                         </div>
