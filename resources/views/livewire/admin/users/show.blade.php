@@ -2,13 +2,13 @@
     @php
         $pageTitle = $user->name;
         $navigationLinks = [
-            ['text' => 'Dashboard', 'link' => route('admin.index')],
-            ['text' => 'Users', 'link' => route('admin.users.index')],
+            ['text' => 'Dashboard', 'link' => roleRoute('{role}.index')],
+            ['text' => 'Users', 'link' => roleRoute('{role}.users.index')],
             ['text' => 'User Details', 'link' => ''],
         ];
         $pageDescription = '';
         $rightSideBtnText = 'Back to List';
-        $rightSideBtnRoute = route('admin.users.index');
+        $rightSideBtnRoute = roleRoute('{role}.users.index');
     @endphp
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
