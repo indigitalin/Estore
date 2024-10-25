@@ -1,10 +1,13 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
  * Generate file url based on upload channel
  *
  * @param string $image
  */
+
 function file_url(string $image): string
 {
     if (env('UPLOAD_CHANNEL') == 's3') {
@@ -23,21 +26,28 @@ function hasRole(string $role = null): bool
     return auth()->check() && auth()->user()->hasRole($role);
 }
 
-function roleRoute(string $route, $param = null)
+function roleRoute(string $routeName, $param = null)
 {
     /**
      * Check if role is admin or admin user
      */
     if (isAdmin()) {
-        $route = str_replace('{role}', 'admin', $route);
-        return route($route, $param);
+        $routeName = str_replace('{role}', 'admin', $routeName);
+        if (!Route::has($routeName)) {
+            throw new RouteNotFoundException("Route '{$routeName}' not found.");
+        }
+        return route($routeName, $param);
     }
     /**
      * Check if role is client or client user
      */
     else if (isClient()) {
-        $route = str_replace('{role}', 'client', $route);
-        return route($route, $param);
+        $routeName = str_replace('{role}', 'client', $routeName);
+        if (!Route::has($routeName)) {
+            throw new RouteNotFoundException("Route '{$routeName}' not found.");
+        }
+        
+        return route($routeName, $param);
     }
     return null;
 }
