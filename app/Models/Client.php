@@ -11,6 +11,12 @@ class Client extends Model
     use HasFactory;
     use SoftDeletes;
     use \App\Helper\Upload;
+
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'user_id',
         'business_name',
@@ -84,5 +90,21 @@ class Client extends Model
 
     public function getIndustryNameAttribute(){
         return $this->industry->name ?? 'Other';
+    }
+
+    /**
+     * Categories of the client
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    /**
+     * Users of the client
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

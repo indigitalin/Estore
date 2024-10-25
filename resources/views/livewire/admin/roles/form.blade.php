@@ -3,7 +3,7 @@
         $pageTitle = $role ? 'Edit Role' : 'Create Role';
         $navigationLinks = [
             ['text' => 'Dashboard', 'link' => route('admin.index')],
-            ['text' => 'Users', 'link' => route('admin.roles.index')],
+            ['text' => 'Roles', 'link' => route('admin.roles.index')],
             ['text' => $pageTitle, 'link' => ''],
         ];
         $pageDescription = '';

@@ -49,6 +49,6 @@ class Index extends Component
         $client->user->update([
             'status' => $client->status,
         ]);
-        $this->toasterSuccess(__("User status updated successfully."));
+        $this->toasterSuccess(__("Client status updated successfully."));
     }
 }

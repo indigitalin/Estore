@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Plan extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'description',
@@ -26,10 +31,11 @@ class Plan extends Model
     public function getLastModifiedAttribute()
     {
         return $this->updated_at;
-         
+
     }
 
-    public function plan_modules(){
+    public function plan_modules()
+    {
         return $this->hasMany(ModulePlan::class);
     }
 

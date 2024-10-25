@@ -121,7 +121,6 @@ class ClientForm extends Form
      */
     public function prepareValidation(): void
     {
-
         $this->phone = str_replace('-', '', filter_var($this->phone_number, FILTER_SANITIZE_NUMBER_INT));
         $this->whatsapp = str_replace('-', '', filter_var($this->whatsapp_number, FILTER_SANITIZE_NUMBER_INT));
         $this->status = isset($this->status) ? '1' : '0';

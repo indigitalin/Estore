@@ -14,4 +14,10 @@ Route::middleware([
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
 
     Route::get('/settings', \App\Livewire\Client\Settings\Settings::class)->name('settings');
+
+    Route::group(['prefix'=>'categories', 'as' => 'categories.','namespace' => '\App\Livewire\Client\Categories'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{category}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
 });

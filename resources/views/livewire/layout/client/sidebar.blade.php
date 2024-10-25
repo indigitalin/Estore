@@ -15,12 +15,23 @@
                     <li>
                        
                         <a wire:navigate class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="{{ route('admin.index') }}"
+                            href="{{ route('client.index') }}"
                             @click="selected = (selected === 'Dashboard' ? '':'Dashboard')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') && (page === 'Dashboard') }"
                             :class="page === 'Dashboard' && 'bg-graydark'">
-                            <box-icon type='solid' color="#dee4ee" name='dashboard'></box-icon>
+                            <box-icon color="#dee4ee" name='chart'></box-icon>
                             Dashboard
+                        </a>
+                    </li>
+                    <li>
+                       
+                        <a wire:navigate class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                            href="{{ route('client.categories.index') }}"
+                            @click="selected = (selected === 'Dashboard' ? '':'Dashboard')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Dashboard') && (page === 'Dashboard') }"
+                            :class="page === 'Dashboard' && 'bg-graydark'">
+                            <box-icon color="#dee4ee" name='category'></box-icon>
+                            Categories
                         </a>
                     </li>
                     <li>

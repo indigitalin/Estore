@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\IndustrySeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\SuperAdminSeeder;
 use Database\Seeders\CountryStateSeeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             SuperAdminSeeder::class,
             CountryStateSeeder::class,
+            IndustrySeeder::class,
         ]);
     }
 }
