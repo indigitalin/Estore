@@ -7,9 +7,11 @@ use Livewire\Volt\Volt;
 Route::middleware([
     'auth',
     'role:client admin|client admin user',
-    'not-role:client admin|client admin user'
+    'not-role:super admin|super admin user'
 ])->prefix('/client')->name('client.')->group(function () {
     Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('index');
     Route::get('/profile', \App\Livewire\Admin\Profile::class)->name('profile');
     Route::get('/password', \App\Livewire\Admin\Password::class)->name('password');
+
+    Route::get('/settings', \App\Livewire\Client\Settings\Settings::class)->name('settings');
 });

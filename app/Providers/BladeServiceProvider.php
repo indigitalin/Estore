@@ -27,5 +27,13 @@ class BladeServiceProvider extends ServiceProvider
         Blade::if('clientAdmin', function () {
             return hasRole('client admin');
         });
+
+        Blade::if('admin', function () {
+            return hasRole('super admin|super admin user');
+        });
+
+        Blade::if('client', function () {
+            return hasRole('client admin|client admin user');
+        });
     }
 }

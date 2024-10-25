@@ -74,8 +74,6 @@ class ClientForm extends Form
             $this->business_name = $client->business_name;
             $this->industry_id = $client->industry_id;
             $this->description = $client->description;
-            $this->address = $client->address;
-            $this->city = $client->city;
             $this->pan = $client->pan;
             $this->gst = $client->gst;
             $this->whatsapp_number = $client->whatsapp;

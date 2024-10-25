@@ -17,17 +17,17 @@
 <body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
 $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" :class="{ 'dark text-bodydark bg-boxdark-2': darkMode === true }">
     <div class="flex h-screen overflow-hidden">
-        @superAdmin
+        @admin
         <livewire:layout.admin.sidebar/>
         @endif
-        @clientAdmin
+        @client
         <livewire:layout.client.sidebar/>
         @endif
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-            @superAdmin
+            @admin
             <livewire:layout.admin.topbar/>
             @endif
-            @clientAdmin
+            @client
             <livewire:layout.client.topbar/>
             @endif
             <main>
