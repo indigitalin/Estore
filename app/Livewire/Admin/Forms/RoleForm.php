@@ -21,6 +21,7 @@ class RoleForm extends Form
 
     public function save()
     {
+        $this->validate();
         try {
 
             $this->role = $this->role ? : Role::create([

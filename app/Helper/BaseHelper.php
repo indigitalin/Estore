@@ -28,16 +28,30 @@ function roleRoute(string $route, $param = null)
     /**
      * Check if role is admin or admin user
      */
-    if (hasRole('super admin|super admin user')) {
+    if (isAdmin()) {
         $route = str_replace('{role}', 'admin', $route);
         return route($route, $param);
     }
     /**
      * Check if role is client or client user
      */
-    else if (hasRole('client admin|client admin user')) {
+    else if (isClient()) {
         $route = str_replace('{role}', 'client', $route);
         return route($route, $param);
     }
     return null;
+}
+
+/**
+ * Check if user is admin or admin user
+ */
+function isAdmin(){
+    return hasRole('super admin|super admin user');
+}
+
+/**
+ * Check if user client or client user
+ */
+function isClient(){
+    return hasRole('client admin|client admin user');
 }

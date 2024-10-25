@@ -29,11 +29,11 @@ class BladeServiceProvider extends ServiceProvider
         });
 
         Blade::if('admin', function () {
-            return hasRole('super admin|super admin user');
+            return isAdmin();
         });
 
         Blade::if('client', function () {
-            return hasRole('client admin|client admin user');
+            return isClient();
         });
     }
 }
