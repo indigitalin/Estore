@@ -28,14 +28,13 @@ new #[Layout('layouts.guest')] class extends Component {
         }
 
         $this->reset('email');
-
-        session()->flash('status', __($status));
+        \Toaster::success(__($status));
     }
 }; ?>
 
 
 
-<div class="  mt-6 px-6 py-10 bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
+<div class="mt-6 px-6 py-10 bg-white dark:bg-gray-800 shadow-sm overflow-hidden sm:rounded-lg">
 
     <!-- ===== Content Area Start ===== -->
     <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
@@ -43,7 +42,7 @@ new #[Layout('layouts.guest')] class extends Component {
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 
             <!-- ====== Forms Section Start -->
-            <div class="rounded-sm bg-white rounded-sm dark:border-strokedark dark:bg-boxdark">
+            <div class="rounded-sm bg-white dark:border-strokedark dark:bg-boxdark">
                 <div class="flex flex-wrap items-center">
                     <div class="hidden w-full xl:block xl:w-1/2">
                         <div class="py-17.5 text-center">
@@ -53,9 +52,9 @@ new #[Layout('layouts.guest')] class extends Component {
                                     <img class="dark:hidden" src="src/images/logo/e-store.png" alt="Logo" />
                                 </a>
                             </div>
-
+                            <div class="text-xl">Recover your account</div>
                             <p class="font-medium 2xl:px-20">
-                                {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                                {{ __('Forgot your password? No problem. You can reset') }}
                             </p>
 
                             <div class="px-26">
@@ -81,7 +80,7 @@ new #[Layout('layouts.guest')] class extends Component {
                                         for="email" :value="__('Email')" />
                                     <div class="relative">
 
-                                        <x-text-input wire:model="email" id="email" class="block mt-1 w-full"
+                                        <x-text-input placeholder="Enter your email" wire:model="email" id="email" class="block mt-1 w-full"
                                             type="email" name="email" required autofocus />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
@@ -108,15 +107,13 @@ new #[Layout('layouts.guest')] class extends Component {
                             <div class="mt-6 text-center mt-5">
                                 <p class="font-medium">
                                     Back to login page
-                                    <a href="{{ url('login') }}" class="text-primary">Login</a>
+                                    <a wire:navigate href="{{ url('login') }}" class="text-primary">Login</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ====== Forms Section End -->
         </div>
     </div>
-    <!-- ===== Content Area End ===== -->
 </div>

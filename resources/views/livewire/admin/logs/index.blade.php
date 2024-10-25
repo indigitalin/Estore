@@ -72,5 +72,4 @@
     <div class="mt-4">
         {{ $filelists->links('vendor.pagination.default') }}
     </div>
-    @include('livewire.confirm')
 </div>

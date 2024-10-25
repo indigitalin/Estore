@@ -6,8 +6,8 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
-use \App\Livewire\Form;
 use Livewire\WithFileUploads;
+use \App\Livewire\Form;
 
 class ClientForm extends Form
 {
@@ -141,7 +141,7 @@ class ClientForm extends Form
             'pan' => ['sometimes', 'nullable', 'max:10'],
             'whatsapp' => ['nullable', 'sometimes', 'numeric', 'digits:10'],
             'website' => ['nullable', 'sometimes', 'string', 'max:128'],
-            
+
             'address' => ['sometimes', 'nullable', 'max:100'],
             'city' => ['sometimes', 'nullable', 'max:50'],
             'postcode' => ['sometimes', 'nullable', 'max:8'],
@@ -170,7 +170,7 @@ class ClientForm extends Form
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
             'logo' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
             'state_id' => ['nullable', 'sometimes', 'exists:states,id'],
-            'country_id' => ['nullable', 'sometimes', 'exists:countries,id']
+            'country_id' => ['nullable', 'sometimes', 'exists:countries,id'],
         ];
     }
 
@@ -201,7 +201,7 @@ class ClientForm extends Form
      * Create new user and client
      */
     protected function createClient(): void
-    {   
+    {
         /**
          * Picture upload is handled by mutator
          */
@@ -210,5 +210,12 @@ class ClientForm extends Form
         ]);
         $user->roles()->sync(User::CLIENT_ADMIN_ROLE_ID);
         $this->client = $user->client()->create($this->only(['business_name', 'industry_id', 'description', 'address', 'city', 'status', 'pan', 'gst', 'whatsapp', 'website', 'address', 'city', 'postcode', 'state_id', 'country_id']));
+
+        /**
+         * Trigger Registered event
+         */
+        try {
+            event(new \Illuminate\Auth\Events\Registered($user));
+        } catch (\Exception $e) {}
     }
 }

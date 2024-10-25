@@ -51,11 +51,12 @@
                                             id="email" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
                                         @if($user)
-                                        <p class="text-sm mt-2 flex items-center text-gray-500"> <box-icon
+                                        <p class="text-sm mt-2 mb-2 flex items-center text-gray-500"> <box-icon
                                             color="#777" size="16px" name='error-circle'
                                             class="me-1"></box-icon> Email can
                                         not be changed. This user have to login to change their email.</p>
                                         </p>
+                                        <div  class="text-indigo-600 cursor-pointer" @click="confirmAction({{ $user->id }}, 'sendPasswordResetLink', 'Are you sure want to send password reset link?')">Send password reset link</div>
                                         @endif
                                     </div>
                                 </div>

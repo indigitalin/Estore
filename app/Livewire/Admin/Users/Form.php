@@ -31,7 +31,7 @@ class Form extends Component
     public function render(): View
     {
         return view('livewire.admin.users.form')->withRoles(
-            Role::adminRoles()->pluck('name','id')
+            Role::adminRoles()->pluck('name', 'id')
         );
     }
 
@@ -39,5 +39,12 @@ class Form extends Component
     {
         $response = $this->form->save();
         $this->toasterAlert($response);
+    }
+
+    #[On('sendPasswordResetLink')]
+    public function sendPasswordResetLink(string $id)
+    {
+        $user = auth()->user()->staffs()->findOrfail($id);
+        \Toaster::success(__("Password reset link has been sent successfully."));
     }
 }

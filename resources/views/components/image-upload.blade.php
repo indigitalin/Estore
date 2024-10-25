@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-
+        <div class="text-sm text-gray-800">Allowed images. PNG, JPG, WEBP (max 2mb)</div>
         <x-input-error :messages="$errors->get($name)" class="mt-2" />
     </div>
 </div>

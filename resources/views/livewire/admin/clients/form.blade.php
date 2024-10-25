@@ -50,10 +50,14 @@
                                             id="email" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
                                         @if ($client)
-                                            <p class="text-sm mt-2 flex items-center text-gray-500"> <box-icon
+                                            <p class="text-sm mt-2 mb-2 flex items-center text-gray-500"> <box-icon
                                                     color="#777" size="16px" name='error-circle'
                                                     class="me-1"></box-icon> Email can
                                                 not be changed. This user have to login to change their email.</p>
+                                            </p>
+                                            <div class="text-indigo-600 cursor-pointer"
+                                                @click="confirmAction({{ $client->id }}, 'sendPasswordResetLink', 'Are you sure want to send password reset link?')">
+                                                Send password reset link</div>
                                         @endif
                                     </div>
                                 </div>
@@ -240,7 +244,8 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$client->user->default_picture_url ?? asset('/default.png')" :uploaded="$client->user->picture_url ?? asset('/default.png')" :name="'form.picture'"></x-image-upload>
+                                <x-image-upload :default="$client->user->default_picture_url ?? asset('/default.png')" :uploaded="$client->user->picture_url ?? asset('/default.png')"
+                                    :name="'form.picture'"></x-image-upload>
                             </div>
                         </div>
                         <div
@@ -251,7 +256,8 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$client->default_logo_url ?? asset('/default.png')" :uploaded="$client->logo_url ?? asset('/default.png')" :name="'form.logo'"></x-image-upload>
+                                <x-image-upload :default="$client->default_logo_url ?? asset('/default.png')" :uploaded="$client->logo_url ?? asset('/default.png')"
+                                    :name="'form.logo'"></x-image-upload>
                             </div>
                         </div>
                     </div>

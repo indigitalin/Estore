@@ -39,6 +39,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     </div>
     <x-toaster-hub class="text-md" />
     @livewire('wire-elements-modal')
+    @include('livewire.confirm')
     @stack('scripts')
 </body>
 </html>

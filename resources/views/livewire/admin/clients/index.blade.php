@@ -123,5 +123,4 @@
     <div class="mt-4">
         {{ $clients->links('vendor.pagination.default') }}
     </div>
-    @include('livewire.confirm')
 </div>

@@ -127,7 +127,7 @@ new #[Layout('layouts.guest')] class extends Component {
                                     </x-primary-button>
                                 </div>
 
-                                <button
+                                {{-- <button
                                     class="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 font-medium hover:bg-opacity-70 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-70">
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -153,23 +153,13 @@ new #[Layout('layouts.guest')] class extends Component {
                                             </defs>
                                         </svg>
                                     </span>
-                                    Sign in with Google
+                                    Sign in with Google --}}
                                 </button>
-
-                                {{-- <div class="mt-6 text-center">
-                                        <p class="font-medium">
-                                            Don’t have any account?
-                                            <a href="signup.html" class="text-primary">Sign Up</a>
-                                        </p>
-                                    </div> --}}
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ====== Forms Section End -->
         </div>
-
     </div>
-    <!-- ===== Content Area End ===== -->
 </div>

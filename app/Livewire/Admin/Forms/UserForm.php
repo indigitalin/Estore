@@ -58,6 +58,13 @@ class UserForm extends Form
                         'parent_id' => auth()->user()->employer_id, // Set current user employer as parent id
                     ]
                 );
+                /**
+                 * Trigger Registered event
+                 */
+                try{
+                    event(new \Illuminate\Auth\Events\Registered($this->user));
+                }
+                catch(\Exception $e){}
             } else {
                 $this->user->update(
                     $this->only(['firstname', 'lastname', 'phone', 'email', 'password', 'status'])

@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
+    use \App\Services\notification\Auth;
+    
     const SUPER_ADMIN_ROLE_ID       = 1;
     const SUPER_ADMIN_USER_ROLE_ID  = 2;
     const CLIENT_ADMIN_ROLE_ID      = 3;
@@ -168,4 +171,11 @@ class User extends Authenticatable
             $this->update(['picture' => $picture]);
         }
     }
+
+    /**
+	 * Send customized password reset email
+	 */
+	public function sendPasswordResetNotification($token){
+		$this->resetPassword($this, $token);
+	}
 }
