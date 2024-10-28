@@ -32,7 +32,7 @@
                             Store
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                            Address
+                            City
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
                             Contact
@@ -41,7 +41,7 @@
                             Status
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                            Last updated
+                            Created at
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
 
@@ -68,7 +68,6 @@
 
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <div>
-                                    <div>{{ $store->address }}</div>
                                     <div>{{ $store->city }}</div>
                                 </div>
                             </td>
@@ -88,7 +87,7 @@
                                 </p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                {{ $store->created_at->diffForHumans() }}
+                                {{ $store->created_at }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">

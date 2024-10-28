@@ -35,64 +35,8 @@
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2"></div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input type="email" placeholder="Email" wire:model="form.email"
-                                            id="email" class="mt-1 block w-full" type="text" />
-                                        <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="phone" :value="__('Phone')" />
-                                        <x-text-input placeholder="Phone number" x-mask="99999 99999"
-                                            wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
-                                            type="text" />
-                                        <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="password" :value="__('Password')" />
-                                        <x-password-input placeholder="Password" wire:model="form.password"
-                                            id="password" class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 p-2">
-                                    <div class="mt-2">
-                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
-                                        <x-password-input placeholder="Confirm password"
-                                            wire:model="form.confirm_password" id="confirm_password"
-                                            class="mt-1 block w-full" />
-                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($store)
-                                <div class="mt-4">
-                                    <div class="flex items-center">
-                                        <x-input-label :value="__('API Key')" />
-                                    </div>
-                                    <div class="text-semibold cursor-pointer" x-tooltip="tooltip"
-                                        @click="copyToClipboard(apiKey)" x-data="{ tooltip: 'Copy API Key', apiKey: '{{ $store->api_key }}' }">
-                                        {{ str_repeat('*', strlen($store->api_key) - 10) . substr($store->api_key, -10) }}
-                                        <box-icon class="cursor-pointer" name='copy'></box-icon>
-                                    </div>
-                                </div>
-                            @endif
 
-                        </div>
-                    </div>
-                    <div
-                        class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
-                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                            <h3 class="font-medium text-black dark:text-white">
-                                Store address
-                            </h3>
-                        </div>
-                        <div class="p-7 pt-0">
+                            </div>
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
@@ -139,24 +83,82 @@
                                         <x-input-error :messages="$errors->get('form.state_id')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="phone" :value="__('Phone')" />
+                                        <x-text-input placeholder="Phone number" x-mask="99999 99999"
+                                            wire:model="form.phone_number" id="phone" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
+                                    </div>
+                                </div>
                                 <div class="w-full md:w-1/1"></div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="latitude" :value="__('Latitude')" />
-                                        <x-text-input placeholder="Latitude" wire:model="form.latitude"
-                                            id="latitude" class="mt-1 block w-full" type="text" />
+                                        <x-text-input placeholder="Latitude" wire:model="form.latitude" id="latitude"
+                                            class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.latitude')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="longitude" :value="__('Longitude')" />
-                                        <x-text-input placeholder="Longitude" wire:model="form.longitude"
-                                            id="longitude" class="mt-1 block w-full" type="text" />
+                                        <x-text-input placeholder="Longitude" wire:model="form.longitude" id="longitude"
+                                            class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.longitude')" class="mt-2" />
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div
+                        class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Store login
+                            </h3>
+                        </div>
+                        <div class="p-7 pt-0">
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="email" :value="__('Email')" />
+                                        <x-text-input type="email" placeholder="Email" wire:model="form.email"
+                                            id="email" class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="password" :value="__('Password')" />
+                                        <x-password-input placeholder="Password" wire:model="form.password"
+                                            id="password" class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
+                                        <x-password-input placeholder="Confirm password"
+                                            wire:model="form.confirm_password" id="confirm_password"
+                                            class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($store)
+                                <div class="mt-4">
+                                    <div class="flex items-center">
+                                        <x-input-label :value="__('API Key')" />
+                                    </div>
+                                    <div class="text-semibold cursor-pointer" x-tooltip="tooltip"
+                                        @click="copyToClipboard(apiKey)" x-data="{ tooltip: 'Copy API Key', apiKey: '{{ $store->api_key }}' }">
+                                        {{ str_repeat('*', strlen($store->api_key) - 10) . substr($store->api_key, -10) }}
+                                        <box-icon class="cursor-pointer" name='copy'></box-icon>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="mt-5">
                                 <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
                                     :value="1" :checked="$this->store && $this->store->status == '1' ? true : false" />

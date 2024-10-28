@@ -248,7 +248,7 @@
                                     :name="'form.picture'"></x-image-upload>
                             </div>
                         </div>
-                        <div
+                        {{-- <div
                             class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
                             <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                                 <h3 class="font-medium text-black dark:text-white">
@@ -259,7 +259,7 @@
                                 <x-image-upload :default="$client->default_logo_url ?? asset('/default.png')" :uploaded="$client->logo_url ?? asset('/default.png')"
                                     :name="'form.logo'"></x-image-upload>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
