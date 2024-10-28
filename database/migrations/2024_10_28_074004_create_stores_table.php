@@ -29,7 +29,8 @@ class CreateStoresTable extends Migration
             $table->string('api_key')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
-
+            $table->softDeletes();
+            
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
 {   
     use HasFactory;
     use \App\Helper\Upload;
-    
+    use SoftDeletes;    
     /**
      * The attributes that are mass assignable.
      *
@@ -44,6 +45,17 @@ class Store extends Model
         'password',
         'api_key',
     ];
+
+    // Boot method to listen for model events
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set the type to 'store' when a record is created
+        static::creating(function ($model) {
+            $model->type = 'store';
+        });
+    }
 
     public function client()
     {

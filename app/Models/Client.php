@@ -117,8 +117,8 @@ class Client extends Model
         return $this->hasMany(Store::class)->store();
     }
 
-    public function website()
+    public function websites()
     {
-        return $this->hasMany(Store::class)->website();
+        return $this->hasMany(Website::class)->website();
     }
 }
