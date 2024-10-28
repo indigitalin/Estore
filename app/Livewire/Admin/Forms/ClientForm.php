@@ -103,6 +103,7 @@ class ClientForm extends Form
             }
 
             $this->client->updateLogo($this->logo, (int) $this->logo_removed);
+            $this->client->refresh();
             $this->client->user->updatePicture($this->picture, (int) $this->picture_removed);
 
             return ([
