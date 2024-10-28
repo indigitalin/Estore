@@ -16,7 +16,7 @@ class Index extends Component
          * Load roles created by current user or their employer
          */
         return view('livewire.client.categories.index')->withCategories(
-            \App\Models\Category::paginate(20)
+            auth()->user()->client->categories()->paginate(20)
         );
     }
 
