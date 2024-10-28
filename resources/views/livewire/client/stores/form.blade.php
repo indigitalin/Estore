@@ -52,19 +52,37 @@
                                         <x-input-error :messages="$errors->get('form.phone')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="password" :value="__('Password')" />
+                                        <x-password-input placeholder="Password" wire:model="form.password"
+                                            id="password" class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="confirm_password" :value="__('Confirm Password')" />
+                                        <x-password-input placeholder="Confirm password"
+                                            wire:model="form.confirm_password" id="confirm_password"
+                                            class="mt-1 block w-full" />
+                                        <x-input-error :messages="$errors->get('form.confirm_password')" class="mt-2" />
+                                    </div>
+                                </div>
                             </div>
                             @if ($store)
                                 <div class="mt-4">
                                     <div class="flex items-center">
                                         <x-input-label :value="__('API Key')" />
                                     </div>
-                                    <div class="text-semibold cursor-pointer" x-tooltip="tooltip" @click="copyToClipboard(apiKey)"
-                                        x-data="{ tooltip: 'Copy API Key', apiKey: '{{ $store->api_key }}' }">
+                                    <div class="text-semibold cursor-pointer" x-tooltip="tooltip"
+                                        @click="copyToClipboard(apiKey)" x-data="{ tooltip: 'Copy API Key', apiKey: '{{ $store->api_key }}' }">
                                         {{ str_repeat('*', strlen($store->api_key) - 10) . substr($store->api_key, -10) }}
                                         <box-icon class="cursor-pointer" name='copy'></box-icon>
                                     </div>
                                 </div>
                             @endif
+
                         </div>
                     </div>
                     <div

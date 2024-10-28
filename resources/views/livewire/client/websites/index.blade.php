@@ -72,7 +72,6 @@
                                 </div>
                                 </a>
                             </td>
-
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <div class="flex flex-col">
                                     <a href="mailto:{{ $website->email }}"><i

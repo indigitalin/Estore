@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
-{   
+{
     use HasFactory;
     use \App\Helper\Upload;
-    use SoftDeletes;    
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -82,11 +82,12 @@ class Store extends Model
         return $logo ?: 'default.png';
     }
 
-    public function updateLogo($file, int $isRemoved){
+    public function updateLogo($file, int $isRemoved)
+    {
         /**
          * If action is to remove logo, delete logo and set logo as null
          */
-        if($isRemoved){
+        if ($isRemoved) {
             $this->removeFile($this->logo);
             $this->update(['logo' => null]);
         }
@@ -111,7 +112,13 @@ class Store extends Model
         return file_url($this->logo);
     }
 
-    public function getDefaultLogoUrlAttribute(){
+    public function getDefaultLogoUrlAttribute()
+    {
         return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($password);
     }
 }

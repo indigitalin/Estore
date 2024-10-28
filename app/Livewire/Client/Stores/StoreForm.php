@@ -64,7 +64,7 @@ class StoreForm extends Form
                 // Update existing store
                 $this->store = auth()->user()->client->stores()->create(
                     $this->only(['name', 'status']) + [
-                        'api_key' => strtoupper(\Illuminate\Support\Str::random(64))
+                        'api_key' => strtoupper(\Illuminate\Support\Str::random(64)),
                     ]
                 );
             }
@@ -72,6 +72,16 @@ class StoreForm extends Form
                 $this->only(['latitude', 'longitude', 'email', 'phone', 'address', 'city', 'postcode', 'state_id', 'country_id', 'email', 'phone'])
             );
             $this->store->updateLogo($this->logo, (int) $this->logo_removed);
+
+            /**
+             * Change password only if requested
+             */
+            if ($this->password) {
+                $this->store->update(
+                    $this->only(['password'])
+                );
+            }
+
             return ([
                 'status' => 'success',
                 'message' => $this->store->wasRecentlyCreated ? 'Store created successfully.' : 'Store updated successfully.',
@@ -127,8 +137,18 @@ class StoreForm extends Form
                 new \App\Rules\StrongPassword,
             ],
             'confirm_password' => ['nullable', 'sometimes'],
-            'latitude' => ['sometimes', 'nullable', 'string', 'max:64'],
-            'longitude' => ['sometimes', 'nullable', 'string', 'max:64']
+            'latitude' => [
+                'sometimes',
+                'nullable',
+                'numeric',
+                'between:-90,90', // Valid latitude range
+            ],
+            'longitude' => [
+                'sometimes',
+                'nullable',
+                'numeric',
+                'between:-180,180', // Valid longitude range
+            ],
         ];
     }
 }
