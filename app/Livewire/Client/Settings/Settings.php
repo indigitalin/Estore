@@ -19,6 +19,13 @@ class Settings extends Component
     {
         $this->form->setClient($this->client = auth()->user()->client);
         $this->updateStates(defaultState : $this->client->state_id); // Preload states if editing a client
+
+        /**
+         * Hardcode country states of application runs for single country
+         */
+        if(config('app.country')){
+            $this->states = \App\Models\State::whereCountryId(config('app.country'))->pluck('name','id');
+        }
     }
 
     // Method to update the states based on the selected country

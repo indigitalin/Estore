@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                                 @if (config('app.country'))
-                                    <input wire:init="updateStates" type="hidden" name=""
+                                    <input type="hidden" name=""
                                         wire:model="form.country_id" value="{{ config('app.country') }}">
                                 @else
                                     <div class="w-full md:w-1/2 p-2">

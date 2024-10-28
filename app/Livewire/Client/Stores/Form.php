@@ -31,11 +31,20 @@ class Form extends Component
             $this->form->setStore($this->store = auth()->user()->client->stores()->findOrfail($store));
             $this->updateStates(defaultState : $this->store->state_id); // Preload states if editing a client
         }
+
+        /**
+         * Hardcode country states of application runs for single country
+         */
+        if(config('app.country')){
+            $this->states = \App\Models\State::whereCountryId(config('app.country'))->pluck('name','id');
+        }
+
     }
 
     // Method to update the states based on the selected country
     public function updateStates($defaultState = null)
     {
+
         $this->states = \App\Models\State::whereCountryId($this->form->country_id)->pluck('name','id');
 
         // Clear state selection if the country changes

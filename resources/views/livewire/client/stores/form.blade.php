@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 @if (config('app.country'))
-                                    <input wire:init="updateStates" type="hidden" name=""
+                                    <input type="hidden" name="form.country_id"
                                         wire:model="form.country_id" value="{{ config('app.country') }}">
                                 @else
                                     <div class="w-full md:w-1/2 p-2">
@@ -78,7 +78,7 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="state_id" :value="__('State')" />
-                                        <x-select id="state_id" wire:model="form.state_id" :options="$states"
+                                        <x-select id="state_id" wire:model="form.state_id" :options="$this->states"
                                             :selected="$this->form->state_id" />
                                         <x-input-error :messages="$errors->get('form.state_id')" class="mt-2" />
                                     </div>
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1"></div>
-                                <div class="w-full md:w-1/2 p-2">
+                                {{-- <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="latitude" :value="__('Latitude')" />
                                         <x-text-input placeholder="Latitude" wire:model="form.latitude" id="latitude"
@@ -108,7 +108,7 @@
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.longitude')" class="mt-2" />
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                 <div class="col-span-6 xl:col-span-2">
                     <div class="sticky top-[110px]">
                         <div
-                            class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
+                            class="rounded-sm border border-stroke shadow-default mb-7  bg-white dark:border-strokedark dark:bg-boxdark">
                             <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                                 <h3 class="font-medium text-black dark:text-white">
                                     Store logo
@@ -192,6 +192,17 @@
                             <div class="p-7 pt-0 mt-4">
                                 <x-image-upload :default="$this->store->default_logo_url ?? asset('/default.png')" :uploaded="$this->store->logo_url ?? asset('/default.png')"
                                     :name="'form.logo'"></x-image-upload>
+                            </div>
+                        </div>
+                        <div
+                            class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
+                            <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                                <h3 class="font-medium text-black dark:text-white">
+                                    Store location
+                                </h3>
+                            </div>
+                            <div class="p-7 pt-0 mt-4">
+                                <x-map-picker :latitude="$this->store->latitude ?? '1.11'" :longitude="$this->store->longitude ?? '1.11'"/>
                             </div>
                         </div>
                     </div>

@@ -54,6 +54,7 @@ class StoreForm extends Form
 
     public function save()
     {
+        //dd($this);
         $this->prepareValidation();
         $this->validate();
         try {
