@@ -13,7 +13,7 @@ class Index extends Component
     public function render()
     {
         /**
-         * Load roles created by current user or their employer
+         * Load categories created by current user or their employer
          */
         return view('livewire.client.categories.index')->withCategories(
             auth()->user()->client->categories()->paginate(20)

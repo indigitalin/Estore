@@ -66,9 +66,8 @@
                                     <div class="flex flex-wrap -mx-2 gap-5">
                                         @foreach ($modules as $section => $items)
                                             <div class="w-full md:w-1/4 p-2">
-                                                <x-toggle-switch wire:model="form.modules"
-                                                    label="{{ $items->name }}" checked=""
-                                                    value="{{ $items->id }}"
+                                                <x-toggle-switch wire:model="form.modules" label="{{ $items->name }}"
+                                                    checked="" value="{{ $items->id }}"
                                                     id="modules_{{ $items->id }}" />
                                             </div>
                                         @endforeach
@@ -87,8 +86,8 @@
                                     </div>
                                 </div>
                             </div>
-                          
-                            
+
+
                             <div class="mt-5 flex">
                                 <x-secondary-button wire:navigate href="{{ route('admin.subscriptions.index') }}"
                                     class="ms-auto me-2">
@@ -108,4 +107,5 @@
             </div>
         </form>
     </div>
-
+</div>
+<x-form-error :error="$errors" />

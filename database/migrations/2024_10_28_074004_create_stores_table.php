@@ -15,7 +15,7 @@ class CreateStoresTable extends Migration
             $table->string('name', 150);
             $table->string('address', 255)->nullable();
             $table->string('city', 100)->nullable();
-            $table->string('postalcode', 7)->nullable();
+            $table->string('postcode', 7)->nullable();
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->string('phone', 15)->nullable();

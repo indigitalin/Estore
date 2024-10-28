@@ -12,7 +12,7 @@ class Client extends Model
     use SoftDeletes;
     use \App\Helper\Upload;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -51,11 +51,12 @@ class Client extends Model
         return $logo ?: 'default.png';
     }
 
-    public function updateLogo($file, int $isRemoved){
+    public function updateLogo($file, int $isRemoved)
+    {
         /**
          * If action is to remove logo, delete logo and set logo as null
          */
-        if($isRemoved){
+        if ($isRemoved) {
             $this->removeFile($this->logo);
             $this->update(['logo' => null]);
         }
@@ -80,15 +81,18 @@ class Client extends Model
         return file_url($this->logo);
     }
 
-    public function getDefaultLogoUrlAttribute(){
+    public function getDefaultLogoUrlAttribute()
+    {
         return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->business_name);
     }
 
-    public function industry(){
+    public function industry()
+    {
         return $this->belongsTo(Industry::class);
     }
 
-    public function getIndustryNameAttribute(){
+    public function getIndustryNameAttribute()
+    {
         return $this->industry->name ?? 'Other';
     }
 
@@ -106,5 +110,15 @@ class Client extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class)->store();
+    }
+
+    public function website()
+    {
+        return $this->hasMany(Store::class)->website();
     }
 }

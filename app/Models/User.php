@@ -116,11 +116,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles()->whereNotIn('name', self::USER_ROLE_IGNORE_LIST)->pluck('id')->first() ?? null;
     }
 
-    public function getPhoneNumberAttribute()
-    {
-        return $this->phone;
-    }
-
     public function getStatusLabelAttribute()
     {
         return $this->status == "1" ? 'Active' : 'Suspended';

@@ -63,7 +63,7 @@
                                     <a href="mailto:{{ $user->email }}"><i
                                             class="text-black dark:text-white">{{ $user->email }}</i></a>
                                     <a href="tel:{{ $user->phone }}"><i
-                                            class="text-black dark:text-white">{{ $user->phoneNumber }}</i></a>
+                                            class="text-black dark:text-white">{{ $user->phone }}</i></a>
                                 </div>
                             </td>
 

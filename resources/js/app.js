@@ -5,9 +5,7 @@ import 'boxicons'
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 
 // import 'flowbite';
-
 // import { initFlowbite } from 'flowbite';
-
 
 // document.addEventListener("livewire:navigating", () => {
 //     initFlowbite();
@@ -42,13 +40,7 @@ function handleInputChange(event) {
         const errorMessage = target.closest('div').querySelector('ul.text-red-600');
         if (errorMessage) {
             errorMessage.remove();
-            console.log(`Error message removed for ${target.tagName.toLowerCase()} element.`);
         }
-        
-        // For 'change' event specifics like select, checkbox, or radio
-        // if (event.type === 'change') {
-        //     console.log(`${target.tagName.toLowerCase()} element changed:`, target.value);
-        // }
     }
 }
 

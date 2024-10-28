@@ -12,7 +12,7 @@
                 <div
                     class="text-center cursor-pointer bg-gray-700/20 absolute start-0 top-0 w-full h-full flex items-center">
                     <div class="m-auto text-center text-white">
-                        <div class="">Upload {{ $name }}</div>
+                        <div class="">Upload image</div>
                         <box-icon name='upload' color="#fff"></box-icon>
                     </div>
                 </div>

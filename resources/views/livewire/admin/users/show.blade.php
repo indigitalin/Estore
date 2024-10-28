@@ -41,9 +41,9 @@
                         <span class="font-semibold mt-2">
                             <box-icon name='phone-call'></box-icon>
                         </span>
-                        <a href="tel:{{ $user->phoneNumber }}" class="text-black dark:text-white outline-none ">
+                        <a href="tel:{{ $user->phone }}" class="text-black dark:text-white outline-none ">
 
-                            {{ $user->phoneNumber }}
+                            {{ $user->phone }}
                         </a>
                     </div>
                     <div
