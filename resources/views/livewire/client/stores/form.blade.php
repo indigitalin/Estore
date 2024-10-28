@@ -58,10 +58,10 @@
                                     <div class="flex items-center">
                                         <x-input-label :value="__('API Key')" />
                                     </div>
-                                    <div class="text-semibold">
+                                    <div class="text-semibold cursor-pointer" x-tooltip="tooltip" @click="copyToClipboard(apiKey)"
+                                        x-data="{ tooltip: 'Copy API Key', apiKey: '{{ $store->api_key }}' }">
                                         {{ str_repeat('*', strlen($store->api_key) - 10) . substr($store->api_key, -10) }}
-                                        <box-icon @click="copyToClipboard(apiKey)" x-data="{ apiKey: '{{ $store->api_key }}' }"
-                                            class="cursor-pointer" name='copy'></box-icon>
+                                        <box-icon class="cursor-pointer" name='copy'></box-icon>
                                     </div>
                                 </div>
                             @endif
@@ -125,8 +125,8 @@
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="latitude" :value="__('Latitude')" />
-                                        <x-text-input placeholder="Latitude" wire:model="form.latitude" id="latitude"
-                                            class="mt-1 block w-full" type="text" />
+                                        <x-text-input placeholder="Latitude" wire:model="form.latitude"
+                                            id="latitude" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.latitude')" class="mt-2" />
                                     </div>
                                 </div>
