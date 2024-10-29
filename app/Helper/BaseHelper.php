@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use App\Events\UserActivityLogged;
+use App\Services\NotificationService;
+
 
 /**
  * Generate file url based on upload channel
@@ -64,4 +67,16 @@ function isAdmin(){
  */
 function isClient(){
     return hasRole('client admin|client admin user');
+}
+
+/*Create the ActivityLog function */
+function storeLogActivity($user_id,$action = '',$description = '') : void
+{
+    event(new UserActivityLogged($user_id, $action, $description));
+}
+
+/*Store and Send Noitification function */
+function storeAndSendNotification($user_id,$subject = '',$description = '',$route ='') : void
+{
+    NotificationService::storeAndSend($user_id, $subject, $description, $route);
 }

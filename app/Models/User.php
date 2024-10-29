@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use \App\Services\notification\Auth;
-    
+    use Notifiable;
     const SUPER_ADMIN_ROLE_ID       = 1;
     const SUPER_ADMIN_USER_ROLE_ID  = 2;
     const CLIENT_ADMIN_ROLE_ID      = 3;

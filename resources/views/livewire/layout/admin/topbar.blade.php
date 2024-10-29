@@ -106,9 +106,8 @@ new class extends Component {
                         </div>
 
                         <ul class="flex h-auto flex-col overflow-y-auto">
-                            <li class="px-4.5 py-3 hover:bg-gray-2">
-                                Opps, no notification available
-                            </li>
+                            <livewire:notifications />
+                            
                         </ul>
                     </div>
                     <!-- Dropdown End -->
@@ -166,4 +165,5 @@ new class extends Component {
             <!-- User Area -->
         </div>
     </div>
+ 
 </header>

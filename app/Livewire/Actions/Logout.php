@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Actions;
 
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -12,9 +13,17 @@ class Logout
      */
     public function __invoke(): void
     {
-        Auth::guard('web')->logout();
-
-        Session::invalidate();
-        Session::regenerateToken();
+        try{
+            storeLogActivity(auth()->user()->id,'Account Log out','account logouted at '. date('d-M-Y H:i:s'));
+            Auth::guard('web')->logout();
+            Session::invalidate();
+            Session::regenerateToken();
+        }
+        catch(Exception $e){
+          
+    
+        }
+        
+        
     }
 }
