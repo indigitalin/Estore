@@ -31,7 +31,7 @@
                 <h3 class="mb-1.5 text-2xl font-medium text-black dark:text-white capitalize">
                     {{ $store->name }}
                 </h3>
-                <i class="font-medium capitalize">{{ $store->type }}</i>
+                <div><i class="font-medium capitalize">{{ $store->address }} {{ $store->city }}</i></div>
 
                 <div
                     class="mx-auto mb-5.5 mt-4.5 grid max-w-xl grid-cols-2 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
