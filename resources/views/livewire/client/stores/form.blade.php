@@ -202,7 +202,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-map-picker :latitude="$this->store->latitude ?? '1.11'" :longitude="$this->store->longitude ?? '1.11'"/>
+                                <x-map-picker :latitude="$this->store->latitude ?? '20.5937'" :longitude="$this->store->longitude ?? '78.9629'"/>
                             </div>
                         </div>
                     </div>
