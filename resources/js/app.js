@@ -1,7 +1,7 @@
 import './bootstrap';
 import '../../vendor/masmerise/livewire-toaster/resources/js'; // 👈
 import 'boxicons'
-
+import { Loader } from '@googlemaps/js-api-loader';
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 
 // import 'flowbite';
@@ -44,3 +44,33 @@ function handleInputChange(event) {
     }
 }
 
+function loadGoogleMap(apiKey, mapElementId, initialLat, initialLng, callback) {
+    const loader = new Loader({
+        apiKey: apiKey,
+        version: 'weekly',
+    });
+
+    loader.load().then(() => {
+        const map = new google.maps.Map(document.getElementById(mapElementId), {
+            center: { lat: parseFloat(initialLat), lng: parseFloat(initialLng) },
+            zoom: 13,
+            zoomControl: true,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: false,
+        });
+
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(initialLat), lng: parseFloat(initialLng) },
+            map: map,
+            draggable: true,
+        });
+
+        // Run the callback after loading the map
+        if (callback) callback(map, marker);
+    }).catch(error => {
+        console.error('Error loading Google Maps:', error);
+    });
+}
+
+window.loadGoogleMap = loadGoogleMap; // Make it globally available for Alpine.js or Blade to call
