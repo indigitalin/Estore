@@ -17,7 +17,7 @@ require __DIR__.'/admin.php';
 require __DIR__.'/clientAdmin.php';
 
 
-
+      
 
 Route::get('/test-notification', function () {
     $userId = auth()->id(); // Ensure you're authenticated
