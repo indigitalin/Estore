@@ -13,9 +13,7 @@ class Show extends Component
     
     public function mount(User $user = null): void
     {
-        if ($user && $user->exists) {
-            $this->form->setUser($user);
-        }
+        auth()->user()->staffs()->findOrfail($user->id);
     }
 
 

@@ -160,7 +160,8 @@
                                 </div>
                             @endif
                             <div class="mt-5">
-                                <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
+                                <x-input-label :value="__('Status')" />
+                                <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')" :labelOn="'Active'" :labelOff="'Inactive'"
                                     :value="1" :checked="$this->store && $this->store->status == '1' ? true : false" />
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>

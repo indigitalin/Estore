@@ -37,6 +37,7 @@ Route::middleware([
     Route::group(['prefix'=>'stores', 'as' => 'stores.','namespace' => '\App\Livewire\Client\Stores'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
+        Route::get('/{store}', Show::class)->name('show');
         Route::get('/{store}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 

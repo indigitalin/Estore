@@ -91,8 +91,13 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">
-                                    <x-action-button x-data="{ tooltip: 'Edit store' }" x-tooltip="tooltip" role="button"
+                                    <x-action-button x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" role="button"
                                         class="ms-auto me-2" wire:navigate
+                                        href="{{ route('client.stores.show', $store) }}">
+                                        <box-icon size="20px" color="#888" name='show'></box-icon>
+                                    </x-action-button>
+                                    <x-action-button x-data="{ tooltip: 'Edit store' }" x-tooltip="tooltip" role="button"
+                                        class="me-2" wire:navigate
                                         href="{{ route('client.stores.edit', $store) }}">
                                         <box-icon size="20px" color="#888" name='edit'></box-icon>
                                     </x-action-button>

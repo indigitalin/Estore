@@ -80,7 +80,8 @@
                                         <x-input-error :messages="$errors->get('form.popular')" class="mt-2" />
                                     </div>
                                     <div class="mt-5 p-2">
-                                        <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Active')"
+                                        <x-input-label :value="__('Status')" />
+                                <x-toggle-switch :labelOn="'Active'" :labelOff="'Inactive'" id="status-toggle" wire:model="form.status" :label="__('Active')"
                                             :value="1" :checked="$plan && $plan->status == '1' ? true : false" />
                                         <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                                     </div>

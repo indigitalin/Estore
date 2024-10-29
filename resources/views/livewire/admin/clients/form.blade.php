@@ -190,8 +190,8 @@
                                     </div>
                                 </div>
                                 @if (config('app.country'))
-                                    <input type="hidden" name=""
-                                        wire:model="form.country_id" value="{{ config('app.country') }}">
+                                    <input type="hidden" name="" wire:model="form.country_id"
+                                        value="{{ config('app.country') }}">
                                 @else
                                     <div class="w-full md:w-1/2 p-2">
                                         <div class="mt-2">
@@ -213,8 +213,10 @@
 
                             </div>
                             <div class="mt-5">
-                                <x-toggle-switch id="status-toggle" wire:model="form.status" :label="__('Status')"
-                                    :value="1" :checked="$client && $client->status == '1' ? true : false" />
+                                <x-input-label :value="__('Status')" />
+                                <x-toggle-switch :labelOn="'Active'" :labelOff="'Inactive'" id="status-toggle"
+                                    wire:model="form.status" :label="__('Status')" :value="1"
+                                    :checked="$client && $client->status == '1' ? true : false" />
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
                             <div class="mt-5 flex">
