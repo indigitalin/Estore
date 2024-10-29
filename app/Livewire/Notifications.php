@@ -10,16 +10,19 @@ class Notifications extends Component
 
     public function mount()
     {
-        $this->loadNotifications();
+        $this->notifications = Notification::where('user_id', auth()->id())->get();
+        // $this->loadNotifications();
     }
 
-    public function loadNotifications()
-    {
-        $this->notifications = Notification::where('user_id', auth()->id())->get();
-    }
+    // public function loadNotifications()
+    // {
+    //     $this->notifications = Notification::where('user_id', auth()->id())->get();
+    // }
 
     public function render()
     {
         return view('livewire.notifications');
     }
 }
+
+
