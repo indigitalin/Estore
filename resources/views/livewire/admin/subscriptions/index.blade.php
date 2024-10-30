@@ -15,7 +15,7 @@
             <table class="w-full table-auto">
                 <thead>
                     <tr class="bg-gray-2 text-left dark:bg-meta-4">
-                        <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+                        <th class="px-4 py-4 font-medium text-black dark:text-white">
                             Name
                         </th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
