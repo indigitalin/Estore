@@ -67,9 +67,10 @@
                             </td>
 
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                <a class="text-indigo-600" target="_blank" href="{{ $website->website }}"><div>
-                                    <span>{{ strlen($website->website) > 20 ? '...' . substr($website->website, -20) : $website->website }}</span>
-                                </div>
+                                <a class="text-indigo-600" target="_blank" href="{{ $website->website }}">
+                                    <div>
+                                        <span>{{ strlen($website->website) > 20 ? '...' . substr($website->website, -20) : $website->website }}</span>
+                                    </div>
                                 </a>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
@@ -93,10 +94,15 @@
                                 <div class="flex items-center">
                                     <a target="_blank" class="ms-auto" href="{{ $website->website }}">
                                         <x-action-button x-data="{ tooltip: 'View website' }" x-tooltip="tooltip" role="button"
-                                        class="ms-auto me-2">
-                                        <box-icon size="20px" color="#888" name='show'></box-icon>
-                                    </x-action-button>
+                                            class="ms-auto me-2">
+                                            <box-icon size="20px" color="#888" name='show'></box-icon>
+                                        </x-action-button>
                                     </a>
+
+                                    <x-action-button href="{{ route('client.websites.settings.index', $website) }}" wire:navigate x-data="{ tooltip: 'Settings' }" x-tooltip="tooltip" role="button"
+                                        class="me-2">
+                                        <box-icon size="20px" color="#888" name='cog'></box-icon>
+                                    </x-action-button>
                                     <x-action-button x-data="{ tooltip: 'Edit website' }" x-tooltip="tooltip" role="button"
                                         class="me-2" wire:navigate
                                         href="{{ route('client.websites.edit', $website) }}">

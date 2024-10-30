@@ -32,6 +32,7 @@ Route::middleware([
         Route::get('/create', Form::class)->name('create');
         Route::get('/{user}', Show::class)->name('show');
         Route::get('/{user}/edit', Form::class)->name('edit');
+        
     })->middleware('wirenavigate');
 
     Route::group(['prefix'=>'stores', 'as' => 'stores.','namespace' => '\App\Livewire\Client\Stores'], function(){
@@ -44,6 +45,7 @@ Route::middleware([
     Route::group(['prefix'=>'websites', 'as' => 'websites.','namespace' => '\App\Livewire\Client\Websites'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
+        Route::get('/{website}', Settings::class)->name('settings.index');
         Route::get('/{website}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 });
