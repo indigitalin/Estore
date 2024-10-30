@@ -20,7 +20,10 @@
                 <thead>
                     <tr class="bg-gray-2 text-left dark:bg-meta-4">
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                            Generated Date & Time
+                            Error
+                        </th>
+                        <th class="px-4 py-4 font-medium text-black dark:text-white">
+                            Time
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
 
@@ -31,6 +34,14 @@
 
                     @forelse ($filelists as $item)
                         <tr>
+                            <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
+                                <div class="flex items-center gap-3">
+                                    <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
+                                      
+                                       {{ str_replace('.html','',str_replace('_','-',$item)) }}
+                                    </p>
+                                </div>
+                            </td>
                             <td class="border-b border-[#eee] px-4 py-5 pl-5 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
                                     <p class="hidden font-medium text-black dark:text-white sm:block capitalize">

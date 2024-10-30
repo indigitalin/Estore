@@ -11,7 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Index extends Component
 {
     use WithPagination;
-    private const FILES_PER_PAGE = 5;
+    private const FILES_PER_PAGE = 20;
 
     public function render()
     {
