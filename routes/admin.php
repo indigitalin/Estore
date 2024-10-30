@@ -18,6 +18,10 @@ Route::middleware([
         Route::get('/{log}', Show::class)->name('show');
     });
 
+    Route::group(['prefix'=>'backups', 'as' => 'backups.','namespace' => '\App\Livewire\Admin\Backups'], function(){
+        Route::get('/', Index::class)->name('index');
+    });
+
     Route::group(['prefix'=>'users', 'as' => 'users.','namespace' => '\App\Livewire\Admin\Users'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');

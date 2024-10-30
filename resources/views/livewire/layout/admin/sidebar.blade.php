@@ -232,6 +232,13 @@
                                 <li>
                                     <a wire:navigate
                                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                                        href="{{ route('admin.backups.index') }}" :class="page === 'logs' && '!text-white'">
+                                        Backups
+                                    </a>
+                                </li>
+                                <li>
+                                    <a wire:navigate
+                                        class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                                         href="{{ route('admin.index') }}" :class="page === 'ecommerce' && '!text-white'">Company
                                         Settings
                                     </a>
