@@ -8,5 +8,7 @@
             {{ __("You're logged in!") }}
         </div>
     </div>
-    
+    @if ($this->firstLogin)
+        <div x-data="{ firstLogin: @js($firstLogin) }" x-init="if (firstLogin) { $dispatch('openModal', { component: 'client.get-started' }) }"></div>
+    @endif
 </div>

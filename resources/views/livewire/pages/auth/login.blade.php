@@ -19,12 +19,15 @@ new #[Layout('layouts.guest')] class extends Component {
         $this->form->authenticate();
 
         Session::regenerate();
+        if(!auth()->user()->last_login){
+            session(['firstLogin' => true]); 
+        }
         auth()
             ->user()
             ->update([
                 'last_login' => now(),
             ]);
-            storeLogActivity(auth()->user()->id,'Account Log in','Account Log in at '. date('d-M-Y H:i:s'));
+        storeLogActivity(auth()->user()->id, 'Account Log in', 'Account Log in at ' . date('d-M-Y H:i:s'));
         \Toaster::success(__('Hello :name, welcome back!', ['name' => auth()->user()->name]));
         $this->redirectIntended(default: route('index', absolute: false), navigate: true);
     }
@@ -44,8 +47,10 @@ new #[Layout('layouts.guest')] class extends Component {
                         <div class="py-17.5 text-center">
                             <div class="px-26 ">
                                 <a class="mb-5.5 inline-block" href="index.html">
-                                    <img class="hidden dark:block" src="{{ asset('src/images/e-store.png') }}" alt="Logo" />
-                                    <img class="dark:hidden" src="{{ asset('src/images/logo/e-store.png') }}" alt="Logo" />
+                                    <img class="hidden dark:block" src="{{ asset('src/images/e-store.png') }}"
+                                        alt="Logo" />
+                                    <img class="dark:hidden" src="{{ asset('src/images/logo/e-store.png') }}"
+                                        alt="Logo" />
                                 </a>
                             </div>
                             <div class="text-xl">Login to your account</div>
@@ -54,7 +59,8 @@ new #[Layout('layouts.guest')] class extends Component {
 
                             <div class="px-26">
                                 <span class="mt-15 inline-block">
-                                    <img src="{{ asset('src/images/illustration/illustration-03.svg') }}" alt="illustration" />
+                                    <img src="{{ asset('src/images/illustration/illustration-03.svg') }}"
+                                        alt="illustration" />
                                 </span>
                             </div>
                         </div>
