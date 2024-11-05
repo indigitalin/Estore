@@ -25,8 +25,22 @@
                                 Banner information
                             </h3>
                         </div>
-                        <div class="p-7 pt-0">
+                        <div class="p-7 pt-0" x-data="{'type':'{{ $this->banner->type ?? 'image' }}'}">
                             <div class="flex flex-wrap -mx-2">
+                                {{-- <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="type" :value="__('Type')" />
+                                        <div class="flex items-center mb-2">
+                                            <input @click="type='image'" type="radio" wire:model="form.type" name="type" value="image" class="cursor-pointer" id="image">
+                                            <x-input-label class="mb-0 ms-2 cursor-pointer" for="image" :value="__('Image')" />
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input @click="type='video'" type="radio" wire:model="form.type" name="type" value="video" class="cursor-pointer" id="video">
+                                            <x-input-label class="mb-0 ms-2 cursor-pointer" for="video" :value="__('Video')" />
+                                        </div>
+                                        <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
+                                    </div>
+                                </div> --}}
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="title" :value="__('Title(optional)')" />

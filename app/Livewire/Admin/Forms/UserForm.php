@@ -120,20 +120,6 @@ class UserForm extends Form
     {
 
         $this->phone = str_replace('-', '', filter_var($this->phone_number, FILTER_SANITIZE_NUMBER_INT));
-        $this->status = isset($this->status) ? '1' : '0';
+        $this->status = isset($this->status) && $this->status ? '1' : '0';
     }
-
-    // public function validationAttributes(): array
-    // {
-    //     return [
-    //         'firstname' => 'firstname',
-    //         'lastname' => 'lastname',
-    //         'phone' => 'phone',
-    //         'email' => 'email',
-    //         'password' => 'password',
-    //         'status' => 'status',
-    //         'picture' => 'picture',
-    //         'role' => 'role',
-    //     ];
-    // }
 }

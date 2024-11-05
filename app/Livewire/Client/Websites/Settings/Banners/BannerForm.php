@@ -25,6 +25,7 @@ class BannerForm extends Form
     public string|null $link = null;
     public string|null $placement = null;
     public string|null $position = null;
+    public string|null $type = null;
     public function setWebsite(?Website $website = null): void
     {
         $this->website = $website;
@@ -38,6 +39,7 @@ class BannerForm extends Form
         $this->link = $banner->link;
         $this->placement = $banner->placement;
         $this->position = $banner->position;
+        $this->type = $banner->type;
     }
 
     public function save()
@@ -48,12 +50,12 @@ class BannerForm extends Form
             if ($this->banner) {
                 // Update existing banner
                 $this->banner->update($this->only([
-                    'title', 'slug', 'status', 'placement', 'link'
+                    'title', 'slug', 'status', 'placement', 'link', 'type'
                 ]));
             } else {
                 // Create new banner
                 $this->banner = $this->website->banners()->create($this->only([
-                    'title', 'slug', 'status', 'placement', 'link'
+                    'title', 'slug', 'status', 'placement', 'link', 'type'
                 ])+[
                     'client_id' => $this->website->client_id,
                 ]);
@@ -77,7 +79,7 @@ class BannerForm extends Form
      */
     public function prepareValidation(): void
     {
-        $this->status = isset($this->status) ? '1' : '0';
+        $this->status = isset($this->status) && $this->status ? '1' : '0';
     }
 
     public function rules(): array
@@ -92,6 +94,7 @@ class BannerForm extends Form
                     $fail('The banner already exists, please create different one.');
                 }
             }],
+            'type' => ['required', 'in:video,image'],
             'link' => ['sometimes', 'nullable', 'string'],
             'placement' => ['required', 'in:slider,breadcrumb'],
             'position' => ['sometimes', 'nullable', 'numeric'],
