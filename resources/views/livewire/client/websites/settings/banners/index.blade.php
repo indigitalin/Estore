@@ -47,7 +47,7 @@
                 <thead>
                     <tr class="bg-gray-2 text-left dark:bg-meta-4">
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
-                            Menu
+                            Banner
                         </th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">
                             Type
