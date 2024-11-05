@@ -15,7 +15,6 @@
                     <box-icon name='package'></box-icon> {{ __('Shipping') }}
                 </x-secondary-button>
             </div>
-
         </div>
     </div>
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

@@ -73,7 +73,7 @@ class BannerForm extends Form
             return $this->error($e);
         }
     }
-
+    
     /**
      * Before validation, prepare the values and do necessary changes
      */
@@ -94,7 +94,7 @@ class BannerForm extends Form
                     $fail('The banner already exists, please create different one.');
                 }
             }],
-            'type' => ['required', 'in:video,image'],
+            //'type' => ['required', 'in:video,image'],
             'link' => ['sometimes', 'nullable', 'string'],
             'placement' => ['required', 'in:slider,breadcrumb'],
             'position' => ['sometimes', 'nullable', 'numeric'],
