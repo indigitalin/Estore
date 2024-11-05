@@ -85,15 +85,7 @@ class BannerForm extends Form
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:128', function ($attribute, $value, $fail) {
-                $exists = $this->website->banners()->whereTitle($value)
-                    ->whereNot('id', $this->banner->id ?? null)
-                    ->exists();
-
-                if ($exists) {
-                    $fail('The banner already exists, please create different one.');
-                }
-            }],
+            'title' => ['sometimes', 'nullable', 'string', 'max:128'],
             //'type' => ['required', 'in:video,image'],
             'link' => ['sometimes', 'nullable', 'string'],
             'placement' => ['required', 'in:slider,breadcrumb'],
