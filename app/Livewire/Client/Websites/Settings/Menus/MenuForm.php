@@ -38,7 +38,9 @@ class MenuForm extends Form
                 // Create new menu
                 $this->menu = $this->website->menus()->create($this->only([
                     'title', 'slug'
-                ]));
+                ])+[
+                    'client_id' => $this->website->client_id,
+                ]);
             }
             return ([
                 'status' => 'success',
