@@ -138,12 +138,3 @@
     </div>
 </div>
 <x-form-error :error="$errors" />
-@push('scripts')
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                Toaster.success('API Key copied to clipboard.')
-            });
-        }
-    </script>
-@endpush

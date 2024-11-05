@@ -1,8 +1,10 @@
-
 @media (min-width: 640px) {
     .sm\:max-w-2xl {
         max-width: 56rem !important;
     }
 }
 
-
+.ck-editor__editable_inline {
+    min-height: 400px; /* Set this to the height you want */
+    /*max-height: 500px;*/ /* Optional, to control the maximum height */
+}

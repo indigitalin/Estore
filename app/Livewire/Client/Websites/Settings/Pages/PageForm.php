@@ -13,6 +13,7 @@ class PageForm extends Form
     public ?Website $website = null;
     public string|null $title = null;
     public string|null $status;
+    public string|null $content = null;
 
     public function setWebsite(?Website $website = null): void
     {
@@ -24,6 +25,7 @@ class PageForm extends Form
         $this->page = $page;
         $this->title = $page->title ;
         $this->status = $page->status;
+        $this->content = $page->content;
     }
 
     public function save()
@@ -34,12 +36,12 @@ class PageForm extends Form
             if ($this->page) {
                 // Update existing page
                 $this->page->update($this->only([
-                    'title', 'slug', 'status'
+                    'title', 'slug', 'status', 'content'
                 ]));
             } else {
                 // Create new page
                 $this->page = $this->website->pages()->create($this->only([
-                    'title', 'slug', 'status'
+                    'title', 'slug', 'status', 'content'
                 ])+[
                     'client_id' => $this->website->client_id,
                 ]);
@@ -77,7 +79,8 @@ class PageForm extends Form
                     $fail('The page already exists, please create different one.');
                 }
             }],
-            'status' => ['nullable']
+            'status' => ['nullable'],
+            'content' => ['required', 'string']
         ];
     }
 }

@@ -40,7 +40,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <x-toaster-hub class="text-md" />
     @livewire('wire-elements-modal')
     @include('livewire.confirm')
-    
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
     @stack('scripts')
 </body>
 </html>

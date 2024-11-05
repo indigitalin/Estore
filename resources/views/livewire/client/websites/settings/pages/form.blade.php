@@ -35,6 +35,15 @@
                                         <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2" wire:ignore>
+                                        <x-input-label for="content" :value="__('Content')" />
+                                        <x-textarea id="content" wire:model.defer="content" placeholder="Content"
+                                            wire:model="form.content" id="content" class="mt-1 block w-full"
+                                            type="text" />
+                                    </div>
+                                    <x-input-error :messages="$errors->get('form.content')" class="mt-2" />
+                                </div>
                             </div>
                             <div class="mt-5">
                                 <x-input-label :value="__('Status')" />
@@ -43,7 +52,8 @@
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
                             <div class="mt-5 flex">
-                                <x-secondary-button wire:navigate href="{{ route('client.websites.settings.pages.index', $this->website) }}"
+                                <x-secondary-button wire:navigate
+                                    href="{{ route('client.websites.settings.pages.index', $this->website) }}"
                                     class="ms-auto me-2">
                                     Cancel
                                 </x-secondary-button>
@@ -65,10 +75,16 @@
 <x-form-error :error="$errors" />
 @push('scripts')
     <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                Toaster.success('API Key copied to clipboard.')
+        ClassicEditor
+            .create(document.querySelector('#content'))
+            .then(editor => {
+                editor.setData(@js($form->content));
+                editor.model.document.on('change:data', () => {
+                    @this.set('form.content', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
             });
-        }
     </script>
 @endpush
