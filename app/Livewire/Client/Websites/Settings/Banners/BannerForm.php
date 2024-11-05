@@ -50,12 +50,12 @@ class BannerForm extends Form
             if ($this->banner) {
                 // Update existing banner
                 $this->banner->update($this->only([
-                    'title', 'slug', 'status', 'placement', 'link', 'type'
+                    'title', 'slug', 'status', 'placement', 'link',
                 ]));
             } else {
                 // Create new banner
                 $this->banner = $this->website->banners()->create($this->only([
-                    'title', 'slug', 'status', 'placement', 'link', 'type'
+                    'title', 'slug', 'status', 'placement', 'link',
                 ])+[
                     'client_id' => $this->website->client_id,
                 ]);
@@ -73,7 +73,7 @@ class BannerForm extends Form
             return $this->error($e);
         }
     }
-    
+
     /**
      * Before validation, prepare the values and do necessary changes
      */
