@@ -1,22 +1,4 @@
 <div class="">
-    <div>
-        <div class="flex items-center">
-            <div class="flex items-center">
-                <x-secondary-button wire:navigate href="{{ route('client.websites.settings.menus.index', $this->website) }}" class="mb-4 me-2 bg-white">
-                    <box-icon name='menu' ></box-icon> {{ __('Navigation menu') }}
-                </x-secondary-button>
-                <x-secondary-button wire:navigate href="{{ route('client.websites.settings.banners.index', $this->website) }}" class="mb-4 me-2 bg-primary text-white">
-                    <box-icon name='image-alt' color="white"></box-icon> {{ __('Banners') }}
-                </x-secondary-button>
-                <x-secondary-button class="mb-4 me-2 bg-white">
-                    <box-icon name='bookmark'></box-icon> {{ __('Pages') }}
-                </x-secondary-button>
-                <x-secondary-button class="mb-4 me-2 bg-white">
-                    <box-icon name='package'></box-icon> {{ __('Shipping') }}
-                </x-secondary-button>
-            </div>
-        </div>
-    </div>
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             {{ $website->name }} settings
@@ -31,6 +13,7 @@
             </ol>
         </nav>
     </div>
+    @include('livewire.client.websites.settings.header')
     <div class="">
         <p>Manage banners, view edit and delete banners</p>
     </div>

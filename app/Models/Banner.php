@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Banner extends Model
@@ -27,7 +27,7 @@ class Banner extends Model
         'desktop',
         'client_id',
         'website_id',
-        'link_newtab'
+        'link_newtab',
     ];
 
     public function getStatusLabelAttribute()
@@ -35,11 +35,12 @@ class Banner extends Model
         return $this->status == "1" ? 'Active' : 'Inactive';
     }
 
-    public function updateDesktopPicture($file, int $isRemoved){
+    public function updateDesktopPicture($file, int $isRemoved)
+    {
         /**
          * If action is to remove desktop, delete desktop and set desktop as null
          */
-        if($isRemoved){
+        if ($isRemoved) {
             $this->removeFile($this->desktop);
             $this->update(['desktop' => null]);
         }
@@ -56,11 +57,12 @@ class Banner extends Model
         }
     }
 
-    public function updateMobilePicture($file, int $isRemoved){
+    public function updateMobilePicture($file, int $isRemoved)
+    {
         /**
          * If action is to remove mobile, delete mobile and set mobile as null
          */
-        if($isRemoved){
+        if ($isRemoved) {
             $this->removeFile($this->mobile);
             $this->update(['mobile' => null]);
         }
@@ -95,5 +97,15 @@ class Banner extends Model
     public function getMobileUrlAttribute($mobile)
     {
         return file_url($this->mobile);
+    }
+
+    public function scopeSlider($q)
+    {
+        return $q->whereType('slider');
+    }
+
+    public function scopeBreadcrumb($q)
+    {
+        return $q->whereType('breadcrumb');
     }
 }

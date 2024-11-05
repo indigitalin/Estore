@@ -31,4 +31,8 @@ class Website extends Store
     public function banners(){
         return $this->hasMany(Banner::class);
     }
+
+    public function pages(){
+        return $this->hasMany(Page::class);
+    }
 }
