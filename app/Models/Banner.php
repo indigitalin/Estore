@@ -101,11 +101,11 @@ class Banner extends Model
 
     public function scopeSlider($q)
     {
-        return $q->whereType('slider');
+        return $q->wherePlacement('slider');
     }
 
     public function scopeBreadcrumb($q)
     {
-        return $q->whereType('breadcrumb');
+        return $q->wherePlacement('breadcrumb');
     }
 }

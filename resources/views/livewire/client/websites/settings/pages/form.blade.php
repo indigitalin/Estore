@@ -35,6 +35,73 @@
                                         <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="banner_id" :value="__('Banner')" />
+                                        <div x-data="{ banner_title: '{{ $page->banner->title ?? '' }}', banner_image: '{{ $page->banner->desktop_url ?? '' }}', show: false, banner_id: {{ $page->banner_id ?? 0 }} }" @click.away="show = false" class="relative">
+                                            <div @click="show = !show"
+                                                class="w-full flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
+                                                <div>
+                                                    <div x-show="banner_id !=0">
+                                                        <div class="flex items-center gap-3 cursor-pointer">
+                                                            <div class="flex-shrink-0 ">
+                                                                <img :src="banner_image"
+                                                                    class="rounded-full w-8 h-8 object-cover rounded-full"
+                                                                    alt="Brand" />
+                                                            </div>
+                                                            <div class="">
+                                                                <p class="font-medium sm:block capitalize" x-text="banner_title"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div x-show="banner_id ==0">
+                                                        Select an option
+                                                    </div>
+                                                </div>
+                                                <div class="ms-auto"><box-icon name='chevron-down'
+                                                        color="#888"></box-icon></div>
+                                            </div>
+                                            <div x-show="show" style="display:none"
+                                                class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
+                                                <div @click="show = false; banner_id = 0; banner_title='';banner_image=''"
+                                                    class="p-2 flex items-center gap-3 cursor-pointer">
+                                                    <div class="flex-shrink-0 ">
+                                                        <img src="{{ asset('default.png') }}"
+                                                            class="rounded-full w-10 h-10 object-cover rounded-full"
+                                                            alt="Brand" />
+                                                    </div>
+                                                    <div class="">
+                                                        <p class="font-medium sm:block capitalize">
+                                                            No image
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                @foreach ($banners as $banner)
+                                                    <label for="banner_{{ $banner->id }}" class="block"
+                                                        :class="{ 'bg-primary text-white': banner_id === {{ $banner->id }} }">
+                                                        <div @click="show = false; banner_id = {{ $banner->id }};banner_title='{{ $banner->title }}';banner_image='{{ $banner->desktop_url }}'"
+                                                            class="p-2 flex items-center gap-3 cursor-pointer">
+                                                            <div class="flex-shrink-0 ">
+                                                                <img src="{{ $banner->desktop_url }}"
+                                                                    class="rounded-full w-10 h-10 object-cover rounded-full"
+                                                                    alt="Brand" />
+                                                            </div>
+                                                            <div class="">
+                                                                <p class="font-medium sm:block capitalize">
+                                                                    {{ $banner->title }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <input x-show="false" type="radio" hidden
+                                                            value="{{ $banner->id }}" wire:model="form.banner_id"
+                                                            name="banner_id" id="banner_{{ $banner->id }}">
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('form.banner_id')" class="mt-2" />
+                                    </div>
+                                </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2" wire:ignore>
                                         <x-input-label for="content" :value="__('Content')" />
