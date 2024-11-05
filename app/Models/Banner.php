@@ -27,6 +27,7 @@ class Banner extends Model
         'desktop',
         'client_id',
         'website_id',
+        'link_newtab'
     ];
 
     public function getStatusLabelAttribute()

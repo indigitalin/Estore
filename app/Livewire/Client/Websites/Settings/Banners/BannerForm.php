@@ -2,9 +2,10 @@
 namespace App\Livewire\Client\Websites\Settings\Banners;
 
 use App\Livewire\Form;
-use App\Models\{Banner, Website};
+
+use App\Models\Banner;
+use App\Models\Website;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
@@ -26,6 +27,8 @@ class BannerForm extends Form
     public string|null $placement = null;
     public string|null $position = null;
     public string|null $type = null;
+    public string|null $link_newtab;
+
     public function setWebsite(?Website $website = null): void
     {
         $this->website = $website;
@@ -34,12 +37,13 @@ class BannerForm extends Form
     public function setBanner(?Banner $banner = null): void
     {
         $this->banner = $banner;
-        $this->title = $banner->title ;
+        $this->title = $banner->title;
         $this->status = $banner->status;
         $this->link = $banner->link;
         $this->placement = $banner->placement;
         $this->position = $banner->position;
         $this->type = $banner->type;
+        $this->link_newtab = $banner->link_newtab;
     }
 
     public function save()
@@ -50,13 +54,13 @@ class BannerForm extends Form
             if ($this->banner) {
                 // Update existing banner
                 $this->banner->update($this->only([
-                    'title', 'slug', 'status', 'placement', 'link',
+                    'title', 'slug', 'status', 'placement', 'link', 'link_newtab',
                 ]));
             } else {
                 // Create new banner
                 $this->banner = $this->website->banners()->create($this->only([
-                    'title', 'slug', 'status', 'placement', 'link',
-                ])+[
+                    'title', 'slug', 'status', 'placement', 'link', 'link_newtab',
+                ]) + [
                     'client_id' => $this->website->client_id,
                 ]);
             }
@@ -80,6 +84,7 @@ class BannerForm extends Form
     public function prepareValidation(): void
     {
         $this->status = isset($this->status) && $this->status ? '1' : '0';
+        $this->link_newtab = isset($this->link_newtab) && $this->link_newtab ? '1' : '0';
     }
 
     public function rules(): array
@@ -91,6 +96,7 @@ class BannerForm extends Form
             'placement' => ['required', 'in:slider,breadcrumb'],
             'position' => ['sometimes', 'nullable', 'numeric'],
             'status' => ['nullable'],
+            'link_newtab' => ['nullable'],
             'desktop' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
             'mobile' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
         ];

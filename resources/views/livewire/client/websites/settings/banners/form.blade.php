@@ -25,7 +25,7 @@
                                 Banner information
                             </h3>
                         </div>
-                        <div class="p-7 pt-0" x-data="{'type':'{{ $this->banner->type ?? 'image' }}'}">
+                        <div class="p-7 pt-0" x-data="{ 'type': '{{ $this->banner->type ?? 'image' }}' }">
                             <div class="flex flex-wrap -mx-2">
                                 {{-- <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
@@ -56,21 +56,28 @@
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.link')" class="mt-2" />
                                     </div>
+                                    <div class="mt-4">
+                                        <x-toggle-switch id="link_newtab" wire:model="form.link_newtab" :label="__('Open link in new page')"
+                                            :value="1" :checked="$this->banner && $this->banner->link_newtab == '1' ? true : false" />
+                                        <x-input-error :messages="$errors->get('form.link_newtab')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="placement" :value="__('Placement')" />
+                                        <x-input-label for="placement" :value="__('Banner type')" />
                                         <x-select id="placement" wire:model="form.placement" :options="[
-                                            'slider' => 'Slider image',
-                                            'breadcrumb' => 'Breadcrumb image'
-                                        ]" :selected="$this->banner->placement ?? 'slider'" />
+                                            'slider' => 'Welcome image',
+                                            'breadcrumb' => 'Page top image',
+                                        ]"
+                                            :selected="$this->banner->placement ?? 'slider'" />
                                         <x-input-error :messages="$errors->get('form.placement')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="position" :value="__('Display order')" />
-                                        <x-select id="position" wire:model="form.position" :options="range(1, 20)" :selected="$this->banner->position ?? '1'" />
+                                        <x-select id="position" wire:model="form.position" :options="range(1, 20)"
+                                            :selected="$this->banner->position ?? '1'" />
                                         <x-input-error :messages="$errors->get('form.position')" class="mt-2" />
                                     </div>
                                 </div>
