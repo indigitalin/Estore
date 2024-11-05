@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Livewire\Client\Websites\Settings\Menus;
+namespace App\Livewire\Client\Websites\Settings\Banners;
 
 use App\Livewire\Component;
-use App\Models\{Website, Menu};
+use App\Models\{Website, Banner};
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
+    use WithFileUploads;
     public $website;
-    public $menu;
-    public \App\Livewire\Client\Websites\Settings\Menus\MenuForm $form;
+    public $banner;
+    public \App\Livewire\Client\Websites\Settings\Banners\BannerForm $form;
     
     protected $listeners = ['refreshList' => '$refresh'];
 
@@ -19,20 +21,20 @@ class Form extends Component
     public function refresh()
     {}
 
-    public function mount($website = null, $menu = null): void
+    public function mount($website = null, $banner = null): void
     {   
         $this->form->setWebsite($this->website = auth()->user()->client->websites()->findOrfail($website));
         /**
-         * Set menu if menu id is passed in route
+         * Set banner if banner id is passed in route
          */
-        if ($menu) {
-            $this->form->setMenu($this->menu = $this->website->menus()->findOrfail($menu));
+        if ($banner) {
+            $this->form->setBanner($this->banner = $this->website->banners()->findOrfail($banner));
         }
     }
 
     public function render(): View
     {
-        return view('livewire.client.websites.settings.menus.form');
+        return view('livewire.client.websites.settings.banners.form');
     }
 
     public function save()

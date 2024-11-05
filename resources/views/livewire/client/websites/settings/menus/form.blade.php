@@ -29,8 +29,8 @@
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="title" :value="__('Name')" />
-                                        <x-text-input placeholder="Name" wire:model="form.title" id="title"
+                                        <x-input-label for="title" :value="__('Title')" />
+                                        <x-text-input placeholder="Title" wire:model="form.title" id="title"
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
                                     </div>

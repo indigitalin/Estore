@@ -27,4 +27,8 @@ class Website extends Store
     public function menus(){
         return $this->hasMany(Menu::class)->menu();
     }
+
+    public function banners(){
+        return $this->hasMany(Banner::class);
+    }
 }

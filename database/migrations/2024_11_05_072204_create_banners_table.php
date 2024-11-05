@@ -16,11 +16,15 @@ return new class extends Migration
             $table->mediumText('title')->nullable();
             $table->mediumText('link')->nullable();
             $table->integer('position')->nullable();
-            $table->boolean('custom_link')->default(0)->nullable();
             $table->boolean('status')->default(1);
             $table->enum('type', array('image', 'video'))->default('image');
+            $table->enum('type', array('slider', 'breadcrumb'))->default('slider');
             $table->mediumText('mobile')->nullable();
             $table->mediumText('desktop')->nullable();
+            $table->unsignedBigInteger('client_id')->nullable();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('website_id')->nullable();
+            $table->foreign('website_id')->references('id')->on('stores')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

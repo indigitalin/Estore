@@ -16,7 +16,6 @@ class CategoryForm extends Form
     public string|null $description = null;
     public int|null $parent_id = null;
     public ?UploadedFile $picture = null;
-    public string|null $picture_url = null;
     public int $picture_removed = 0;
 
     public function setCategory(?Category $category = null): void
@@ -27,7 +26,6 @@ class CategoryForm extends Form
         $this->status = $category->status;
         $this->description = $category->description;
         $this->parent_id = $category->parent_id;
-        $this->picture_url = $category->picture_url;
     }
 
     public function save()

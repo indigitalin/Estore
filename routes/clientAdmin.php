@@ -51,6 +51,10 @@ Route::middleware([
         Route::get('/{website}/menus', Settings\Menus\Index::class)->name('settings.menus.index');
         Route::get('/{website}/menus/create', Settings\Menus\Form::class)->name('settings.menus.create');
         Route::get('/{website}/menus/{menu}/edit', Settings\Menus\Form::class)->name('settings.menus.edit');
+
+        Route::get('/{website}/banners', Settings\Banners\Index::class)->name('settings.banners.index');
+        Route::get('/{website}/banners/create', Settings\Banners\Form::class)->name('settings.banners.create');
+        Route::get('/{website}/banners/{banner}/edit', Settings\Banners\Form::class)->name('settings.banners.edit');
         
     })->middleware('wirenavigate');
 });
