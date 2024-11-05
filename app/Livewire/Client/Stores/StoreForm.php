@@ -86,7 +86,6 @@ class StoreForm extends Form
             return ([
                 'status' => 'success',
                 'message' => $this->store->wasRecentlyCreated ? 'Store created successfully.' : 'Store updated successfully.',
-                'message' => 1 ? 'Store created successfully.' : 'Store updated successfully.',
                 'redirect' => route('client.stores.index'),
             ]);
 

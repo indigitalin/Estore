@@ -23,4 +23,8 @@ class Website extends Store
             $model->type = 'website';
         });
     }
+
+    public function menus(){
+        return $this->hasMany(Menu::class)->menu();
+    }
 }

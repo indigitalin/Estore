@@ -121,4 +121,8 @@ class Client extends Model
     {
         return $this->hasMany(Website::class)->website();
     }
+
+    public function menus(){
+        return $this->hasMany(Menu::class)->menu();
+    }
 }

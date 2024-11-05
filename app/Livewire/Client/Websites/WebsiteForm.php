@@ -58,7 +58,6 @@ class WebsiteForm extends Form
             return ([
                 'status' => 'success',
                 'message' => $this->website->wasRecentlyCreated ? 'Website created successfully.' : 'Website updated successfully.',
-                'message' => 1 ? 'Website created successfully.' : 'Website updated successfully.',
                 'redirect' => route('client.websites.index'),
             ]);
 

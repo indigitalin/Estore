@@ -48,7 +48,6 @@ class CategoryForm extends Form
             return ([
                 'status' => 'success',
                 'message' => $this->category->wasRecentlyCreated ? 'Category created successfully.' : 'Category updated successfully.',
-                'message' => 1 ? 'Category created successfully.' : 'Category updated successfully.',
                 'redirect' => route('client.categories.index'),
             ]);
 

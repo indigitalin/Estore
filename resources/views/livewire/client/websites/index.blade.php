@@ -115,6 +115,7 @@
                                     </x-action-button>
                                 </div>
                             </td>
+                        </tr>
                         @empty
                         <tr>
                             <td colspan="100"

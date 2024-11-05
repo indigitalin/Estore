@@ -45,7 +45,12 @@ Route::middleware([
     Route::group(['prefix'=>'websites', 'as' => 'websites.','namespace' => '\App\Livewire\Client\Websites'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
-        Route::get('/{website}', Settings::class)->name('settings.index');
         Route::get('/{website}/edit', Form::class)->name('edit');
+
+        Route::get('/{website}', Settings\Menus\Index::class)->name('settings.index');
+        Route::get('/{website}/menus', Settings\Menus\Index::class)->name('settings.menus.index');
+        Route::get('/{website}/menus/create', Settings\Menus\Form::class)->name('settings.menus.create');
+        Route::get('/{website}/menus/{menu}/edit', Settings\Menus\Form::class)->name('settings.menus.edit');
+        
     })->middleware('wirenavigate');
 });
