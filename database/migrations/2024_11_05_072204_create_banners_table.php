@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('position')->nullable();
             $table->boolean('status')->default(1);
             $table->enum('type', array('image', 'video'))->default('image');
-            $table->enum('type', array('slider', 'breadcrumb'))->default('slider');
+            $table->enum('placement', array('slider', 'breadcrumb'))->default('slider');
             $table->mediumText('mobile')->nullable();
             $table->mediumText('desktop')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
