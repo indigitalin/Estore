@@ -10,3 +10,5 @@
 @if ($errors->has($attributes->get('name')))
     <x-input-error :messages="$errors->get($attributes->get('name'))" />
 @endif
+
+

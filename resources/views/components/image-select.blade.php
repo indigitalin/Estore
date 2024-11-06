@@ -1,4 +1,4 @@
-@props(['name', 'options', 'selected'])
+@props(['name', 'options' => [], 'selected' = null])
 @php
     $selected = $options->firstWhere('value', $selected);
 @endphp
