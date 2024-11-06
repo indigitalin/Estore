@@ -52,23 +52,22 @@
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0 ">
-                                        <img src="{{ $banner->desktop_url }}" class="rounded-full w-12 h-12 object-cover rounded-full"
-                                            alt="Brand" />
+                                        <img src="{{ $banner->desktop_url }}"
+                                            class="rounded-full w-12 h-12 object-cover rounded-full" alt="Brand" />
                                     </div>
                                     <div class="">
                                         <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
                                             {{ $banner->title }}
                                         </p>
                                     </div>
-    
+
                                 </div>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                                 <span class="capitalize">{{ $banner->placement }}</span> {{ $banner->type }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p role="button"
-                                    @click="actionConfirmed({{ $banner->id }}, 'status')"
+                                <p role="button" @click="actionConfirmed({{ $banner->id }}, 'status')"
                                     class="inline-flex rounded-full {{ $banner->status == 1 ? 'bg-success' : 'bg-danger' }}  bg-opacity-10 px-3 py-1 text-sm font-medium {{ $banner->status == 1 ? 'text-success' : 'text-danger' }} ">
                                     {{ $banner->status_label }}
                                 </p>
@@ -78,8 +77,13 @@
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">
+                                    <x-action-button wire:click="$dispatch('openModal', { component: 'client.websites.settings.banners.banner', arguments : {banner: {{ $banner->id }}, website:{{ $website->id }}} })" x-data="{ tooltip: 'View details' }" x-tooltip="tooltip" role="button"
+                                        class="ms-auto me-2">
+                                        <box-icon size="20px" color="#888" name='show'></box-icon>
+                                    </x-action-button>
+
                                     <x-action-button x-data="{ tooltip: 'Edit banner' }" x-tooltip="tooltip" role="button"
-                                        class="ms-auto me-2" wire:navigate
+                                        class="me-2" wire:navigate
                                         href="{{ route('client.websites.settings.banners.edit', ['website' => $website, 'banner' => $banner]) }}">
                                         <box-icon size="20px" color="#888" name='edit'></box-icon>
                                     </x-action-button>
