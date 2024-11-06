@@ -56,4 +56,5 @@
         </form>
     </div>
 </div>
+
 <x-form-error :error="$errors" />

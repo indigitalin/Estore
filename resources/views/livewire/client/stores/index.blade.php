@@ -55,7 +55,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="flex-shrink-0 ">
                                         <img src="{{ $store->logo_url }}"
-                                            class="rounded-full w-12 h-12 object-cover rounded-full" alt="Brand" />
+                                            class="w-12 h-12 object-cover rounded-full" alt="Brand" />
                                     </div>
                                     <div class="">
                                         <p class="hidden font-medium text-black dark:text-white sm:block capitalize">

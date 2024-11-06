@@ -1,15 +1,15 @@
-@props(['name', 'options' => [], 'selected' = null])
+@props(['name', 'options' => [], 'selected' => null])
 @php
     $selected = $options->firstWhere('value', $selected);
 @endphp
 <div x-data="{ title: '{{ $selected['label'] ?? '' }}', image: '{{ file_url($selected['image'] ?? 'default.png') }}', show: false, id: {{ $selected['value'] ?? 0 }} }" @click.away="show = false" class="relative">
     <div @click="show = !show"
-        class="w-full flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
+        class="flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 w-full">
         <div>
             <div x-show="id !=0">
                 <div class="flex items-center gap-3 cursor-pointer">
                     <div class="flex-shrink-0 ">
-                        <img :src="image" class="rounded-full w-8 h-8 object-cover rounded-full"
+                        <img :src="image" class="w-8 h-8 object-cover rounded-full"
                             alt="Brand" />
                     </div>
                     <div class="">
@@ -28,7 +28,7 @@
         <label for="{{ $name }}_0" class="block">
             <div @click="show = false; id = 0; title='';image=''" class="p-2 flex items-center gap-3 cursor-pointer">
                 <div class="flex-shrink-0 ">
-                    <img src="{{ file_url('default.png') }}" class="rounded-full w-10 h-10 object-cover rounded-full"
+                    <img src="{{ file_url('default.png') }}" class="w-10 h-10 object-cover rounded-full"
                         alt="Brand" />
                 </div>
                 <div class="">
@@ -48,7 +48,7 @@
                     class="p-2 flex items-center gap-3 cursor-pointer">
                     <div class="flex-shrink-0 ">
                         <img src="{{ file_url($option['image']) }}"
-                            class="rounded-full w-10 h-10 object-cover rounded-full" alt="Brand" />
+                            class="w-10 h-10 object-cover rounded-full" alt="Brand" />
                     </div>
                     <div class="">
                         <p class="font-medium sm:block capitalize">

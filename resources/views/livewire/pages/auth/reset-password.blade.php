@@ -74,7 +74,7 @@ new #[Layout('layouts.guest')] class extends Component {
         <div class="mx-auto w-full p-4 md:p-6 2xl:p-10">
 
             <!-- ====== Forms Section Start -->
-            <div class="rounded-sm bg-white rounded-sm dark:border-strokedark dark:bg-boxdark">
+            <div class="bg-white rounded-sm dark:border-strokedark dark:bg-boxdark">
                 <div class="flex flex-wrap items-center">
                     <div class="hidden w-full xl:block xl:w-1/2">
                         <div class="py-17.5 text-center">
@@ -169,7 +169,7 @@ new #[Layout('layouts.guest')] class extends Component {
                                     </div>
                                 </form>
                             </div>
-                            <div class="mt-6 text-center mt-5">
+                            <div class="mt-6 text-center">
                                 <p class="font-medium">
                                     Back to login page
                                     <a href="{{ url('login') }}" class="text-primary">Login</a>
