@@ -33,7 +33,9 @@ class Form extends Component
     public function render(): View
     {
         return view('livewire.client.websites.settings.pages.form')->withBanners(
-            $this->website->banners()->breadcrumb()->get()
+            collect($this->website->banners()->breadcrumb()->selectRaw(
+                'id as value, title as label, desktop as image'
+            )->get()->toArray())
         );
     }
 

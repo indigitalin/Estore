@@ -246,7 +246,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$client->user->default_picture_url ?? asset('/default.png')" :uploaded="$client->user->picture_url ?? asset('/default.png')"
+                                <x-image-upload :default="$client->user->default_picture_url ?? file_url('/default.png')" :uploaded="$client->user->picture_url ?? file_url('/default.png')"
                                     :name="'form.picture'"></x-image-upload>
                             </div>
                         </div>
@@ -258,7 +258,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$client->default_logo_url ?? asset('/default.png')" :uploaded="$client->logo_url ?? asset('/default.png')"
+                                <x-image-upload :default="$client->default_logo_url ?? file_url('/default.png')" :uploaded="$client->logo_url ?? file_url('/default.png')"
                                     :name="'form.logo'"></x-image-upload>
                             </div>
                         </div> --}}

@@ -86,7 +86,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$this->category->default_picture_url ?? asset('/default.png')" :uploaded="$this->category->picture_url ?? asset('/default.png')"
+                                <x-image-upload :default="$this->category->default_picture_url ?? file_url('/default.png')" :uploaded="$this->category->picture_url ?? file_url('/default.png')"
                                     :name="'form.picture'"></x-image-upload>
                             </div>
                         </div>

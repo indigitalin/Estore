@@ -115,7 +115,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="asset('/default.png')" :uploaded="$banner->desktop_url ?? asset('/default.png')"
+                                <x-image-upload :default="file_url('/default.png')" :uploaded="$banner->desktop_url ?? file_url('/default.png')"
                                     :name="'form.desktop'"></x-image-upload>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="asset('/default.png')" :uploaded="$banner->mobile_url ?? asset('/default.png')"
+                                <x-image-upload :default="file_url('/default.png')" :uploaded="$banner->mobile_url ?? file_url('/default.png')"
                                     :name="'form.mobile'"></x-image-upload>
                             </div>
                         </div>

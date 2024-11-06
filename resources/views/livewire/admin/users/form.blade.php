@@ -14,7 +14,7 @@
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
     <div class="">
-        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : asset('/default.png') }}')">
+        <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : file_url('/default.png') }}')">
             <div class="grid grid-cols-6 gap-8">
                 <div class="col-span-6 xl:col-span-4">
                     <div class="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -131,7 +131,7 @@
                         </div>
                         <div class="p-7 pt-0 mt-4">
                             <div>
-                                <x-image-upload :default="$user->default_picture_url ?? asset('/default.png')" :uploaded="$user->picture_url ?? asset('/default.png')" :name="'form.picture'"></x-image-upload>
+                                <x-image-upload :default="$user->default_picture_url ?? file_url('/default.png')" :uploaded="$user->picture_url ?? file_url('/default.png')" :name="'form.picture'"></x-image-upload>
                             </div>
                         </div>
                     </div>
