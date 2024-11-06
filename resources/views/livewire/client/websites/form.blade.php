@@ -12,7 +12,6 @@
     @endphp
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
-
     <div class="">
         <form wire:submit.prevent="save">
             <div class="grid grid-cols-6 gap-8">
