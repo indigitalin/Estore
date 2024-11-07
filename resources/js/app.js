@@ -3,6 +3,7 @@ import '../../vendor/masmerise/livewire-toaster/resources/js'; // 👈
 import 'boxicons'
 import { Loader } from '@googlemaps/js-api-loader';
 import Tooltip from "@ryangjchandler/alpine-tooltip";
+import Sortable from 'sortablejs';
 
 // import 'flowbite';
 // import { initFlowbite } from 'flowbite';
