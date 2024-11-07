@@ -3,7 +3,9 @@
 namespace App\Livewire\Client\Websites\Settings\Menus;
 
 use App\Livewire\Component;
-use App\Models\{Website, Menu};
+
+use App\Models\Menu;
+use App\Models\Website;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 
@@ -12,7 +14,7 @@ class Form extends Component
     public $website;
     public $menu;
     public \App\Livewire\Client\Websites\Settings\Menus\MenuForm $form;
-    
+
     protected $listeners = ['refreshList' => '$refresh'];
 
     #[On('refresh-list')]
@@ -20,7 +22,7 @@ class Form extends Component
     {}
 
     public function mount($website = null, $menu = null): void
-    {   
+    {
         $this->form->setWebsite($this->website = auth()->user()->client->websites()->findOrfail($website));
         /**
          * Set menu if menu id is passed in route
@@ -32,7 +34,38 @@ class Form extends Component
 
     public function render(): View
     {
-        return view('livewire.client.websites.settings.menus.form');
+        return view('livewire.client.websites.settings.menus.form')->withMenus(
+            collect([
+                [
+                    'title' => 'Home',
+                    'link' => '#',
+                    'custom_link' => false,
+                    'key' => 1,
+                    'childs' => [],
+                ], [
+                    'title' => 'Shop',
+                    'link' => '#',
+                    'custom_link' => false,
+                    'key' => 2,
+                    'childs' => [
+                        [
+                            'title' => 'Pies',
+                            'link' => '#',
+                            'custom_link' => false,
+                            'key' => 3,
+                            'childs' => [],
+                        ],
+                        [
+                            'title' => 'Cookies',
+                            'link' => '#',
+                            'custom_link' => false,
+                            'key' => 3,
+                            'childs' => [],
+                        ],
+                    ],
+                ],
+            ])
+        );
     }
 
     public function save()
