@@ -44,4 +44,9 @@ class Form extends Component
         $response = $this->form->save();
         $this->toasterAlert($response);
     }
+
+    #[On('set-menus')]
+    public function setMenus($menus){
+        $this->form->menus = $menus;
+    }
 }

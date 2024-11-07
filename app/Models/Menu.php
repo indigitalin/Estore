@@ -28,4 +28,8 @@ class Menu extends Model
     public function scopeMenu($q){
         return $q->whereNull('parent_id');
     }
+
+    public function childs(){
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
 }

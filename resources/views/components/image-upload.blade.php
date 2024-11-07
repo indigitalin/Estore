@@ -30,10 +30,7 @@
 </div>
 
 @push('scripts')
-    @if (!isset($imagePreviewerScriptLoaded))
-        @php
-            $imagePreviewerScriptLoaded = true;
-        @endphp
+    @once
         <script>
             function imagePreviewer(uploadedImage, defaultImage) {
                 return {
@@ -90,5 +87,5 @@
                 };
             }
         </script>
-    @endif
+    @endonce
 @endpush

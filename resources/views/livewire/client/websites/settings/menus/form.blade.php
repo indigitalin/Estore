@@ -37,6 +37,7 @@
                                 </div>
                             </div>
                             <x-input-label :value="__('Menus')" />
+                            <input name="menus" wire:model="form.menus" x-ref="menus">
                             <div x-data="menuComponent()">
                                 <div x-data="{ menus: menus }">
                                     <template x-for="(menu, index) in menus" :key="menu.key">
@@ -87,10 +88,13 @@
                                             </div>
                                             <div x-show="showEdit" style="display: none">
                                                 <div class="flex items-center mt-2">
-                                                    <input placeholder="Menu title" x-model="title"
-                                                        :value="menu.title" type="text"
+                                                    <input
+                                                        @onchange="changeMenuTitle(menu, parent, $event.target.value)"
+                                                        placeholder="Menu title" x-model="title" :value="menu.title"
+                                                        type="text"
                                                         class="rounded flex-1 border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
-                                                    <input placeholder="Link" :value="menu.link" type="text"
+                                                    <input @onchange="changeMenuLink(menu, parent, $event.target.value)"
+                                                        placeholder="Link" :value="menu.link" type="text"
                                                         class="ms-2 flex-1 rounded border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
                                                     <div @click="showEdit = !showEdit" x-data="{ tooltip: 'Done editing' }"
                                                         x-tooltip="tooltip"
@@ -103,7 +107,7 @@
                                         </div>
                                         <div x-show="menu.childs.length" class="tree__children">
                                             <template x-for="childNode in menu.childs" :key="childNode.key">
-                                                <div class="ms-8">
+                                                <div class="px-8">
                                                     <template x-template-outlet="$refs.treeNodeTemplate"
                                                         x-data="{ menu: childNode, parent: menu }">
                                                     </template>
@@ -147,7 +151,6 @@
             return {
                 menus: @js($menus),
                 addNewMenu(parent = null) {
-
                     parent ? parent.childs.push({
                         title: 'New Menu',
                         link: '#',
@@ -159,6 +162,11 @@
                         key: Math.floor(100000 + Math.random() * 900000),
                         childs: [],
                     });
+                    this.updateMenus();
+                },
+                changeMenuTitle(menu, parent, value) {
+                    menu.title = value;
+                    this.updateMenus();
                 },
                 deleteMenu(menu, parent = null) {
                     if (parent) {
@@ -174,6 +182,7 @@
                             this.menus.splice(index, 1);
                         }
                     }
+                    this.updateMenus();
                 },
                 moveUp(menu, parent = null) {
                     if (parent) {
@@ -192,6 +201,7 @@
                             [this.menus[index - 1], this.menus[index]] = [this.menus[index], this.menus[index - 1]];
                         }
                     }
+                    this.updateMenus();
                 },
 
                 // Move item down by swapping with the next item
@@ -212,8 +222,14 @@
                             [this.menus[index], this.menus[index + 1]] = [this.menus[index + 1], this.menus[index]];
                         }
                     }
-                }
+                    this.updateMenus();
 
+                },
+                updateMenus() {
+                    Livewire.dispatch('set-menus', {
+                        menus: JSON.stringify(this.menus)
+                    });
+                }
             };
         }
     </script>
