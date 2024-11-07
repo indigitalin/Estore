@@ -10,8 +10,6 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
-
 </head>
 
 <body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -40,7 +38,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <x-toaster-hub class="text-md" />
     @livewire('wire-elements-modal')
     @include('livewire.confirm')
+    @once
     <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+    @endonce
     @stack('scripts')
 </body>
 </html>

@@ -74,8 +74,6 @@ function loadGoogleMap(apiKey, mapElementId, initialLat, initialLng, callback) {
 }
 
 window.loadGoogleMap = loadGoogleMap; // Make it globally available for Alpine.js or Blade to call
-
-
 document.addEventListener(
     "alpine:init",
     function setupAlpineBindings() {
@@ -84,10 +82,9 @@ document.addEventListener(
 
     }
 );
-
 /**
-* I clone and render the given source template.
-*/
+ * I clone and render the given source template.
+ */
 function TemplateOutletDirective(element, metadata, framework) {
 
     // Get the template reference that we want to clone and render.
@@ -95,10 +92,10 @@ function TemplateOutletDirective(element, metadata, framework) {
 
     // Clone the template and get the root node - this is the node that we will
     // inject into the DOM.
+    console.log(templateRef);
     var clone = templateRef.content
         .cloneNode(true)
-        .firstElementChild
-        ;
+        .firstElementChild;
 
     // For the clone, all I need to do at the moment is copy the datastack from the
     // template over to the clone. This way, even if the template doesn't have an "x-data"
@@ -108,7 +105,9 @@ function TemplateOutletDirective(element, metadata, framework) {
     // Instead of leaving the template in the DOM, we're going to swap the
     // template with a comment hook. This isn't necessary; but, I think it leaves
     // the DOM more pleasant looking.
-    var domHook = document.createComment(` Template outlet hook (${metadata.expression}) with bindings (${element.getAttribute("x-data")}). `);
+    var domHook = document.createComment(
+        ` Template outlet hook (${ metadata.expression }) with bindings (${ element.getAttribute( "x-data" ) }). `
+    );
     domHook._template_outlet_ref = templateRef;
     domHook._template_outlet_clone = clone;
 

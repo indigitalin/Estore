@@ -35,36 +35,7 @@ class Form extends Component
     public function render(): View
     {
         return view('livewire.client.websites.settings.menus.form')->withMenus(
-            collect([
-                [
-                    'title' => 'Home',
-                    'link' => '#',
-                    'custom_link' => false,
-                    'key' => 1,
-                    'childs' => [],
-                ], [
-                    'title' => 'Shop',
-                    'link' => '#',
-                    'custom_link' => false,
-                    'key' => 2,
-                    'childs' => [
-                        [
-                            'title' => 'Pies',
-                            'link' => '#',
-                            'custom_link' => false,
-                            'key' => 3,
-                            'childs' => [],
-                        ],
-                        [
-                            'title' => 'Cookies',
-                            'link' => '#',
-                            'custom_link' => false,
-                            'key' => 3,
-                            'childs' => [],
-                        ],
-                    ],
-                ],
-            ])
+            collect([])
         );
     }
 
