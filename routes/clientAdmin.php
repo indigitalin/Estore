@@ -25,12 +25,21 @@ Route::middleware([
     })->middleware('wirenavigate');
 
     /**
-     * Categories
+     * Collections
      */
     Route::group(['prefix'=>'collections', 'as' => 'collections.','namespace' => '\App\Livewire\Client\Collections'], function(){
         Route::get('/', Index::class)->name('index');
         Route::get('/create', Form::class)->name('create');
         Route::get('/{collection}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+
+    /**
+     * Collections
+     */
+    Route::group(['prefix'=>'products', 'as' => 'products.','namespace' => '\App\Livewire\Client\Products'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{product}/edit', Form::class)->name('edit');
     })->middleware('wirenavigate');
 
     /**

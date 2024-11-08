@@ -53,4 +53,21 @@ class Product extends Model
     {
         return $this->status == "1" ? 'Active' : 'Inactive';
     }
+
+    public function getPictureAttribute($picture)
+    {
+        return $picture ?: 'default.png';
+    }
+
+    public function getPictureUrlAttribute($picture)
+    {
+        if ($this->picture == 'default.png') {
+            return $this->default_picture_url;
+        }
+        return file_url($this->picture);
+    }
+
+    public function getDefaultPictureUrlAttribute(){
+        return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
+    }
 }
