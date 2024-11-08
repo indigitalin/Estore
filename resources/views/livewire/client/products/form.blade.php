@@ -77,13 +77,33 @@
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch id="charge_tax-toggle" wire:model="form.charge_tax"
+                                        <x-toggle-switch @change="charge_tax = $event.target.checked" id="charge_tax-toggle" wire:model="form.charge_tax"
                                             :label="__('Charge tax on this product')" :value="1" :checked="$this->product && $this->product->charge_tax == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.charge_tax')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div x-show="charge_tax" class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-toggle-switch @change="custom_tax = $event.target.checked" id="custom_tax-toggle" wire:model="form.custom_tax"
+                                            :label="__('Charge custom tax')" :value="1" :checked="$this->product && $this->product->custom_tax == '1'
+                                                ? true
+                                                : false" />
+                                        <x-input-error :messages="$errors->get('form.custom_tax')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div x-show="custom_tax && charge_tax" class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="tax_rate" :value="__('Custom tax rate')" />
+                                        <x-text-input
+                                            min="0" placeholder="Custom tax rate"
+                                            wire:model="form.tax_rate" id="tax_rate" class="mt-1 block w-full"
+                                            type="number" />
+                                        <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-2"></div>
                                 <div class="w-full md:w-1/3 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="cost_per_item" :value="__('Cost per item')" />
@@ -162,6 +182,9 @@
                 cost_per_item: 0,
                 price: 0,
                 compare_price: 0,
+                charge_tax:false,
+                tax_rate:0,
+                custom_tax:false,
                 processPrice() {
                     this.profit = (this.cost_per_item && this.price) ?
                         this.price - this.cost_per_item :
