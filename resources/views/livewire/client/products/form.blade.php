@@ -74,7 +74,7 @@
                                                 class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
                                                 <label for="category_id_0" class="block">
                                                     <div @click="show = false; id = 0; title='';image=''"
-                                                        class="p-2 flex items-center gap-3 cursor-pointer">
+                                                        class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                                                         <div class="flex-shrink-0 ">
                                                             <img src="{{ file_url('default.png') }}"
                                                                 class="w-10 h-10 object-cover rounded-full"
@@ -93,7 +93,7 @@
                                                     <label :for="'category_id_' + category.id" class="block">
                                                         <div :class="category.childs.length ? 'hover:bg-gray-100' : 'hover:bg-gray-200'" @click="show = false; id = category.id; title=category.name;image=category.picture_url"
                                                             class="flex items-center gap-3 cursor-pointer">
-                                                            <div :class="category.childs.length ? 'hover:bg-gray-200' : ''" class="p-2 rounded gap-3 flex items-center">
+                                                            <div :class="category.childs.length ? 'hover:bg-gray-200' : ''" class="p-2 px-4 rounded gap-3 flex items-center">
                                                                 <div class="flex-shrink-0 ">
                                                                     <img :src="category.picture_url"
                                                                         class="w-10 h-10 object-cover rounded-full"
@@ -104,7 +104,7 @@
                                                                         class="font-medium sm:block capitalize"></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="flex items-center ms-auto p-2" x-show="category.childs.length">
+                                                            <div class="flex items-center ms-auto px-4" x-show="category.childs.length">
                                                                 <box-icon color="#888" name='chevron-right'></box-icon>
                                                             </div>
                                                         </div>

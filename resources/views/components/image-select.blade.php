@@ -26,7 +26,7 @@
     <div x-show="show" style="display:none"
         class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
         <label for="{{ $name }}_0" class="block">
-            <div @click="show = false; id = 0; title='';image=''" class="p-2 flex items-center gap-3 cursor-pointer">
+            <div @click="show = false; id = 0; title='';image=''" class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                 <div class="flex-shrink-0 ">
                     <img src="{{ file_url('default.png') }}" class="w-10 h-10 object-cover rounded-full"
                         alt="Brand" />
@@ -45,7 +45,7 @@
             <label for="{{ $name }}_{{ $option['value'] }}" class="block"
                 :class="{ 'bg-primary text-white': id === {{ $option['value'] }} }">
                 <div @click="show = false; id = {{ $option['value'] }};title='{{ $option['label'] }}';image='{{ file_url($option['image']) }}'"
-                    class="p-2 flex items-center gap-3 cursor-pointer">
+                    class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                     <div class="flex-shrink-0 ">
                         <img src="{{ file_url($option['image']) }}"
                             class="w-10 h-10 object-cover rounded-full" alt="Brand" />
