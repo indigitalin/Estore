@@ -26,7 +26,7 @@
                         </div>
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
-                                <div class="w-full md:w-1/2 p-2">
+                                <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="name" :value="__('Name')" />
                                         <x-text-input placeholder="Name" wire:model="form.name" id="name"
@@ -43,6 +43,83 @@
                                         <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="category_id" :value="__('Category')" />
+                                        <div x-data="{ show: false, id: 0, image: null, title: null }" @click.away="show = false" class="relative">
+                                            <div @click="show = !show"
+                                                class="flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 w-full">
+                                                <div>
+                                                    <div x-show="id !=0">
+                                                        <div class="flex items-center gap-3 cursor-pointer">
+                                                            <div class="flex-shrink-0 ">
+                                                                <img :src="image"
+                                                                    class="w-8 h-8 object-cover rounded-full"
+                                                                    alt="Brand" />
+                                                            </div>
+                                                            <div class="">
+                                                                <p class="font-medium sm:block capitalize"
+                                                                    x-text="title"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div x-show="id ==0">
+                                                        Select an option
+                                                    </div>
+                                                </div>
+                                                <div class="ms-auto"><box-icon name='chevron-down'
+                                                        color="#888"></box-icon></div>
+                                            </div>
+                                            <div x-show="show" style="display:none"
+                                                class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
+                                                <label for="category_id_0" class="block">
+                                                    <div @click="show = false; id = 0; title='';image=''"
+                                                        class="p-2 flex items-center gap-3 cursor-pointer">
+                                                        <div class="flex-shrink-0 ">
+                                                            <img src="{{ file_url('default.png') }}"
+                                                                class="w-10 h-10 object-cover rounded-full"
+                                                                alt="Brand" />
+                                                        </div>
+                                                        <div class="">
+                                                            <p class="font-medium sm:block capitalize">
+                                                                No category
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <input x-show="false" type="radio" hidden value=""
+                                                        name="category_id" id="category_id_0">
+                                                </label>
+                                                <template x-for="category in categories">
+                                                    <label :for="'category_id_' + category.id" class="block">
+                                                        <div :class="category.childs.length ? 'hover:bg-gray-100' : 'hover:bg-gray-200'" @click="show = false; id = category.id; title=category.name;image=category.picture_url"
+                                                            class="flex items-center gap-3 cursor-pointer">
+                                                            <div :class="category.childs.length ? 'hover:bg-gray-200' : ''" class="p-2 rounded gap-3 flex items-center">
+                                                                <div class="flex-shrink-0 ">
+                                                                    <img :src="category.picture_url"
+                                                                        class="w-10 h-10 object-cover rounded-full"
+                                                                        alt="Brand" />
+                                                                </div>
+                                                                <div class="">
+                                                                    <p x-text="category.name"
+                                                                        class="font-medium sm:block capitalize"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex items-center ms-auto p-2" x-show="category.childs.length">
+                                                                <box-icon color="#888" name='chevron-right'></box-icon>
+                                                            </div>
+                                                        </div>
+                                                        <input x-show="false" type="radio" hidden
+                                                            :value="category.id" name="category_id"
+                                                            :id="'category_id_' + category.id">
+                                                    </label>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">Determines tax rates and adds metafields to improve search,
+                                            filters, and cross-channel sales</div>
+                                        <x-input-error :messages="$errors->get('form.category_id')" class="mt-2" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -56,7 +133,7 @@
                         </div>
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
-                                <div class="w-full md:w-1/2 p-2">
+                                <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="price" :value="__('Price')" />
                                         <x-text-input @change="price=$event.target.value, processPrice()"
@@ -70,15 +147,16 @@
                                         <x-input-label for="compare_price" :value="__('Compare-at price')" />
                                         <x-text-input @change="compare_price=$event.target.value, processPrice()"
                                             min="0" placeholder="Compare-at price"
-                                            wire:model="form.compare_price" id="compare_price" class="mt-1 block w-full"
-                                            type="number" />
+                                            wire:model="form.compare_price" id="compare_price"
+                                            class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.compare_price')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch @change="charge_tax = $event.target.checked" id="charge_tax-toggle" wire:model="form.charge_tax"
-                                            :label="__('Charge tax on this product')" :value="1" :checked="$this->product && $this->product->charge_tax == '1'
+                                        <x-toggle-switch @change="charge_tax = $event.target.checked"
+                                            id="charge_tax-toggle" wire:model="form.charge_tax" :label="__('Charge tax on this product')"
+                                            :value="1" :checked="$this->product && $this->product->charge_tax == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.charge_tax')" class="mt-2" />
@@ -86,8 +164,9 @@
                                 </div>
                                 <div x-show="charge_tax" class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch @change="custom_tax = $event.target.checked" id="custom_tax-toggle" wire:model="form.custom_tax"
-                                            :label="__('Charge custom tax')" :value="1" :checked="$this->product && $this->product->custom_tax == '1'
+                                        <x-toggle-switch @change="custom_tax = $event.target.checked"
+                                            id="custom_tax-toggle" wire:model="form.custom_tax" :label="__('Charge custom tax')"
+                                            :value="1" :checked="$this->product && $this->product->custom_tax == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.custom_tax')" class="mt-2" />
@@ -96,8 +175,7 @@
                                 <div x-show="custom_tax && charge_tax" class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="tax_rate" :value="__('Custom tax rate')" />
-                                        <x-text-input
-                                            min="0" placeholder="Custom tax rate"
+                                        <x-text-input min="0" placeholder="Custom tax rate"
                                             wire:model="form.tax_rate" id="tax_rate" class="mt-1 block w-full"
                                             type="number" />
                                         <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
@@ -132,7 +210,8 @@
                             <div class="mt-5">
                                 <x-input-label :value="__('Status')" />
                                 <x-toggle-switch :labelOn="'Active'" :labelOff="'Inactive'" id="status-toggle"
-                                    wire:model="form.status" :label="__('Status')" :value="1" :checked="$this->product && $this->product->status == '1' ? true : false" />
+                                    wire:model="form.status" :label="__('Status')" :value="1"
+                                    :checked="$this->product && $this->product->status == '1' ? true : false" />
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
                             <div class="mt-5 flex">
@@ -177,14 +256,15 @@
     <script>
         function producutComponent() {
             return {
+                categories: @js($categories),
                 profit: '--',
                 margin: '--',
                 cost_per_item: 0,
                 price: 0,
                 compare_price: 0,
-                charge_tax:false,
-                tax_rate:0,
-                custom_tax:false,
+                charge_tax: false,
+                tax_rate: 0,
+                custom_tax: false,
                 processPrice() {
                     this.profit = (this.cost_per_item && this.price) ?
                         this.price - this.cost_per_item :

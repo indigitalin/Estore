@@ -32,7 +32,11 @@ class Form extends Component
 
     public function render(): View
     {
-        return view('livewire.client.products.form');
+        return view('livewire.client.products.form')->withCategories(
+            \App\Http\Resources\CategoryResource::collection(
+                auth()->user()->client->categories()->whereNull('parent_id')->get()
+            )
+        );
     }
 
     public function save()

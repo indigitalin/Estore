@@ -39,7 +39,6 @@
                                     <div class="mt-2">
                                         <x-input-label for="banner_id" :value="__('Banner')" />
                                         <x-image-select :selected="($this->page->banner_id ?? null)" :options="$banners" :name="'banner_id'"/>
-                                        
                                         <x-input-error :messages="$errors->get('form.banner_id')" class="mt-2" />
                                     </div>
                                 </div>

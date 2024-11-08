@@ -35,6 +35,10 @@ class Category extends Model
         return $this->belongsTo(self::class);
     }
 
+    public function childs(){
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
+
     public function getStatusLabelAttribute()
     {
         return $this->status == "1" ? 'Active' : 'Inactive';
