@@ -25,6 +25,9 @@ class Collection extends Model
         'parent_id',
         'picture',
         'handle',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
     ];
 
     public function parent(){

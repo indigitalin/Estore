@@ -104,6 +104,14 @@ class Client extends Model
         return $this->hasMany(Category::class);
     }
 
+     /**
+     * Collections of the client
+     */
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
+
     /**
      * Users of the client
      */

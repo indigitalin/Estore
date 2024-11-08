@@ -25,6 +25,15 @@ Route::middleware([
     })->middleware('wirenavigate');
 
     /**
+     * Categories
+     */
+    Route::group(['prefix'=>'collections', 'as' => 'collections.','namespace' => '\App\Livewire\Client\Collections'], function(){
+        Route::get('/', Index::class)->name('index');
+        Route::get('/create', Form::class)->name('create');
+        Route::get('/{collection}/edit', Form::class)->name('edit');
+    })->middleware('wirenavigate');
+
+    /**
      * Roles and permissions
      */
     Route::group(['prefix'=>'roles', 'as' => 'roles.','namespace' => '\App\Livewire\Admin\Roles'], function(){

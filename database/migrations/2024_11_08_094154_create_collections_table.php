@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete("cascade");
+            $table->foreign('parent_id')->references('id')->on('collections')->onDelete("cascade");
             $table->string('name', 150);
             $table->string('handle', 150);
             $table->text('description')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->bigInteger('client_id')->unsigned()->nullable();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete("cascade");
-            $table->string('seo_title', 150);
+            $table->string('seo_title', 150)->nullable();
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
             $table->timestamps();

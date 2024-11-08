@@ -26,6 +26,9 @@ class Category extends Model
         'picture',
         'handle',
         'tax_rate',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
     ];
 
     public function parent(){
