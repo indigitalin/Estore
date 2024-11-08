@@ -67,7 +67,7 @@ class MenuForm extends Form
             $subMenu = $menu->childs()->create([
                 'title' => $menuItem->title,
                 'link' => $menuItem->link,
-                'custom_link' => $menuItem->custom_link ? '1' : '0',
+                'custom_link' => ($menuItem->custom_link ?? false)? '1' : '0',
             ]);
             /**
              * If menu item has child then loop recursively to create sub menus
