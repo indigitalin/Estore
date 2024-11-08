@@ -133,4 +133,8 @@ class Client extends Model
     public function menus(){
         return $this->hasMany(Menu::class)->menu();
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
