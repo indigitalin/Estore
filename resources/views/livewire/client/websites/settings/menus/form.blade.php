@@ -37,8 +37,8 @@
                                 </div>
                             </div>
                             <x-input-label :value="__('Menus')" />
-                            <input name="menus" wire:model="form.menus" x-ref="menus">
-                            <div x-data="menuComponent()">
+                            {{-- <input name="menus" wire:model="form.menus" x-ref="menus"> --}}
+                            <div x-data="menuComponent()" x-init="updateMenus()">
                                 <div x-data="{ menus: menus }">
                                     <template x-for="(menu, index) in menus" :key="menu.key">
                                         <div>
@@ -60,7 +60,7 @@
                                                         <box-icon size="20px" color="#888"
                                                             name="plus"></box-icon>
                                                     </div>
-                                                    <div @click="showEdit = !showEdit" x-data="{ tooltip: 'Edit menu' }"
+                                                    <div @click="menu.editing = !menu.editing" x-data="{ tooltip: 'Edit menu' }"
                                                         x-tooltip="tooltip"
                                                         class="flex items-center cursor-pointer justify-center w-9 h-9 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg toggle-full-view hover:bg-gray-100 hover:text-indigo-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 me-2">
                                                         <box-icon size="20px" color="#888"
@@ -86,17 +86,35 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div x-show="showEdit" style="display: none">
+                                            <div x-show="menu.editing" style="display: none">
                                                 <div class="flex items-center mt-2">
-                                                    <input
-                                                        @onchange="changeMenuTitle(menu, parent, $event.target.value)"
-                                                        placeholder="Menu title" x-model="title" :value="menu.title"
-                                                        type="text"
-                                                        class="rounded flex-1 border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
-                                                    <input @onchange="changeMenuLink(menu, parent, $event.target.value)"
-                                                        placeholder="Link" :value="menu.link" type="text"
-                                                        class="ms-2 flex-1 rounded border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
-                                                    <div @click="showEdit = !showEdit" x-data="{ tooltip: 'Done editing' }"
+                                                    <div class="flex items-center">
+                                                        <input @change="changeMenuTitle(menu, $event.target.value)"
+                                                            placeholder="Menu title" x-model="title"
+                                                            :value="menu.title" type="text"
+                                                            class="rounded flex-1 border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
+                                                        <select @change="changeMenuLink(menu, $event.target.value)"
+                                                            class="ms-2 rounded flex-1 border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full"
+                                                            name="" id="">
+                                                            <option value="">Select an option</option>
+                                                            <template x-for="item in links">
+                                                                <optgroup :label="item.title">
+                                                                    <template x-for="link in item.menus">
+                                                                        <option :selected="menu.link == link.link"
+                                                                            :value="link.link" x-text="link.title">
+                                                                        </option>
+                                                                    </template>
+                                                                </optgroup>
+                                                            </template>
+                                                            <option :selected="menu.custom_link" value="custom_link">
+                                                                Custom link</option>
+                                                        </select>
+                                                        <input x-show="menu.custom_link"
+                                                            @change="changeMenuLink(menu, $event.target.value, true)"
+                                                            placeholder="Link" :value="menu.link" type="text"
+                                                            class="ms-2 flex-1 rounded border border-stroke p-1 px-2 font-medium text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary  block w-full">
+                                                    </div>
+                                                    <div @click="menu.editing = false" x-data="{ tooltip: 'Done editing' }"
                                                         x-tooltip="tooltip"
                                                         class="flex items-center cursor-pointer justify-center w-9 h-9 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg toggle-full-view hover:bg-gray-100 hover:text-indigo-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ms-2">
                                                         <box-icon size="20px" color="#888"
@@ -150,22 +168,30 @@
         function menuComponent() {
             return {
                 menus: @js($menus),
+                links: @js($links),
                 addNewMenu(parent = null) {
                     parent ? parent.childs.push({
                         title: 'New Menu',
                         link: '#',
                         key: Math.floor(100000 + Math.random() * 900000),
                         childs: [],
+                        editing: false,
                     }) : this.menus.push({
                         title: 'New Menu',
                         link: '#',
                         key: Math.floor(100000 + Math.random() * 900000),
                         childs: [],
+                        editing: false,
                     });
                     this.updateMenus();
                 },
-                changeMenuTitle(menu, parent, value) {
+                changeMenuTitle(menu, value) {
                     menu.title = value;
+                    this.updateMenus();
+                },
+                changeMenuLink(menu, value, custom_link = false) {
+                    menu.custom_link = value == 'custom_link' || custom_link;
+                    menu.link = (value == 'custom_link' ? menu.link : value);
                     this.updateMenus();
                 },
                 deleteMenu(menu, parent = null) {

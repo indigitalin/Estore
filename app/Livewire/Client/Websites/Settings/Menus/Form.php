@@ -3,7 +3,6 @@
 namespace App\Livewire\Client\Websites\Settings\Menus;
 
 use App\Livewire\Component;
-
 use App\Models\Menu;
 use App\Models\Website;
 use Illuminate\Contracts\View\View;
@@ -35,8 +34,8 @@ class Form extends Component
     public function render(): View
     {
         return view('livewire.client.websites.settings.menus.form')->withMenus(
-            collect([])
-        );
+            $this->menu ? \App\Http\Resources\MenuResource::collection($this->menu->childs) : collect([])
+        )->withLinks($this->links());
     }
 
     public function save()
@@ -46,7 +45,39 @@ class Form extends Component
     }
 
     #[On('set-menus')]
-    public function setMenus($menus){
+    public function setMenus($menus)
+    {
         $this->form->menus = $menus;
+    }
+
+    /**
+     * Generate fixed links based on pages and categories
+     */
+    public function links(): array
+    {
+        $links = $categories = $pages = [];
+        foreach ($this->website->pages as $page) {
+            $pages[] = [
+                'title' => $page->title,
+                'link' => "/pages/{$page->slug}",
+            ];
+        }
+
+        foreach (auth()->user()->client->categories as $category) {
+            $categories[] = [
+                'title' => $category->name,
+                'link' => "/pages/{$category->handle}",
+            ];
+        }
+
+        return [
+            [
+                'title' => 'Pages',
+                'menus' => $pages,
+            ], [
+                'title' => 'Categories',
+                'menus' => $categories,
+            ],
+        ];
     }
 }

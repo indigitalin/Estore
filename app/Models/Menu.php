@@ -23,6 +23,7 @@ class Menu extends Model
         'website_id',
         'parent_id',
         'link',
+        'custom_link'
     ];
 
     public function scopeMenu($q){

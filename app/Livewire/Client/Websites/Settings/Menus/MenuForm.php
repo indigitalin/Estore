@@ -28,7 +28,6 @@ class MenuForm extends Form
 
     public function save()
     {
-        dd($this);
         $this->prepareValidation();
         $this->validate();
         try {
@@ -45,7 +44,7 @@ class MenuForm extends Form
                     'client_id' => $this->website->client_id,
                 ]);
             }
-
+            $this->menu->childs()->forceDelete();
             //Save menu items
             $this->saveMenuItems($this->menu, json_decode($this->menus));
 
@@ -56,7 +55,6 @@ class MenuForm extends Form
             ]);
 
         } catch (\Exception $e) {
-
             return $this->error($e);
         }
     }
@@ -65,10 +63,11 @@ class MenuForm extends Form
      * Save menu items
      */
     public function saveMenuItems(Menu $menu, $menuItems){
-        foreach($menuItems as $menuItem){
+        foreach($menuItems ?? [] as $menuItem){
             $subMenu = $menu->childs()->create([
                 'title' => $menuItem->title,
                 'link' => $menuItem->link,
+                'custom_link' => $menuItem->custom_link ? '1' : '0',
             ]);
             /**
              * If menu item has child then loop recursively to create sub menus
@@ -99,7 +98,7 @@ class MenuForm extends Form
                     $fail('The menu already exists, please create different one.');
                 }
             }],
-            'menus' => ['string'],
+            'menus' => ['string', 'sometimes', 'nullable'],
         ];
     }
 }
