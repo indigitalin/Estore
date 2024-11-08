@@ -42,6 +42,13 @@
                                         <x-input-error :messages="$errors->get('form.parent_id')" class="mt-2" />
                                     </div>
                                 </div>
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="tax_rate" :value="__('Tax rate(%)')" />
+                                        <x-text-input min="0" class="mt-1 block w-full" type="number" id="tax_rate" wire:model="form.tax_rate" />
+                                        <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
+                                    </div>
+                                </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="description" :value="__('Description')" />

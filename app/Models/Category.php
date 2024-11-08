@@ -24,7 +24,8 @@ class Category extends Model
         'status',
         'parent_id',
         'picture',
-        'handle'
+        'handle',
+        'tax_rate',
     ];
 
     public function parent(){

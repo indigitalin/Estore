@@ -14,6 +14,7 @@ class CategoryForm extends Form
     public string|null $handle;
     public string|null $status;
     public string|null $description = null;
+    public float|null $tax_rate = 0;
     public int|null $parent_id = null;
     public ?UploadedFile $picture = null;
     public int $picture_removed = 0;
@@ -26,6 +27,7 @@ class CategoryForm extends Form
         $this->status = $category->status;
         $this->description = $category->description;
         $this->parent_id = $category->parent_id;
+        $this->tax_rate = $category->tax_rate;
     }
 
     public function save()
@@ -35,11 +37,11 @@ class CategoryForm extends Form
         try {
             if ($this->category) {
                 // Create new category
-                $this->category->update($this->only(['name', 'handle', 'status', 'description', 'parent_id']));
+                $this->category->update($this->only(['name', 'handle', 'status', 'description', 'parent_id', 'tax_rate']));
             } else {
                 // Update existing category
                 $this->category = auth()->user()->client->categories()->create(
-                    $this->only(['name', 'handle', 'status', 'description', 'parent_id'])
+                    $this->only(['name', 'handle', 'status', 'description', 'parent_id', 'tax_rate'])
                 );
             }
             $this->category->updatePicture($this->picture, (int) $this->picture_removed);
@@ -76,6 +78,7 @@ class CategoryForm extends Form
                     $fail('The category already exists, please create different one.');
                 }
             }],
+            'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'description' => ['string', 'sometimes', 'nullable'],
             'status' => ['nullable'],
             'parent_id' => ['nullable', 'sometimes', 'exists:categories,id'],
