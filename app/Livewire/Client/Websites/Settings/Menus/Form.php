@@ -55,18 +55,25 @@ class Form extends Component
      */
     public function links(): array
     {
-        $links = $categories = $pages = [];
+        $links = $categories = $pages = $collections = [];
         foreach ($this->website->pages as $page) {
             $pages[] = [
                 'title' => $page->title,
-                'link' => "/pages/{$page->slug}",
+                'link' => "/page/{$page->slug}",
             ];
         }
 
         foreach (auth()->user()->client->categories as $category) {
             $categories[] = [
                 'title' => $category->name,
-                'link' => "/pages/{$category->handle}",
+                'link' => "/category/{$category->handle}",
+            ];
+        }
+
+        foreach (auth()->user()->client->collections as $collection) {
+            $collections[] = [
+                'title' => $collection->name,
+                'link' => "/collection/{$collection->handle}",
             ];
         }
 
@@ -77,6 +84,9 @@ class Form extends Component
             ], [
                 'title' => 'Categories',
                 'menus' => $categories,
+            ], [
+                'title' => 'Collections',
+                'menus' => $collections,
             ],
         ];
     }

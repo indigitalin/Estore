@@ -21,7 +21,7 @@
                         class="rounded-sm border border-stroke shadow-default  bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
                             <h3 class="font-medium text-black dark:text-white">
-                                Company information
+                                Category information
                             </h3>
                         </div>
                         <div class="p-7 pt-0">
