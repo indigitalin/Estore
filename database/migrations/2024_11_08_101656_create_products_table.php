@@ -31,6 +31,7 @@ return new class extends Migration
             $table->decimal('cost_per_item', 8, 2)->nullable();
             $table->decimal('compare_price', 8, 2)->nullable();
             $table->boolean('charge_tax')->default(0);
+            $table->boolean('custom_tax')->default(0);
             $table->decimal('tax_rate', 8, 2)->nullable();
             $table->bigInteger('client_id')->unsigned()->nullable();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete("cascade");

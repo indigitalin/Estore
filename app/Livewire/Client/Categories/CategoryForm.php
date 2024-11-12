@@ -63,7 +63,7 @@ class CategoryForm extends Form
     public function prepareValidation(): void
     {
         $this->handle = \Illuminate\Support\Str::slug($this->name);
-        $this->status = isset($this->status) ? '1' : '0';
+        $this->status = isset($this->status) && $this->status ? '1' : '0';
     }
 
     public function rules(): array

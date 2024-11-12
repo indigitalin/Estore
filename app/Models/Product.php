@@ -34,6 +34,7 @@ class Product extends Model
         'cost_per_item',
         'compare_price',
         'charge_tax',
+        'custom_tax',
         'tax_rate',
         'client_id',
         'seo_title',

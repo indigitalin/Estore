@@ -36,6 +36,10 @@ class Form extends Component
             \App\Http\Resources\CategoryResource::collection(
                 auth()->user()->client->categories()->whereNull('parent_id')->get()
             )
+        )->withStores(
+            auth()->user()->client->stores
+        )->withWebsites(
+            auth()->user()->client->websites
         );
     }
 

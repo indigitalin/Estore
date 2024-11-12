@@ -93,7 +93,6 @@ function TemplateOutletDirective(element, metadata, framework) {
 
     // Clone the template and get the root node - this is the node that we will
     // inject into the DOM.
-    console.log(templateRef);
     var clone = templateRef.content
         .cloneNode(true)
         .firstElementChild;
