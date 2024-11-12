@@ -22,6 +22,7 @@ class CategoryResource extends JsonResource
             'childs' => self::collection($this->childs),
             'parent_id' => $this->parent_id,
             'parent_name' => $this->parent_name,
+            'parent_handle' => $this->parent->handle ?? null,
         ];
     }
 }

@@ -95,7 +95,8 @@
                                                     <div>
                                                         <label
                                                             :for="category.childs.length ? '' : 'category_id_' + category.id"
-                                                            class="block">
+                                                            class="block"
+                                                            :class="'category-item parent-' + category.parent_handle">
                                                             <div :class="category.childs.length ? 'hover:bg-gray-100' :
                                                                 'hover:bg-gray-200'"
                                                                 @click="categorySelected(category, true)"
@@ -130,12 +131,17 @@
                                                         </label>
                                                         <div x-show="category.childs.length">
                                                             <div x-show="category.showChilds">
-                                                                <div @click="category.showChilds=false"
-                                                                    class="p-2 px-4 flex items-center gap-3 cursor-pointer">
-                                                                    <box-icon color="#888"
-                                                                        name='left-arrow-alt'></box-icon>
-                                                                    <div class="" x-text="category.parent_name"></div>
-                                                                </div>
+                                                                <label @click="hideChildCategories(category)"
+                                                                    :class="'category-item parent-' + category.handle">
+                                                                    <div
+                                                                        class="p-2 px-4 flex items-center gap-3 cursor-pointer">
+                                                                        <box-icon color="#888"
+                                                                            name='left-arrow-alt'></box-icon>
+                                                                        <div class=""
+                                                                            x-text="category.parent_name">
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
                                                                 <template x-for="childNode in category.childs"
                                                                     :key="childNode.id">
                                                                     <div>
@@ -292,7 +298,6 @@
     <script>
         function producutComponent() {
             return {
-                categories: @js($categories),
                 profit: '--',
                 margin: '--',
                 cost_per_item: 0,
@@ -315,21 +320,36 @@
 
         function categoryComponent() {
             return {
+                categories: @js($categories),
                 show: false,
                 id: 0,
                 image: null,
                 title: null,
-                showTopLevelCategories:true,
                 categorySelected(category, subCategorySelection = false) {
                     if (subCategorySelection && category.childs.length) {
-                        category.showChilds = true;
-                        this.showTopLevelCategories = false
+                        this.showChildCategories(category);
                     } else {
                         this.show = false;
                         this.id = category.id;
                         this.title = category.name;
                         this.image = category.picture_url;
                     }
+                },
+                showChildCategories(category) {
+                    document.querySelectorAll("label.category-item").forEach(el => {
+                        el.style.display = "none";
+                    });
+                    
+                    document.querySelectorAll("label.category-item.parent-" + category.handle).forEach(el => {
+                        el.style.display = "block";
+                    });
+                    category.showChilds = true;
+                },
+                hideChildCategories(category) {
+                    document.querySelectorAll("label.category-item.parent-" + category.parent_handle).forEach(el => {
+                        el.style.display = "block";
+                    });
+                    category.showChilds = false;
                 }
             }
         }
