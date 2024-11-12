@@ -354,7 +354,7 @@
                                                     :label="__($store->name.', '.$store->city)" :value="$store->id" :checked="false" />
                                             </div>
                                             <div x-show="track_quantity" class="w-1/4 p-2">
-                                                <x-text-input wire:model="form.stocks" min="0" placeholder="Stock" id="sku"
+                                                <x-text-input wire:model="form.stocks.{{ $store->id }}" min="0" placeholder="Stock" id="stocks_{{ $store->id }}"
                                                     class="mt-1 block w-full" type="number" />
                                             </div>
                                         </div>

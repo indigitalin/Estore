@@ -42,11 +42,13 @@ class Product extends Model
         'seo_keywords',
     ];
 
-    public function parent(){
+    public function parent()
+    {
         return $this->belongsTo(self::class);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
@@ -68,7 +70,18 @@ class Product extends Model
         return file_url($this->picture);
     }
 
-    public function getDefaultPictureUrlAttribute(){
+    public function getDefaultPictureUrlAttribute()
+    {
         return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
+    }
+
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class, 'product_stores', 'product_id', 'store_id')->store()->using(ProductStore::class)->withPivot('quantity');
+    }
+
+    public function websites()
+    {
+        return $this->belongsToMany(Website::class, 'product_stores', 'product_id', 'store_id')->website()->using(ProductStore::class)->withPivot('quantity');
     }
 }

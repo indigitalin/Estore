@@ -58,11 +58,13 @@ class ProductForm extends Form
         $this->charge_tax = $product->charge_tax ?? '0';
         $this->custom_tax = $product->custom_tax ?? '0';
         $this->tax_rate = $product->tax_rate ?? null;
+        $this->websites = $product->websites->pluck('id')->toArray();
+        $this->stores = $product->stores->pluck('id')->toArray();
+        $this->stocks = $product->stores->pluck('pivot.quantity', 'id')->toArray();
     }
 
     public function save()
     {
-
         $this->prepareValidation();
         $this->validate();
         try {
@@ -93,6 +95,28 @@ class ProductForm extends Form
                 'custom_tax',
                 'tax_rate',
             ]));
+
+            $this->product->stores()->sync([]);
+            $this->product->websites()->sync([]);
+
+            /**
+             * Sync stores of the product
+             */
+            
+            foreach($this->stores as $key => $store){
+                $this->product->stores()->attach($store,[
+                    'quantity' => ($this->stocks[$store] ?? null)
+                ]);
+            }
+
+            /**
+             * Sync websites of the product
+             */
+            foreach($this->websites as $key => $website){
+                $this->product->websites()->attach($website);
+            }
+
+
             return ([
                 'status' => 'success',
                 'message' => $this->product->wasRecentlyCreated ? 'Product created successfully.' : 'Product updated successfully.',
