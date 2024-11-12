@@ -43,7 +43,7 @@
         </label>
         @foreach ($options as $option)
             <label for="{{ $name }}_{{ $option['value'] }}" class="block"
-                :class="{ 'bg-primary text-white': id === {{ $option['value'] }} }">
+                :class="id === {{ $option['value'] }} ? 'bg-indigo-200' : 'hover:bg-gray-100'">
                 <div @click="show = false; id = {{ $option['value'] }};title='{{ $option['label'] }}';image='{{ file_url($option['image']) }}'"
                     class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                     <div class="flex-shrink-0 ">

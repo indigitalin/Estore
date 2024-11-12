@@ -46,7 +46,7 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="category_id" :value="__('Category')" />
-                                        <div x-data="{ show: false, id: 0, image: null, title: null }" @click.away="show = false" class="relative">
+                                        <div x-data="categoryComponent()" @click.away="show = false" class="relative">
                                             <div @click="show = !show"
                                                 class="flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 w-full">
                                                 <div>
@@ -75,11 +75,6 @@
                                                 <label for="category_id_0" class="block">
                                                     <div @click="show = false; id = 0; title='';image=''"
                                                         class="p-2 px-4 flex items-center gap-3 cursor-pointer">
-                                                        <div class="flex-shrink-0 ">
-                                                            <img src="{{ file_url('default.png') }}"
-                                                                class="w-10 h-10 object-cover rounded-full"
-                                                                alt="Brand" />
-                                                        </div>
                                                         <div class="">
                                                             <p class="font-medium sm:block capitalize">
                                                                 No category
@@ -90,28 +85,69 @@
                                                         name="category_id" id="category_id_0">
                                                 </label>
                                                 <template x-for="category in categories">
-                                                    <label :for="'category_id_' + category.id" class="block">
-                                                        <div :class="category.childs.length ? 'hover:bg-gray-100' : 'hover:bg-gray-200'" @click="show = false; id = category.id; title=category.name;image=category.picture_url"
-                                                            class="flex items-center gap-3 cursor-pointer">
-                                                            <div :class="category.childs.length ? 'hover:bg-gray-200' : ''" class="p-2 px-4 rounded gap-3 flex items-center">
-                                                                <div class="flex-shrink-0 ">
-                                                                    <img :src="category.picture_url"
-                                                                        class="w-10 h-10 object-cover rounded-full"
-                                                                        alt="Brand" />
-                                                                </div>
-                                                                <div class="">
-                                                                    <p x-text="category.name"
-                                                                        class="font-medium sm:block capitalize"></p>
+                                                    <div>
+                                                        <template x-template-outlet="$refs.treeNodeTemplate"
+                                                            x-data="{ category: category }">
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <template x-ref="treeNodeTemplate">
+                                                    <div>
+                                                        <label
+                                                            :for="category.childs.length ? '' : 'category_id_' + category.id"
+                                                            class="block">
+                                                            <div :class="category.childs.length ? 'hover:bg-gray-100' :
+                                                                'hover:bg-gray-200'"
+                                                                @click="categorySelected(category, true)"
+                                                                class="flex items-center gap-3 cursor-pointer">
+                                                                <label :for="'category_id_' + category.id"
+                                                                    @click.stop="categorySelected(category)"
+                                                                    class="block cursor-pointer">
+                                                                    <div :class="category.childs.length ? 'hover:bg-gray-200' : ''"
+                                                                        class="p-2 px-4 rounded gap-3 flex items-center">
+                                                                        <div class="flex-shrink-0 ">
+                                                                            <img :src="category.picture_url"
+                                                                                class="w-10 h-10 object-cover rounded-full"
+                                                                                alt="Brand" />
+                                                                        </div>
+                                                                        <div class="">
+                                                                            <p x-text="category.name"
+                                                                                class="font-medium sm:block capitalize">
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
+
+                                                                <div class="flex items-center ms-auto px-4"
+                                                                    x-show="category.childs.length">
+                                                                    <box-icon color="#888"
+                                                                        name='chevron-right'></box-icon>
                                                                 </div>
                                                             </div>
-                                                            <div class="flex items-center ms-auto px-4" x-show="category.childs.length">
-                                                                <box-icon color="#888" name='chevron-right'></box-icon>
+                                                            <input x-show="false" type="radio" hidden
+                                                                :value="category.id" name="category_id"
+                                                                :id="'category_id_' + category.id">
+                                                        </label>
+                                                        <div x-show="category.childs.length">
+                                                            <div x-show="category.showChilds">
+                                                                <div @click="category.showChilds=false"
+                                                                    class="p-2 px-4 flex items-center gap-3 cursor-pointer">
+                                                                    <box-icon color="#888"
+                                                                        name='left-arrow-alt'></box-icon>
+                                                                    <div class="" x-text="category.parent_name"></div>
+                                                                </div>
+                                                                <template x-for="childNode in category.childs"
+                                                                    :key="childNode.id">
+                                                                    <div>
+                                                                        <template
+                                                                            x-template-outlet="$refs.treeNodeTemplate"
+                                                                            x-data="{ category: childNode }">
+                                                                        </template>
+                                                                    </div>
+                                                                </template>
                                                             </div>
                                                         </div>
-                                                        <input x-show="false" type="radio" hidden
-                                                            :value="category.id" name="category_id"
-                                                            :id="'category_id_' + category.id">
-                                                    </label>
+                                                    </div>
                                                 </template>
                                             </div>
                                         </div>
@@ -133,12 +169,12 @@
                         </div>
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
-                                <div class="w-full md:w-1/1 p-2">
+                                <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="price" :value="__('Price')" />
                                         <x-text-input @change="price=$event.target.value, processPrice()"
-                                            placeholder="Price" wire:model="form.price" id="price" min="0"
-                                            class="mt-1 block w-full" type="number" />
+                                            placeholder="Price" wire:model="form.price" id="price"
+                                            min="0" class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.price')" class="mt-2" />
                                     </div>
                                 </div>
@@ -273,8 +309,28 @@
                     this.margin = (this.cost_per_item && this.price > 0) ?
                         ((this.price - this.cost_per_item) / this.price * 100).toFixed(2) + '%' :
                         '--';
-                }
+                },
+            }
+        }
 
+        function categoryComponent() {
+            return {
+                show: false,
+                id: 0,
+                image: null,
+                title: null,
+                showTopLevelCategories:true,
+                categorySelected(category, subCategorySelection = false) {
+                    if (subCategorySelection && category.childs.length) {
+                        category.showChilds = true;
+                        this.showTopLevelCategories = false
+                    } else {
+                        this.show = false;
+                        this.id = category.id;
+                        this.title = category.name;
+                        this.image = category.picture_url;
+                    }
+                }
             }
         }
     </script>

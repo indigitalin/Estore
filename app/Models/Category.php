@@ -31,12 +31,34 @@ class Category extends Model
         'seo_keywords',
     ];
 
-    public function parent(){
+    public function parent()
+    {
         return $this->belongsTo(self::class);
     }
 
-    public function childs(){
+    public function childs()
+    {
         return $this->hasMany(self::class, 'parent_id', 'id');
+    }
+
+    public function getParentNameAttribute()
+    {
+        $name = $this->name;
+
+        // Define a recursive function to build the name chain
+        $buildNames = function ($parent, &$name) use (&$buildNames) {
+            $name = $parent->name . ($name ? ' / ' . $name : '');
+            if ($parent->parent) {
+                $buildNames($parent->parent, $name);
+            }
+        };
+
+        // Start the chain if this model has a parent
+        if ($this->parent) {
+            $buildNames($this->parent, $name);
+        }
+
+        return $name;
     }
 
     public function getStatusLabelAttribute()
@@ -57,15 +79,17 @@ class Category extends Model
         return file_url($this->picture);
     }
 
-    public function getDefaultPictureUrlAttribute(){
+    public function getDefaultPictureUrlAttribute()
+    {
         return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
     }
 
-    public function updatePicture($file, int $isRemoved){
+    public function updatePicture($file, int $isRemoved)
+    {
         /**
          * If action is to remove picture, delete picture and set picture as null
          */
-        if($isRemoved){
+        if ($isRemoved) {
             $this->removeFile($this->picture);
             $this->update(['picture' => null]);
         }

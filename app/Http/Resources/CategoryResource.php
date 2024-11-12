@@ -20,6 +20,8 @@ class CategoryResource extends JsonResource
             'handle' => $this->handle,
             'picture_url' => $this->picture_url,
             'childs' => self::collection($this->childs),
+            'parent_id' => $this->parent_id,
+            'parent_name' => $this->parent_name,
         ];
     }
 }
