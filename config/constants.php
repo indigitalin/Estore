@@ -7,6 +7,9 @@ return [
      *
      */
     'weights' => [
-        'ml', 'gm', 'l', 'kg'
+        'ml' => 'ml',
+        'gm' => 'gm', 
+        'l' => 'l', 
+        'kg' => 'kg'
     ]
 ];

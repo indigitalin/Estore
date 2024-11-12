@@ -43,6 +43,12 @@ class Form extends Component
         );
     }
 
+    #[On('set-category')]
+    public function setCategory($category)
+    {
+        $this->form->category_id = $category;
+    }
+
     public function save()
     {
         $response = $this->form->save();

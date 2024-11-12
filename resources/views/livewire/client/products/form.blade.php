@@ -46,11 +46,11 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="category_id" :value="__('Category')" />
-                                        <div x-data="categoryComponent()" @click.away="show = false" class="relative">
+                                        <div wire:ignore x-data="categoryComponent()" @click.away="show = false" class="relative">
                                             <div @click="show = !show"
                                                 class="flex items-center cursor-pointer rounded border border-stroke py-3 pl-3 pr-3 text-black bg-gray focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 w-full">
                                                 <div>
-                                                    <div x-show="id !=0">
+                                                    <div x-show="id">
                                                         <div class="flex items-center gap-3 cursor-pointer">
                                                             <div class="flex-shrink-0 ">
                                                                 <img :src="image"
@@ -63,7 +63,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div x-show="id ==0">
+                                                    <div x-show="!id">
                                                         Select an option
                                                     </div>
                                                 </div>
@@ -73,7 +73,7 @@
                                             <div x-show="show" style="display:none"
                                                 class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
                                                 <label for="category_id_0" class="block">
-                                                    <div @click="show = false; id = 0; title='';image=''"
+                                                    <div @click="show = false; id = null; title=null; image=null; setCategoryId()"
                                                         class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                                                         <div class="">
                                                             <p class="font-medium sm:block capitalize">
@@ -87,12 +87,12 @@
                                                 <template x-for="category in categories">
                                                     <div>
                                                         <template x-template-outlet="$refs.treeNodeTemplate"
-                                                            x-data="{ category: category }">
+                                                            x-data="{ category: category, parentCategory:null }">
                                                         </template>
                                                     </div>
                                                 </template>
                                                 <template x-ref="treeNodeTemplate">
-                                                    <div>
+                                                    <div x-init="if (category_id == category.id) selectedCategory = category; selectedCategoryParent:parent">
                                                         <label
                                                             :for="category.childs.length ? '' : 'category_id_' + category.id"
                                                             class="block"
@@ -126,7 +126,8 @@
                                                                 </div>
                                                             </div>
                                                             <input x-show="false" type="radio" hidden
-                                                                :value="category.id" name="category_id" wire:form="form.category_id"
+                                                                :value="category.id" name="category_id"
+                                                                wire:form="form.category_id"
                                                                 :id="'category_id_' + category.id">
                                                         </label>
                                                         <div x-show="category.childs.length">
@@ -147,7 +148,7 @@
                                                                     <div>
                                                                         <template
                                                                             x-template-outlet="$refs.treeNodeTemplate"
-                                                                            x-data="{ category: childNode }">
+                                                                            x-data="{ category: childNode, parentCategory:category }">
                                                                         </template>
                                                                     </div>
                                                                 </template>
@@ -155,9 +156,11 @@
                                                         </div>
                                                     </div>
                                                 </template>
+                                                <div x-init="if (selectedCategory) preloadCategory();"></div>
                                             </div>
                                         </div>
-                                        <div class="text-sm">Determines tax rates and adds metafields to improve search,
+                                        <div class="text-sm">Determines tax rates and adds metafields to improve
+                                            search,
                                             filters, and cross-channel sales</div>
                                         <x-input-error :messages="$errors->get('form.category_id')" class="mt-2" />
                                     </div>
@@ -294,10 +297,8 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-toggle-switch @change="physical = $event.target.checked"
-                                            id="physical-toggle" wire:model="form.physical"
-                                            :label="__('This is a physical product')" :value="1" :checked="$this->product && $this->product->physical == '1'
-                                                ? true
-                                                : false" />
+                                            id="physical-toggle" wire:model="form.physical" :label="__('This is a physical product')"
+                                            :value="1" :checked="$this->product && $this->product->physical == '1' ? true : false" />
                                         <x-input-error :messages="$errors->get('form.physical')" class="mt-2" />
                                     </div>
                                 </div>
@@ -317,9 +318,9 @@
                                     <div class="mt-2">
                                         <div class="mt-2">
                                             <x-input-label for="weight_type" :value="__('Weight type')" />
-                                            <x-select min="0" :options="config('constants.weights')" placeholder="Weight type"
-                                                wire:model="form.weight_type" id="weight_type"
-                                                class="mt-1 block w-full" type="text" />
+                                            <x-select min="0" :selected="$this->form->weight_type" :options="config('constants.weights')"
+                                                placeholder="Weight type" wire:model="form.weight_type"
+                                                id="weight_type" class="mt-1 block w-full" type="text" />
                                             <x-input-error :messages="$errors->get('form.weight_type')" class="mt-2" />
                                         </div>
                                     </div>
@@ -350,12 +351,15 @@
                                     @forelse ($stores as $store)
                                         <div class="flex flex-wrap items-center -mx-2 border-bottom mb-2">
                                             <div class="w-3/4 p-2">
-                                                <x-toggle-switch id="stores-toggle_{{ $store->id }}" wire:model="form.stores"
-                                                    :label="__($store->name.', '.$store->city)" :value="$store->id" :checked="false" />
+                                                <x-toggle-switch id="stores-toggle_{{ $store->id }}"
+                                                    wire:model="form.stores" :label="__($store->name . ', ' . $store->city)" :value="$store->id"
+                                                    :checked="false" />
                                             </div>
                                             <div x-show="track_quantity" class="w-1/4 p-2">
-                                                <x-text-input wire:model="form.stocks.{{ $store->id }}" min="0" placeholder="Stock" id="stocks_{{ $store->id }}"
-                                                    class="mt-1 block w-full" type="number" />
+                                                <x-text-input wire:model="form.stocks.{{ $store->id }}"
+                                                    min="0" placeholder="Stock"
+                                                    id="stocks_{{ $store->id }}" class="mt-1 block w-full"
+                                                    type="number" />
                                             </div>
                                         </div>
                                     @empty
@@ -388,8 +392,9 @@
                                     @forelse ($websites as $website)
                                         <div class="flex flex-wrap items-center -mx-2 border-bottom mb-2">
                                             <div class="w-3/4 p-2">
-                                                <x-toggle-switch id="websites-toggle_{{ $website->id }}" wire:model="form.websites"
-                                                    :label="__($website->name)" :value="$website->id" :checked="false" />
+                                                <x-toggle-switch id="websites-toggle_{{ $website->id }}"
+                                                    wire:model="form.websites" :label="__($website->name)" :value="$website->id"
+                                                    :checked="false" />
                                             </div>
                                         </div>
                                     @empty
@@ -513,6 +518,9 @@
         function categoryComponent() {
             return {
                 categories: @js($categories),
+                category_id: {{ $this->form->category_id ?? 0 }},
+                selectedCategory: null,
+                selectedCategoryParent:null,
                 show: false,
                 id: 0,
                 image: null,
@@ -526,6 +534,7 @@
                         this.title = category.name;
                         this.image = category.picture_url;
                     }
+                    this.setCategoryId();
                 },
                 showChildCategories(category) {
                     document.querySelectorAll("label.category-item").forEach(el => {
@@ -542,6 +551,15 @@
                         el.style.display = "block";
                     });
                     category.showChilds = false;
+                },
+                preloadCategory() {
+                    this.categorySelected(this.selectedCategory);
+                    console.log(this.selectedCategoryParent);
+                },
+                setCategoryId() {
+                    Livewire.dispatch('set-category', {
+                        category: this.id
+                    });
                 }
             }
         }
