@@ -223,14 +223,14 @@
                                         <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/1 p-2"></div>
+                                <div class="w-full md:w-1/1 p-0"></div>
                                 <div class="w-full md:w-1/3 p-2">
                                     <div class="mt-2">
                                         <x-input-label for="cost_per_item" :value="__('Cost per item')" />
                                         <x-text-input min="0"
                                             @change="cost_per_item=$event.target.value,processPrice()"
                                             placeholder="Cost per item" wire:model="form.cost_per_item"
-                                            id="cost_per_item" class="mt-1 block w-full" type="text" />
+                                            id="cost_per_item" class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.cost_per_item')" class="mt-2" />
                                     </div>
                                 </div>
@@ -246,6 +246,121 @@
                                         <x-input-label for="margin" :value="__('Margin')" />
                                         <x-text-input x-bind:value="margin" disabled placeholder="Margin"
                                             id="margin" class="mt-1 block w-full" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div
+                        class="rounded-sm border border-stroke shadow-default mt-7 bg-white dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Inventory
+                            </h3>
+                        </div>
+                        <div class="p-7 pt-0">
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full md:w-1/2 p-2">
+                                    <div class="mt-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="sku" :value="__('SKU')" />
+                                            <x-text-input min="0"
+                                                placeholder="SKU" wire:model="form.sku"
+                                                id="sku" class="mt-1 block w-full" type="text" />
+                                            <x-input-error :messages="$errors->get('form.sku')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-toggle-switch @change="track_quantity = $event.target.checked"
+                                            id="track_quantity-toggle" wire:model="form.track_quantity" :label="__('Track quantity')"
+                                            :value="1" :checked="$this->product && $this->product->track_quantity == '1'
+                                                ? true
+                                                : false" />
+                                        <x-input-error :messages="$errors->get('form.track_quantity')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div x-show="track_quantity" class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-toggle-switch
+                                            id="sell_without_stock-toggle" wire:model="form.sell_without_stock" :label="__('Continue selling when out of stock')"
+                                            :value="1" :checked="$this->product && $this->product->sell_without_stock == '1'
+                                                ? true
+                                                : false" />
+                                        <x-input-error :messages="$errors->get('form.sell_without_stock')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-toggle-switch @change="physical_product = $event.target.checked"
+                                            id="physical_product-toggle" wire:model="form.physical_product" :label="__('This is a physical product')"
+                                            :value="1" :checked="$this->product && $this->product->physical_product == '1'
+                                                ? true
+                                                : false" />
+                                        <x-input-error :messages="$errors->get('form.physical_product')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-0"></div>
+                                <div x-show="physical_product" class="w-full md:w-1/3 p-2">
+                                    <div class="mt-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="weight" :value="__('Weight')" />
+                                            <x-text-input min="0"
+                                                placeholder="Weight" wire:model="form.weight"
+                                                id="weight" class="mt-1 block w-full" type="number" />
+                                            <x-input-error :messages="$errors->get('form.weight')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div x-show="physical_product" class="w-full md:w-1/3 p-2">
+                                    <div class="mt-2">
+                                        <div class="mt-2">
+                                            <x-input-label for="weight_type" :value="__('Weight type')" />
+                                            <x-select min="0" :options="config('constants.weights')"
+                                                placeholder="Weight type" wire:model="form.weight_type"
+                                                id="weight_type" class="mt-1 block w-full" type="text" />
+                                            <x-input-error :messages="$errors->get('form.weight_type')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="rounded-sm border border-stroke shadow-default mt-7 bg-white dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Seo settings
+                            </h3>
+                        </div>
+                        <div class="p-7 pt-0">
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="seo_title" :value="__('Seo title')" />
+                                        <x-text-input placeholder="Seo title" wire:model="form.seo_title" id="seo_title"
+                                            class="mt-1 block w-full" type="text" />
+                                        <x-input-error :messages="$errors->get('form.seo_title')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="seo_description" :value="__('Seo description')" />
+                                        <x-textarea rows="2" placeholder="Seo description"
+                                            wire:model="form.seo_description" id="seo_description" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.seo_description')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/1 p-2">
+                                    <div class="mt-2">
+                                        <x-input-label for="seo_keywords" :value="__('Seo keywords')" />
+                                        <x-textarea rows="2" placeholder="Seo keywords"
+                                            wire:model="form.seo_keywords" id="seo_keywords" class="mt-1 block w-full"
+                                            type="text" />
+                                        <x-input-error :messages="$errors->get('form.seo_keywords')" class="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +385,6 @@
                                 </x-primary-button>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-span-6 xl:col-span-2">
@@ -306,6 +420,8 @@
                 charge_tax: false,
                 tax_rate: 0,
                 custom_tax: false,
+                physical_product:false,
+                track_quantity:false,
                 processPrice() {
                     this.profit = (this.cost_per_item && this.price) ?
                         this.price - this.cost_per_item :
