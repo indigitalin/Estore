@@ -124,7 +124,6 @@ class ProductForm extends Form
             /**
              * Sync stores of the product
              */
-
             foreach ($this->stores as $key => $store) {
                 $this->product->stores()->attach($store, [
                     'quantity' => ($this->stocks[$store] ?? null),
