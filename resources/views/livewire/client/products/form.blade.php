@@ -64,7 +64,7 @@
                                 Pricing information
                             </h3>
                         </div>
-                        <div class="p-7 pt-0" x-init="processPrice()">
+                        <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
@@ -421,6 +421,9 @@
                 custom_tax: {{ $this->form->custom_tax == '1' ? 1 : 0 }},
                 physical: {{ $this->form->physical == '1' ? 1 : 0 }},
                 track_quantity: {{ $this->form->track_quantity == '1' ? 1 : 0 }},
+                init(){
+                    this.processPrice();
+                },
                 processPrice() {
                     this.profit = (this.cost_per_item && this.price) ?
                         this.price - this.cost_per_item :

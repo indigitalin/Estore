@@ -85,7 +85,7 @@
                 </div>
             </div>
         </template>
-        <div x-init="preloadCategory();"></div>
+        <div x-init="preloadCategory()"></div>
     </div>
 </div>
 @push('scripts')
@@ -98,6 +98,10 @@
                 id: 0,
                 image: null,
                 name: null,
+                selectedCategoryParentTrees:[],
+                init(){
+                    //this.preloadCategory()
+                },
                 categorySelected(category, subCategorySelection = false) {
                     if (subCategorySelection && category.childs.length) {
                         this.showChildCategories(category);
@@ -107,7 +111,8 @@
                         this.category_id = this.id;
                         this.name = category.name;
                         this.image = category.picture_url;
-                        this.preloadCategory();
+                        this.setCategoryTree(category);
+                        //this.preloadCategory();
                     }
                     this.setCategoryId();
                 },
@@ -128,8 +133,29 @@
                     category.showChilds = false;
                 },
                 preloadCategory() {
-                    category = this.findCategory(this.categories, this.category_id);
-                    this.categorySelected(category);
+                    const category = this.findCategory(this.categories, this.category_id);
+                    if (category) {
+                        this.categorySelected(category);
+                    }
+                    
+                },
+                async setCategoryTree(category){
+                    this.selectedCategoryParentTrees = [];
+                    await this.findParentTree(category);
+                    this.selectedCategoryParentTrees.reverse();
+                    for (const category of this.selectedCategoryParentTrees) {
+                        this.showChildCategories(category);
+                    }
+                },
+                findParentTree(category){
+                    const parent = this.findCategory(this.categories, category.parent_id);
+                    if(parent){
+                        this.selectedCategoryParentTrees.push(parent);
+                        if(parent.parent_id){
+                            return this.findParentTree(parent);
+                        }
+                    }
+                    return this.selectedCategoryParentTrees;
                 },
                 setCategoryId() {
                     Livewire.dispatch('set-category', {
@@ -137,21 +163,25 @@
                     });
                 },
                 findCategory(categories, id) {
+                    let foundItem;
                     for (const category of categories) {
                         // Check if the current category matches the ID
                         if (category.id === id) {
-                            return category;
+                            foundItem = category;
+                            break;
                         }
                         // If the category has children, recursively search them
                         if (category.childs && category.childs.length > 0) {
                             const found = this.findCategory(category.childs, id);
                             if (found) {
-                                return found;
+                                foundItem = found;
+                                break;
+                                //return found;
                             }
                         }
                     }
                     // Return null if not found
-                    return null;
+                    return foundItem;
                 }
             }
         }

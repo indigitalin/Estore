@@ -22,7 +22,6 @@
                 <input x-show="false" type="radio" hidden :value="collection.id" name="collections" x-bind:wire:model="'form.collections.'+collection.id" :id="'collections_'+collection.id">
             </label>
         </template>
-        <div x-init="loadSelectedCategories()"></div>
     </div>
     <div class="mt-2">
         <div class="flex items-center flex-wrap gap-1">
@@ -46,6 +45,9 @@
                 async removeCollection(collection){
                     this.selectedCollectionIds = await this.selectedCollectionIds.filter(element => element !== collection.id);
                     this.loadSelectedCategories();    
+                },
+                init(){
+                    this.loadSelectedCategories();
                 },
                 setCollection(collection){
                     if(this.selectedCollectionIds.includes(collection.id)){
