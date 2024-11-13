@@ -77,11 +77,15 @@ class Product extends Model
 
     public function stores()
     {
-        return $this->belongsToMany(Store::class, 'product_stores', 'product_id', 'store_id')->store()->using(ProductStore::class)->withPivot('quantity');
+        return $this->belongsToMany(Store::class, 'store_products', 'product_id', 'store_id')->store()->using(StoreProduct::class)->withPivot('quantity');
     }
 
     public function websites()
     {
-        return $this->belongsToMany(Website::class, 'product_stores', 'product_id', 'store_id')->website()->using(ProductStore::class)->withPivot('quantity');
+        return $this->belongsToMany(Website::class, 'store_products', 'product_id', 'store_id')->website()->using(StoreProduct::class)->withPivot('quantity');
+    }
+
+    public function collections(){
+        return $this->belongsToMany(Collection::class, 'collection_products', 'product_id', 'collection_id')->using(CollectionProduct::class);
     }
 }

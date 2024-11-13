@@ -15,6 +15,7 @@ class ProductForm extends Form
     public array|null $stores = [];
     public array|null $stocks = [];
     public array|null $websites = [];
+    public array|null $collections = [];
 
     public string|null $seo_title = null;
     public string|null $seo_keywords = null;
@@ -61,6 +62,9 @@ class ProductForm extends Form
         $this->websites = $product->websites->pluck('id')->toArray();
         $this->stores = $product->stores->pluck('id')->toArray();
         $this->stocks = $product->stores->pluck('pivot.quantity', 'id')->toArray();
+
+        $this->collections = $product->collections->pluck('id')->toArray();
+
     }
 
     public function save()
@@ -98,6 +102,12 @@ class ProductForm extends Form
 
             $this->product->stores()->sync([]);
             $this->product->websites()->sync([]);
+            $this->product->collections()->sync([]);
+
+            /**
+             * Sync websites of the product
+             */
+            $this->product->websites()->sync($this->websites);
 
             /**
              * Sync stores of the product
@@ -112,10 +122,7 @@ class ProductForm extends Form
             /**
              * Sync websites of the product
              */
-            foreach($this->websites as $key => $website){
-                $this->product->websites()->attach($website);
-            }
-
+            $this->product->collections()->sync($this->collections);
 
             return ([
                 'status' => 'success',
@@ -157,6 +164,7 @@ class ProductForm extends Form
                     $fail('The product already exists, please create different one.');
                 }
             }],
+            'category_id' => ['sometimes', 'nullable', 'exists:categories,id'],
             'description' => ['string', 'sometimes', 'nullable'],
             'status' => ['nullable'],
         ];

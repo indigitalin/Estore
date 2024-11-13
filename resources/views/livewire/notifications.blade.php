@@ -3,7 +3,7 @@
         <li class="px-4.5 py-3 hover:bg-gray-2">
             <strong>{{ $notification->subject }}</strong>
             <p>{{ $notification->description }}</p>
-            <small>{{ $notification->created_at->diffForHumans() }}</small>
+            <small>{{ $notification->updated_at->diffForHumans() }}</small>
         </li>
     @empty
         <li class="px-4.5 py-3 hover:bg-gray-2">

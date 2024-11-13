@@ -88,7 +88,7 @@
                                 </p>
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
-                                {{ $website->created_at->diffForHumans() }}
+                                {{ $website->updated_at->diffForHumans() }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark text-end">
                                 <div class="flex items-center">

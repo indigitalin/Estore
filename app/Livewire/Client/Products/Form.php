@@ -40,13 +40,23 @@ class Form extends Component
             auth()->user()->client->stores
         )->withWebsites(
             auth()->user()->client->websites
+        )->withCollections(
+            \App\Http\Resources\CollectionResource::collection(
+                auth()->user()->client->collections
+            )
         );
     }
 
     #[On('set-category')]
-    public function setCategory($category)
+    public function setCategory(string $category) : void
     {
         $this->form->category_id = $category;
+    }
+
+    #[On('set-collections')]
+    public function setCollections(array $collections) : void
+    {
+        $this->form->collections = $collections;
     }
 
     public function save()
