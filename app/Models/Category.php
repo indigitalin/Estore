@@ -43,7 +43,7 @@ class Category extends Model
 
     public function getParentNameAttribute()
     {
-        $name = $this->name;
+        $name = '';
 
         // Define a recursive function to build the name chain
         $buildNames = function ($parent, &$name) use (&$buildNames) {

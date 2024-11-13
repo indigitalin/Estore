@@ -77,6 +77,7 @@
                             {{ $product->sku ?? '...' }}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                            <div class="text-xs">{{ $product->category->parent_name ?? null }}</div>
                             {{ $product->category->name ?? '...' }}
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">

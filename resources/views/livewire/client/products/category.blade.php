@@ -8,6 +8,7 @@
                         <img :src="image" class="w-8 h-8 object-cover rounded-full" alt="Brand" />
                     </div>
                     <div class="">
+                        <p class="font-medium sm:block capitalize text-xs" x-text="parent_name"></p>
                         <p class="font-medium sm:block capitalize" x-text="name"></p>
                     </div>
                 </div>
@@ -71,7 +72,10 @@
                             :class="'category-item parent-' + category.handle">
                             <div class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                                 <box-icon color="#888" name='left-arrow-alt'></box-icon>
-                                <div class="" x-text="category.parent_name">
+                                <div class="" >
+                                    <span x-text="category.parent_name"></span>
+                                    <span x-show="category.parent_name">/</span>
+                                    <span x-text="category.name"></span>
                                 </div>
                             </div>
                         </label>
@@ -97,6 +101,7 @@
                 show: false,
                 id: 0,
                 image: null,
+                parent_name:null,
                 name: null,
                 selectedCategoryParentTrees:[],
                 init(){
@@ -111,6 +116,7 @@
                         this.category_id = this.id;
                         this.name = category.name;
                         this.image = category.picture_url;
+                        this.parent_name = category.parent_name;
                         this.setCategoryTree(category);
                         //this.preloadCategory();
                     }
