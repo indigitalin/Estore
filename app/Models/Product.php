@@ -106,4 +106,8 @@ class Product extends Model
     public function getProductVendorNameAttribute(){
         return $this->product_vendor->name ?? null;
     }
+
+    public function product_tags(){
+        return $this->hasMany(ProductTag::class);
+    }
 }

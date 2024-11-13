@@ -38,6 +38,7 @@ class ProductForm extends Form
 
     public int|null $product_type_id = null;
     public int|null $product_vendor_id = null;
+    public array|null $product_tags = null;
 
     public function setProduct(?Product $product = null): void
     {
@@ -72,6 +73,7 @@ class ProductForm extends Form
 
         $this->product_type = $product->product_type_name;
         $this->product_vendor = $product->product_vendor_name;
+        $this->product_tags = $product->product_tags->pluck('name')->toArray();
     }
 
     public function save()
@@ -133,6 +135,15 @@ class ProductForm extends Form
              * Sync websites of the product
              */
             $this->product->collections()->sync($this->collections);
+            /**
+             * Save product tags
+             */
+            $this->product->product_tags()->delete();
+            foreach($this->product_tags as $tag){
+                $this->product->product_tags()->firstOrcreate([
+                    'name' => $tag
+                ]);
+            }
             return ([
                 'status' => 'success',
                 'message' => $this->product->wasRecentlyCreated ? 'Product created successfully.' : 'Product updated successfully.',
@@ -198,9 +209,15 @@ class ProductForm extends Form
             }],
             'product_type_id' => ['sometimes', 'nullable', 'exists:product_types,id'],
             'product_type' => ['sometimes', 'nullable', 'string'],
+            'product_vendor_id' => ['sometimes', 'nullable', 'exists:product_vendors,id'],
+            'product_vendor' => ['sometimes', 'nullable', 'string'],
+            'collections' => ['sometimes', 'nullable', 'array'],
+            'collections.*' => ['exists:collections,id'],
             'category_id' => ['sometimes', 'nullable', 'exists:categories,id'],
             'description' => ['string', 'sometimes', 'nullable'],
             'status' => ['nullable'],
+            'product_tags' => ['array', 'nullable', 'sometimes'],
+            'product_tags.*' => ['string'],
         ];
     }
 }

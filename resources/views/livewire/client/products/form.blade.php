@@ -378,20 +378,25 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <div class="mt-2">
+                                <div class="mt-2 py-2">
                                     <x-input-label for="collections" :value="__('Type')" />
                                     @include('livewire.client.products.type')
                                     <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                                 </div>
-                                <div class="mt-2">
+                                <div class="mt-2 py-2">
                                     <x-input-label for="collections" :value="__('Collections')" />
                                     @include('livewire.client.products.collection')
                                     <x-input-error :messages="$errors->get('form.collections')" class="mt-2" />
                                 </div>
-                                <div class="mt-2">
+                                <div class="mt-2 py-2">
                                     <x-input-label for="collections" :value="__('Vendor')" />
                                     @include('livewire.client.products.vendor')
                                     <x-input-error :messages="$errors->get('form.vendor')" class="mt-2" />
+                                </div>
+                                <div class="mt-2 py-2">
+                                    <x-input-label for="tags" :value="__('Tags')" />
+                                    @include('livewire.client.products.tags')
+                                    <x-input-error :messages="$errors->get('form.tags')" class="mt-2" />
                                 </div>
                             </div>
                         </div>

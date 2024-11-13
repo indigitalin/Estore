@@ -63,6 +63,12 @@ class Form extends Component
         $this->form->collections = $collections;
     }
 
+    #[On('set-product-tags')]
+    public function setProductTags(array $product_tags): void
+    {
+        $this->form->product_tags = $product_tags;
+    }
+
     #[On('set-product-type')]
     public function setProductType(string | null $product_type): void
     {
