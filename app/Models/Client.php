@@ -137,4 +137,8 @@ class Client extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
+
+    public function product_types(){
+        return $this->hasMany(ProductType::class);
+    }
 }

@@ -8,7 +8,7 @@
                         <img :src="image" class="w-8 h-8 object-cover rounded-full" alt="Brand" />
                     </div>
                     <div class="">
-                        <p class="font-medium sm:block capitalize" x-text="title"></p>
+                        <p class="font-medium sm:block capitalize" x-text="name"></p>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
     <div x-show="show" style="display:none"
         class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
         <label for="category_id_0" class="block">
-            <div @click="show = false; id = null; title=null; image=null; setCategoryId()"
+            <div @click="show = false; id = null; name=null; image=null; setCategoryId()"
                 class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                 <div class="">
                     <p class="font-medium sm:block capitalize">
@@ -97,7 +97,7 @@
                 show: false,
                 id: 0,
                 image: null,
-                title: null,
+                name: null,
                 categorySelected(category, subCategorySelection = false) {
                     if (subCategorySelection && category.childs.length) {
                         this.showChildCategories(category);
@@ -105,7 +105,7 @@
                         this.show = false;
                         this.id = category.id;
                         this.category_id = this.id;
-                        this.title = category.name;
+                        this.name = category.name;
                         this.image = category.picture_url;
                         this.preloadCategory();
                     }

@@ -40,6 +40,7 @@ class Product extends Model
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'product_type_id',
     ];
 
     public function parent()
@@ -87,5 +88,13 @@ class Product extends Model
 
     public function collections(){
         return $this->belongsToMany(Collection::class, 'collection_products', 'product_id', 'collection_id')->using(CollectionProduct::class);
+    }
+
+    public function product_type(){
+        return $this->belongsTo(ProductType::class);
+    }
+
+    public function getProductTypeNameAttribute(){
+        return $this->product_type->name ?? null;
     }
 }

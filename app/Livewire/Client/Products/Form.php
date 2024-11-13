@@ -44,6 +44,8 @@ class Form extends Component
             \App\Http\Resources\CollectionResource::collection(
                 auth()->user()->client->collections
             )
+        )->withProductTypes(
+            (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray()),
         );
     }
 
@@ -57,6 +59,12 @@ class Form extends Component
     public function setCollections(array $collections) : void
     {
         $this->form->collections = $collections;
+    }
+
+    #[On('set-product-type')]
+    public function setProductType(string $product_type) : void
+    {
+        $this->form->product_type = $product_type;
     }
 
     public function save()

@@ -380,7 +380,7 @@
                             <div class="p-7 pt-0 mt-4">
                                 <div class="mt-2">
                                     <x-input-label for="collections" :value="__('Type')" />
-                                    
+                                    @include('livewire.client.products.type')
                                     <x-input-error :messages="$errors->get('form.type')" class="mt-2" />
                                 </div>
                                 <div class="mt-2">

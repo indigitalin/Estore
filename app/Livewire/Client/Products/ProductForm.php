@@ -33,6 +33,9 @@ class ProductForm extends Form
     public string|null $charge_tax = null;
     public string|null $custom_tax = null;
     public float|null $tax_rate = null;
+    public string|null $product_type = null;
+
+    public int|null $product_type_id = null;
 
     public function setProduct(?Product $product = null): void
     {
@@ -64,11 +67,12 @@ class ProductForm extends Form
         $this->stocks = $product->stores->pluck('pivot.quantity', 'id')->toArray();
 
         $this->collections = $product->collections->pluck('id')->toArray();
-
+        $this->product_type = $product->product_type_name;
     }
 
     public function save()
     {
+
         $this->prepareValidation();
         $this->validate();
         try {
@@ -98,6 +102,7 @@ class ProductForm extends Form
                 'charge_tax',
                 'custom_tax',
                 'tax_rate',
+                'product_type_id',
             ]));
 
             $this->product->stores()->sync([]);
@@ -112,10 +117,10 @@ class ProductForm extends Form
             /**
              * Sync stores of the product
              */
-            
-            foreach($this->stores as $key => $store){
-                $this->product->stores()->attach($store,[
-                    'quantity' => ($this->stocks[$store] ?? null)
+
+            foreach ($this->stores as $key => $store) {
+                $this->product->stores()->attach($store, [
+                    'quantity' => ($this->stocks[$store] ?? null),
                 ]);
             }
 
@@ -123,7 +128,6 @@ class ProductForm extends Form
              * Sync websites of the product
              */
             $this->product->collections()->sync($this->collections);
-
             return ([
                 'status' => 'success',
                 'message' => $this->product->wasRecentlyCreated ? 'Product created successfully.' : 'Product updated successfully.',
@@ -131,7 +135,6 @@ class ProductForm extends Form
             ]);
 
         } catch (\Exception $e) {
-
             return $this->error($e);
         }
     }
@@ -141,6 +144,18 @@ class ProductForm extends Form
      */
     public function prepareValidation(): void
     {
+        /**
+         * Product type configuration
+         */
+        if ($this->product_type) {
+            $product_type = auth()->user()->client->product_types()->firstOrCreate([
+                'name' => $this->product_type,
+            ], [
+                'handle' => $this->product_type,
+            ]);
+            $this->product_type_id = $product_type->id;
+        }
+
         $this->handle = \Illuminate\Support\Str::slug($this->name);
         $this->status = isset($this->status) && $this->status ? '1' : '0';
 
@@ -164,6 +179,8 @@ class ProductForm extends Form
                     $fail('The product already exists, please create different one.');
                 }
             }],
+            'product_type_id' => ['sometimes', 'nullable', 'exists:product_types,id'],
+            'product_type' => ['sometimes', 'nullable', 'string'],
             'category_id' => ['sometimes', 'nullable', 'exists:categories,id'],
             'description' => ['string', 'sometimes', 'nullable'],
             'status' => ['nullable'],

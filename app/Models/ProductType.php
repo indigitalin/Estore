@@ -20,4 +20,8 @@ class ProductType extends Model
         'handle',
         'client_id',
     ];
+
+    public function setHandleAttribute($value){
+        $this->attributes['handle'] = \Illuminate\Support\Str::slug($value);
+    }
 }
