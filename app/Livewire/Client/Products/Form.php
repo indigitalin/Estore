@@ -2,7 +2,7 @@
 namespace App\Livewire\Client\Products;
 
 use App\Livewire\Component;
-use App\Models\{Role, Permission};
+
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
@@ -15,6 +15,7 @@ class Form extends Component
     use WithFileUploads;
 
     protected $listeners = ['refreshList' => '$refresh'];
+    public $product_types = [];
 
     #[On('refresh-list')]
     public function refresh()
@@ -22,6 +23,7 @@ class Form extends Component
 
     public function mount($product = null): void
     {
+        $this->product_types = (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray());
         /**
          * Set product if product id is passed in route
          */
@@ -44,27 +46,36 @@ class Form extends Component
             \App\Http\Resources\CollectionResource::collection(
                 auth()->user()->client->collections
             )
-        )->withProductTypes(
-            (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray()),
         );
     }
 
     #[On('set-category')]
-    public function setCategory(string $category) : void
+    public function setCategory(string $category): void
     {
         $this->form->category_id = $category;
     }
 
     #[On('set-collections')]
-    public function setCollections(array $collections) : void
+    public function setCollections(array $collections): void
     {
         $this->form->collections = $collections;
     }
 
     #[On('set-product-type')]
-    public function setProductType(string $product_type) : void
+    public function setProductType(string | null $product_type): void
     {
         $this->form->product_type = $product_type;
+    }
+
+    #[On('destroy-product-type')]
+    public function destroyProductType(int $id): void
+    {
+        auth()->user()->client->product_types()->findOrfail($id)->delete();
+        $this->product_types = (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray());
+        $this->dispatch('productTypeDeleted', [
+            'product_types' => $this->product_types
+        ]);
+        $this->toasterSuccess(__("Product type deleted successfully."));
     }
 
     public function save()

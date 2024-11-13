@@ -29,11 +29,10 @@
             <template x-for="selectedCollection in selectedCollections">
                 <div class="bg-indigo-200 p-2 py-1 rounded flex items-center gap-2">
                     <div x-text="selectedCollection.name"></div>
-                    <box-icon @click="removeCollection(selectedCollection)" name='x-circle' class="cursor-pointer"></box-icon>
+                    <box-icon color="#888" @click="removeCollection(selectedCollection)" name='x-circle' class="cursor-pointer"></box-icon>
                 </div>
             </template>
         </div>
-        
     </div>
 </div>
 @push('scripts')
