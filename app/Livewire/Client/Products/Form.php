@@ -16,6 +16,7 @@ class Form extends Component
 
     protected $listeners = ['refreshList' => '$refresh'];
     public $product_types = [];
+    public $product_vendors = [];
 
     #[On('refresh-list')]
     public function refresh()
@@ -24,6 +25,7 @@ class Form extends Component
     public function mount($product = null): void
     {
         $this->product_types = (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray());
+        $this->product_vendors = (auth()->user()->client->product_vendors()->select(['id', 'name'])->get()->toArray());
         /**
          * Set product if product id is passed in route
          */
@@ -76,6 +78,23 @@ class Form extends Component
             'product_types' => $this->product_types
         ]);
         $this->toasterSuccess(__("Product type deleted successfully."));
+    }
+
+    #[On('set-product-vendor')]
+    public function setProductVendor(string | null $product_vendor): void
+    {
+        $this->form->product_vendor = $product_vendor;
+    }
+
+    #[On('destroy-product-vendor')]
+    public function destroyProductVendor(int $id): void
+    {
+        auth()->user()->client->product_vendors()->findOrfail($id)->delete();
+        $this->product_vendors = (auth()->user()->client->product_vendors()->select(['id', 'name'])->get()->toArray());
+        $this->dispatch('productVendorDeleted', [
+            'product_vendors' => $this->product_vendors
+        ]);
+        $this->toasterSuccess(__("Product vendor deleted successfully."));
     }
 
     public function save()

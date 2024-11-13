@@ -34,8 +34,10 @@ class ProductForm extends Form
     public string|null $custom_tax = null;
     public float|null $tax_rate = null;
     public string|null $product_type = null;
+    public string|null $product_vendor = null;
 
     public int|null $product_type_id = null;
+    public int|null $product_vendor_id = null;
 
     public function setProduct(?Product $product = null): void
     {
@@ -67,7 +69,9 @@ class ProductForm extends Form
         $this->stocks = $product->stores->pluck('pivot.quantity', 'id')->toArray();
 
         $this->collections = $product->collections->pluck('id')->toArray();
+
         $this->product_type = $product->product_type_name;
+        $this->product_vendor = $product->product_vendor_name;
     }
 
     public function save()
@@ -103,6 +107,7 @@ class ProductForm extends Form
                 'custom_tax',
                 'tax_rate',
                 'product_type_id',
+                'product_vendor_id',
             ]));
 
             $this->product->stores()->sync([]);
@@ -154,6 +159,18 @@ class ProductForm extends Form
                 'handle' => $this->product_type,
             ]);
             $this->product_type_id = $product_type->id;
+        }
+
+        /**
+         * Product vendor configuration
+         */
+        if ($this->product_vendor) {
+            $product_vendor = auth()->user()->client->product_vendors()->firstOrCreate([
+                'name' => $this->product_vendor,
+            ], [
+                'handle' => $this->product_vendor,
+            ]);
+            $this->product_vendor_id = $product_vendor->id;
         }
 
         $this->handle = \Illuminate\Support\Str::slug($this->name);

@@ -41,6 +41,7 @@ class Product extends Model
         'seo_description',
         'seo_keywords',
         'product_type_id',
+        'product_vendor_id',
     ];
 
     public function parent()
@@ -96,5 +97,13 @@ class Product extends Model
 
     public function getProductTypeNameAttribute(){
         return $this->product_type->name ?? null;
+    }
+
+    public function product_vendor(){
+        return $this->belongsTo(ProductVendor::class);
+    }
+
+    public function getProductVendorNameAttribute(){
+        return $this->product_vendor->name ?? null;
     }
 }
