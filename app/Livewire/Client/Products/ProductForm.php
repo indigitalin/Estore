@@ -38,7 +38,7 @@ class ProductForm extends Form
 
     public int|null $product_type_id = null;
     public int|null $product_vendor_id = null;
-    public array|null $product_tags = null;
+    public array|null $product_tags = [];
 
     public function setProduct(?Product $product = null): void
     {

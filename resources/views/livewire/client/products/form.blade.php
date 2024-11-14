@@ -216,6 +216,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('livewire.client.products.variation')
                     <div
                         class="rounded-sm border border-stroke shadow-default mt-7 bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
