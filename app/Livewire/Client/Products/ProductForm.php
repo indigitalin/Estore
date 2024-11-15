@@ -78,7 +78,6 @@ class ProductForm extends Form
 
     public function save()
     {
-
         $this->prepareValidation();
         $this->validate();
         try {
@@ -96,7 +95,7 @@ class ProductForm extends Form
                 'seo_keywords',
                 'seo_description',
                 'track_quantity',
-                'physical_product',
+                'physical',
                 'weight',
                 'weight_type',
                 'sell_without_stock',
@@ -187,7 +186,7 @@ class ProductForm extends Form
         $this->status = isset($this->status) && $this->status ? '1' : '0';
 
         $this->track_quantity = isset($this->track_quantity) && $this->track_quantity ? '1' : '0';
-        $this->physical_product = isset($this->physical_product) && $this->physical_product ? '1' : '0';
+        $this->physical = isset($this->physical) && $this->physical ? '1' : '0';
         $this->charge_tax = isset($this->charge_tax) && $this->charge_tax ? '1' : '0';
         $this->sell_without_stock = isset($this->sell_without_stock) && $this->sell_without_stock ? '1' : '0';
         $this->custom_tax = isset($this->custom_tax) && $this->custom_tax ? '1' : '0';
