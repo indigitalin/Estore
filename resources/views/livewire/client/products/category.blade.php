@@ -21,7 +21,7 @@
     </div>
     <div x-show="show" style="display:none"
         class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
-        <label for="category_id_0" class="block">
+        <label class="block">
             <div @click="show = false; id = null; name=null; image=null; setCategoryId()"
                 class="p-2 px-4 flex items-center gap-3 cursor-pointer">
                 <div class="">
@@ -30,7 +30,6 @@
                     </p>
                 </div>
             </div>
-            <input x-show="false" type="radio" hidden value="" name="category_id" id="category_id_0">
         </label>
         <template x-for="category in categories">
             <div>
@@ -40,12 +39,12 @@
         </template>
         <template x-ref="treeNodeTemplate">
             <div>
-                <label :for="category.childs.length ? '' : 'category_id_' + category.id" class="block"
+                <label class="block"
                     :class="'category-item parent-' + category.parent_handle">
                     <div :class="category.childs.length ? 'hover:bg-gray-100' :
                         'hover:bg-gray-200'"
                         @click="categorySelected(category, true)" class="flex items-center gap-3 cursor-pointer">
-                        <label :for="'category_id_' + category.id" @click.stop="categorySelected(category)"
+                        <label  @click.stop="categorySelected(category)"
                             class="block cursor-pointer">
                             <div :class="category.childs.length ? 'hover:bg-gray-200' : ''"
                                 class="p-2 px-4 rounded gap-3 flex items-center">
@@ -63,8 +62,6 @@
                             <box-icon color="#888" name='chevron-right'></box-icon>
                         </div>
                     </div>
-                    <input x-show="false" type="radio" hidden :value="category.id" name="category_id"
-                        wire:form="form.category_id" :id="'category_id_' + category.id">
                 </label>
                 <div x-show="category.childs.length">
                     <div x-show="category.showChilds">

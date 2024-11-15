@@ -12,7 +12,7 @@ x-transition:leave-end="opacity-0" x-data="{ open: false, modelId: null, action:
     <div  class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 z-50">
         <div class="">
             <div class="text-xl font-semibold mb-5">Heads up!</div>
-            <p x-text="message">Are you sure want to delete the role?</p>
+            <p x-text="message">Are you sure?</p>
             <div class="mt-5 flex">
                 <x-secondary-button type="button" @click="open = false" class="ms-auto me-2">
                     No, cancel

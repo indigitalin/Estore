@@ -28,32 +28,31 @@
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="name" :value="__('Name')" />
-                                        <x-text-input placeholder="Name" wire:model="form.name"
-                                            id="name" class="mt-1 block w-full" type="text" />
+                                        <x-input-label :value="__('Name')" />
+                                        <x-text-input placeholder="Name" wire:model="form.name" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="parent_id" :value="__('Parent category')" />
-                                        <x-select id="parent_id" wire:model="form.parent_id" :options="$categories"
+                                        <x-input-label :value="__('Parent category')" />
+                                        <x-select wire:model="form.parent_id" :options="$categories"
                                             :selected="$this->form->parent_id" />
                                         <x-input-error :messages="$errors->get('form.parent_id')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/2 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="tax_rate" :value="__('Tax rate(%)')" />
-                                        <x-text-input min="0" class="mt-1 block w-full" type="number" id="tax_rate" wire:model="form.tax_rate" />
+                                        <x-input-label :value="__('Tax rate(%)')" />
+                                        <x-text-input min="0" class="mt-1 block w-full" type="number" wire:model="form.tax_rate" />
                                         <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-input-label for="description" :value="__('Description')" />
+                                        <x-input-label :value="__('Description')" />
                                         <x-textarea rows="5" placeholder="Description"
-                                            wire:model="form.description" id="description" class="mt-1 block w-full"
+                                            wire:model="form.description" class="mt-1 block w-full"
                                             type="text" />
                                         <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
                                     </div>
@@ -62,7 +61,7 @@
                             </div>
                             <div class="mt-5">
                                 <x-input-label :value="__('Status')" />
-                                <x-toggle-switch :labelOn="'Active'" :labelOff="'Inactive'" id="status-toggle" wire:model="form.status" :label="__('Status')"
+                                <x-toggle-switch :labelOn="'Active'" :labelOff="'Inactive'" id="status" wire:model="form.status" :label="__('Status')"
                                     :value="1" :checked="$this->category && $this->category->status == '1' ? true : false" />
                                 <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
                             </div>
