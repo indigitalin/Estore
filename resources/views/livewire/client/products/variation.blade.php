@@ -218,7 +218,41 @@
                     });
                 },
                 removeOption(option) {
+                    // Remove the option from the options list
                     this.options = this.options.filter(element => element.id !== option.id);
+
+                    // Update variations to remove references to the deleted option
+                    const remainingOptionIds = this.options.map(opt => opt.id);
+
+                    this.variations = this.variations.map(variation => {
+                        // Filter the option_ids and associated combination values to match remaining options
+                        const updatedOptionIds = variation.option_ids.filter(optionId =>
+                            remainingOptionIds.includes(optionId)
+                        );
+
+                        // Find the corresponding remaining values for the updated option_ids
+                        const remainingCombination = updatedOptionIds.map(optionId => {
+                            for (let opt of this.options) {
+                                const match = opt.option_values.find(val => val.id === optionId);
+                                if (match) {
+                                    return match;
+                                }
+                            }
+                            return null;
+                        }).filter(item => item !== null);
+
+                        const newKey = remainingCombination.map(item => item.value.toLowerCase()).join('-');
+                        const newName = remainingCombination.map(item => item.value).join(' / ');
+
+                        return {
+                            ...variation,
+                            key: newKey,
+                            name: newName,
+                            option_ids: updatedOptionIds,
+                        };
+                    });
+
+                    // Reload the variations to ensure consistency
                     this.loadVariations();
                 },
                 removeOptionValue(option, option_value) {
@@ -249,6 +283,12 @@
                     const optionValues = option.option_values.filter(value => value.value != null);
                     if (!option.name) {
                         return 'Please enter option name.';
+                    } //Check if option values is empty
+                    else if (!optionValues.length) {
+                        return "Add atleast one option value.";
+                    } //Check if option name is repeated
+                    else if (this.options.some(element => element.name === option.name && element.id != option.id)) {
+                        return "Option names can not be repeated.";
                     } //Check if option name is repeated
                     else if (this.options.some(element => element.name === option.name && element.id != option.id)) {
                         return "Option names can not be repeated.";
@@ -256,8 +296,7 @@
                     else if (optionValues.some((element, index, array) =>
                             array.findIndex(e => e.value.toLowerCase() === element.value.toLowerCase()) !== index
                         )) {
-                        return "Option values can not be repeated."
-                        ''
+                        return "Option values can not be repeated.";
                     } else {
                         return false;
                     }
@@ -273,64 +312,62 @@
                 },
                 loadVariations() {
                     const options = this.options
-                        .filter(option => !option.editing)
+                       // .filter(option => !option.editing)
                         .map(option => ({
                             ...option,
                             option_values: option.option_values.filter(value => value.value != null)
                         }));
 
-                    // Map option values to arrays of objects with both 'value' and 'id'
-                    const optionValuesArrays = options.map(option => option.option_values.map(value => ({
-                        value: value.value,
-                        id: value.id,
-                        option_id: option.id
-                    })));
+                    const optionValuesArrays = options.map(option =>
+                        option.option_values.map(value => ({
+                            value: value.value,
+                            id: value.id,
+                            option_id: option.id // Include the option_id to uniquely identify the value
+                        }))
+                    );
 
-                    // Generate the Cartesian product with both value and id
                     const combinations = this.cartesianProduct(optionValuesArrays);
 
-                    const result = combinations.map(combination => {
-                        // Generate the combination key by joining the values of the selected options
-                        const combinationKey = combination.map(item => item.value).join('-').toLowerCase();
+                    // Helper function to find matching variation by `option_ids`
+                    const findMatchingVariationByOptionIds = (combination) => {
+                        return this.variations.find(existingVariation => {
+                            const existingIds = existingVariation.option_ids || [];
+                            const newIds = combination.map(item => item.id);
+                            // Match by comparing option value IDs
+                            return JSON.stringify(existingIds) === JSON.stringify(newIds.slice(0, existingIds
+                                .length));
+                        });
+                    };
 
-                        return {
-                            id: Math.floor(100000 + Math.random() * 900000),
-                            key: combinationKey, // Key as combination of values
-                            name: combination.map(item => item.value).join(' / '), // Name as combination of values
-                            price: null,
-                            compare_price: null,
-                            cost_per_item: null,
-                            stores: [],
-                            sku: null,
-                            stock: null,
-                            image: null,
-                            status: true,
-                            option_id: combination.map(item => item.id).join('-').toLowerCase(),
-                            option_ids: combination.map(item => item.id), // Array of option_ids for the combination
-                        };
-                    });
-                    //this.variations = result;
-                    variations = this.variations;
-                    this.variations = [];
-                    // Loop through each combination in result and check if it exists in this.variations
-                    result.forEach(newVariation => {
-                        // Check if there's already a variation with the same option_ids
-                        const existingVariation = variations.find(existing =>
-                            existing.option_id === newVariation.option_id
-                        );
+                    // Generate new variations, retaining data for matching combinations
+                    this.variations = combinations.map(combination => {
+                        const newKey = combination.map(item => item.value.toLowerCase()).join('-');
+                        const newName = combination.map(item => item.value).join(' / ');
+                        const newOptionIds = combination.map(item => item.id);
 
-                        if (existingVariation) {
-                            // If a variation with the same option_ids exists, update only name and key
-                            existingVariation.name = newVariation.name;
-                            existingVariation.key = newVariation.key;
-                            this.variations.push(existingVariation);
-                        } else {
-                            // If no match is found, push the entire new variation
-                            this.variations.push(newVariation);
-                        }
+                        // Attempt to find a matching existing variation
+                        const matchingVariation = findMatchingVariationByOptionIds(combination);
+
+                        return matchingVariation ? {
+                                ...matchingVariation,
+                                name: newName,
+                                key: newKey,
+                                option_ids: newOptionIds
+                            } // Retain data
+                            :
+                            { // Create a new variation for unmatched combinations
+                                id: Math.floor(100000 + Math.random() * 900000),
+                                key: newKey,
+                                name: newName,
+                                option_ids: newOptionIds, // Store option value IDs for matching
+                                price: null,
+                                sku: null,
+                                stock: null,
+                                image: null,
+                                status: true,
+                            };
                     });
                 },
-
                 cartesianProduct(arrays) {
                     return arrays.reduce((acc, curr) =>
                         acc.flatMap(d => curr.map(e => [...d, e])), [
