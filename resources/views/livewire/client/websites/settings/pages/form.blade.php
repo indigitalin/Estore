@@ -89,7 +89,6 @@
                     editor.setData(@js($form->content));
                 @endif
                 editor.model.document.on('change:data', () => {
-                    console.log(editor.getData());
                     @this.set('form.content', editor.getData());
                 })
             })

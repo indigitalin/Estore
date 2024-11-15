@@ -9,8 +9,8 @@
         <div class="flex flex-wrap -mx-2">
             <div class="w-full md:w-1/1 p-2">
                 <div class="mt-2">
-                    <x-toggle-switch @change="show = has_variations = $event.target.checked" id="variation-toggle" :label="'This product has variations'"
-                        :value="1" :checked="false" />
+                    <x-toggle-switch @change="show = has_variations = $event.target.checked" id="variation-toggle"
+                        :label="'This product has variations'" :value="1" :checked="false" />
                 </div>
                 <div x-show="show" class="mt-4">
                     <div>
@@ -185,6 +185,9 @@
                         }, {
                             id: Math.floor(100000 + Math.random() * 900000),
                             value: 'Large',
+                        }, {
+                            id: Math.floor(100000 + Math.random() * 900000),
+                            value: null,
                         }]
                     }, {
                         id: Math.floor(100000 + Math.random() * 900000),
@@ -196,6 +199,9 @@
                         }, {
                             id: Math.floor(100000 + Math.random() * 900000),
                             value: 'Black',
+                        }, {
+                            id: Math.floor(100000 + Math.random() * 900000),
+                            value: null,
                         }]
                     });
                     this.loadVariations();
@@ -238,11 +244,28 @@
                         );
                     }
                 },
-                doneEditing(option) {
+                checkOptionErrors(option) {
+                    //Check if name is empty
+                    const optionValues = option.option_values.filter(value => value.value != null);
                     if (!option.name) {
-                        Toaster.warning('Please enter option name.')
-                    } else if (!option.option_values.some(element => element.value)) {
-                        Toaster.warning('Please add option values.')
+                        return 'Please enter option name.';
+                    } //Check if option name is repeated
+                    else if (this.options.some(element => element.name === option.name && element.id != option.id)) {
+                        return "Option names can not be repeated.";
+                    } //Check if option name is repeated 
+                    else if (optionValues.some((element, index, array) =>
+                            array.findIndex(e => e.value.toLowerCase() === element.value.toLowerCase()) !== index
+                        )) {
+                        return "Option values can not be repeated."
+                        ''
+                    } else {
+                        return false;
+                    }
+                },
+                doneEditing(option) {
+                    const error = this.checkOptionErrors(option);
+                    if (error) {
+                        Toaster.warning(error)
                     } else {
                         option.editing = false;
                         this.loadVariations();
@@ -255,25 +278,59 @@
                             ...option,
                             option_values: option.option_values.filter(value => value.value != null)
                         }));
-                    const optionValuesArrays = options.map(option => option.option_values.map(value => value.value));
 
-                    // Generate the Cartesian product
+                    // Map option values to arrays of objects with both 'value' and 'id'
+                    const optionValuesArrays = options.map(option => option.option_values.map(value => ({
+                        value: value.value,
+                        id: value.id,
+                        option_id: option.id
+                    })));
+
+                    // Generate the Cartesian product with both value and id
                     const combinations = this.cartesianProduct(optionValuesArrays);
-                    const result = combinations.map(combination => ({
-                        id: Math.floor(100000 + Math.random() * 900000),
-                        key: combination.join('-').toLowerCase(),
-                        name: combination.join(' / '),
-                        price: null,
-                        compare_price: null,
-                        cost_per_item: null,
-                        stores: [],
-                        sku: null,
-                        stock: null,
-                        image: null,
-                        status: true,
-                    }));
-                    this.variations = result;
+
+                    const result = combinations.map(combination => {
+                        // Generate the combination key by joining the values of the selected options
+                        const combinationKey = combination.map(item => item.value).join('-').toLowerCase();
+
+                        return {
+                            id: Math.floor(100000 + Math.random() * 900000),
+                            key: combinationKey, // Key as combination of values
+                            name: combination.map(item => item.value).join(' / '), // Name as combination of values
+                            price: null,
+                            compare_price: null,
+                            cost_per_item: null,
+                            stores: [],
+                            sku: null,
+                            stock: null,
+                            image: null,
+                            status: true,
+                            option_id: combination.map(item => item.id).join('-').toLowerCase(),
+                            option_ids: combination.map(item => item.id), // Array of option_ids for the combination
+                        };
+                    });
+                    //this.variations = result;
+                    variations = this.variations;
+                    this.variations = [];
+                    // Loop through each combination in result and check if it exists in this.variations
+                    result.forEach(newVariation => {
+                        // Check if there's already a variation with the same option_ids
+                        const existingVariation = variations.find(existing =>
+                            existing.option_id === newVariation.option_id
+                        );
+
+                        if (existingVariation) {
+                            // If a variation with the same option_ids exists, update only name and key
+                            existingVariation.name = newVariation.name;
+                            existingVariation.key = newVariation.key;
+                            this.variations.push(existingVariation);
+                        } else {
+                            // If no match is found, push the entire new variation
+                            this.variations.push(newVariation);
+                        }
+                    });
                 },
+
                 cartesianProduct(arrays) {
                     return arrays.reduce((acc, curr) =>
                         acc.flatMap(d => curr.map(e => [...d, e])), [
