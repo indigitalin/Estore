@@ -103,6 +103,12 @@ class Form extends Component
         $this->toasterSuccess(__("Product vendor deleted successfully."));
     }
 
+    #[On('set-options')]
+    public function setOptions(array $options): void
+    {
+        $this->form->options = $options;
+    }
+
     public function save()
     {
         $response = $this->form->save();

@@ -110,4 +110,8 @@ class Product extends Model
     public function product_tags(){
         return $this->hasMany(ProductTag::class);
     }
+
+    public function product_options(){
+        return $this->hasMany(ProductOption::class);
+    }
 }

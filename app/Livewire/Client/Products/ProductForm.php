@@ -39,6 +39,7 @@ class ProductForm extends Form
     public int|null $product_type_id = null;
     public int|null $product_vendor_id = null;
     public array|null $product_tags = [];
+    public array|null $options = [];
 
     public function setProduct(?Product $product = null): void
     {
@@ -141,6 +142,26 @@ class ProductForm extends Form
                 $this->product->product_tags()->firstOrcreate([
                     'name' => $tag
                 ]);
+            }
+
+            /**
+             * Delete product options
+             */
+            $this->product->product_options()->delete();
+            foreach($this->options ?? []  as $option){
+                if($option['name'] ?? null){
+                    $productOption = $this->product->product_options()->create([
+                        'name' => $option['name'] ?? null
+                    ]);
+                    foreach(($option['option_values'] ?? []) as $value){
+                        
+                        if($value['value'] ?? null){
+                            $productOption->values()->create([
+                                'name' => $value['value'],
+                            ]) ;
+                        }
+                    }
+                } 
             }
             return ([
                 'status' => 'success',

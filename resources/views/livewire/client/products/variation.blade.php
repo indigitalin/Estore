@@ -120,8 +120,13 @@
                                                         x-bind:checked="variation.status" type="checkbox"
                                                         :value="variation.key"
                                                         class="w-5 h-5 text-blue-600 cursor-pointer bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                    <label class="cursor-pointer" :for="'variation_' + variation.id"
-                                                        x-text="variation.name"></label>
+                                                    {{-- <label class="cursor-pointer" :for="'variation_' + variation.id"
+                                                        x-text="variation.name"></label> --}}
+                                                    <x-text-input
+                                                        @change="variation.variation_name = $event.target.value; setVariation()"
+                                                        autocomplete="off" placeholder="SKU"
+                                                        x-bind:value="variation.variation_name" class="mt-1 block w-full !py-2"
+                                                        type="text" />
                                                 </div>
                                             </th>
                                             <td class="px-6 py-4">
@@ -257,9 +262,11 @@
                 },
                 removeOptionValue(option, option_value) {
                     option.option_values = option.option_values.filter(element => element.id !== option_value.id);
+                    this.setOptions()
                 },
                 setOptionName(option, value) {
                     option.name = value && value.trim().length > 0 ? value : null;
+                    this.setOptions()
                 },
                 setOptionValue(option, option_value, value) {
                     option_value.value = null;
@@ -277,6 +284,7 @@
                             element => element.value || element.id == option_value.id
                         );
                     }
+                    this.setOptions()
                 },
                 checkOptionErrors(option) {
                     //Check if name is empty
@@ -312,7 +320,7 @@
                 },
                 loadVariations() {
                     const options = this.options
-                       // .filter(option => !option.editing)
+                        // .filter(option => !option.editing)
                         .map(option => ({
                             ...option,
                             option_values: option.option_values.filter(value => value.value != null)
@@ -347,11 +355,12 @@
 
                         // Attempt to find a matching existing variation
                         const matchingVariation = findMatchingVariationByOptionIds(combination);
-
                         return matchingVariation ? {
                                 ...matchingVariation,
                                 name: newName,
                                 key: newKey,
+                                variation_name: matchingVariation.variation_name == matchingVariation.name ?
+                                    newName : matchingVariation.variation_name,
                                 option_ids: newOptionIds
                             } // Retain data
                             :
@@ -359,6 +368,7 @@
                                 id: Math.floor(100000 + Math.random() * 900000),
                                 key: newKey,
                                 name: newName,
+                                variation_name: newName,
                                 option_ids: newOptionIds, // Store option value IDs for matching
                                 price: null,
                                 sku: null,
@@ -411,6 +421,11 @@
                     } else {
                         return variation.stores[storeIndex].stock;
                     }
+                },
+                setOptions(){
+                    Livewire.dispatch('set-options', {
+                        options: this.options
+                    });
                 }
             }
         }
