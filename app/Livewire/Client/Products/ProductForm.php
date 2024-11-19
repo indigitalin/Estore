@@ -39,7 +39,7 @@ class ProductForm extends Form
     public int|null $product_type_id = null;
     public int|null $product_vendor_id = null;
     public array|null $product_tags = [];
-    public array|null $options = [];
+    public array|null $product_options = [];
 
     public function setProduct(?Product $product = null): void
     {
@@ -75,6 +75,7 @@ class ProductForm extends Form
         $this->product_type = $product->product_type_name;
         $this->product_vendor = $product->product_vendor_name;
         $this->product_tags = $product->product_tags->pluck('name')->toArray();
+        $this->product_options = [];
     }
 
     public function save()
@@ -138,30 +139,40 @@ class ProductForm extends Form
              * Save product tags
              */
             $this->product->product_tags()->delete();
-            foreach($this->product_tags as $tag){
+            foreach ($this->product_tags as $tag) {
                 $this->product->product_tags()->firstOrcreate([
-                    'name' => $tag
+                    'name' => $tag,
                 ]);
             }
 
             /**
              * Delete product options
              */
-            $this->product->product_options()->delete();
-            foreach($this->options ?? []  as $option){
-                if($option['name'] ?? null){
-                    $productOption = $this->product->product_options()->create([
-                        'name' => $option['name'] ?? null
+            $incomingOptionIds = collect($this->product_options ?? [])
+                ->pluck('id')
+                ->filter()
+                ->toArray();
+            $this->product->product_options()
+                ->whereNotIn('uid', $incomingOptionIds)->delete();
+
+            foreach ($this->product_options ?? [] as $option) {
+                if ($option['name'] ?? null) {
+                    $productOption = $this->product->product_options()->updateOrCreate([
+                        'uid' => $option['id'],
+                    ], [
+                        'name' => $option['name'] ?? null,
                     ]);
-                    foreach(($option['option_values'] ?? []) as $value){
-                        
-                        if($value['value'] ?? null){
-                            $productOption->values()->create([
-                                'name' => $value['value'],
-                            ]) ;
+                    foreach (($option['option_values'] ?? []) as $value) {
+
+                        if ($value['name'] ?? null) {
+                            $productOption->values()->updateOrCreate([
+                                'uid' => $value['id'],
+                            ], [
+                                'name' => $value['name'],
+                            ]);
                         }
                     }
-                } 
+                }
             }
             return ([
                 'status' => 'success',
@@ -237,6 +248,9 @@ class ProductForm extends Form
             'status' => ['nullable'],
             'product_tags' => ['array', 'nullable', 'sometimes'],
             'product_tags.*' => ['string'],
+            'product_options' => ['array'],
+            'product_options.*' => ['array'],
+            'product_options.*.option_values' => ['array'],
         ];
     }
 }

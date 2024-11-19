@@ -18,6 +18,7 @@ class ProductOption extends Model
         'name',
         'parent_id',
         'product_id',
+        'uid',
     ];
 
     public function values(){

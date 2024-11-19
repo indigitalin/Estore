@@ -6,7 +6,7 @@ use App\Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
-
+use App\Http\Resources\ProductOptionResource;
 class Form extends Component
 {
     public $product;
@@ -17,6 +17,7 @@ class Form extends Component
     protected $listeners = ['refreshList' => '$refresh'];
     public $product_types = [];
     public $product_vendors = [];
+    protected $product_options = [];
 
     #[On('refresh-list')]
     public function refresh()
@@ -31,6 +32,7 @@ class Form extends Component
          */
         if ($product) {
             $this->form->setProduct($this->product = auth()->user()->client->products()->findOrfail($product));
+            $this->product_options = ProductOptionResource::collection($this->product->product_options);
         }
     }
 
@@ -103,10 +105,10 @@ class Form extends Component
         $this->toasterSuccess(__("Product vendor deleted successfully."));
     }
 
-    #[On('set-options')]
-    public function setOptions(array $options): void
+    #[On('set-product-options')]
+    public function setOptions(array $product_options): void
     {
-        $this->form->options = $options;
+        $this->form->product_options = $product_options;
     }
 
     public function save()
