@@ -62,24 +62,28 @@ class Form extends Component
     public function setCategory(string $category): void
     {
         $this->form->category_id = $category;
+        $this->validateOnly('category_id'); 
     }
 
     #[On('set-collections')]
     public function setCollections(array $collections): void
     {
         $this->form->collections = $collections;
+        $this->validateOnly('collections'); 
     }
 
     #[On('set-product-tags')]
     public function setProductTags(array $product_tags): void
     {
         $this->form->product_tags = $product_tags;
+        $this->validateOnly('product_tags'); 
     }
 
     #[On('set-product-type')]
     public function setProductType(string | null $product_type): void
     {
         $this->form->product_type = $product_type;
+        $this->validateOnly('product_type'); 
     }
 
     #[On('destroy-product-type')]
@@ -97,6 +101,7 @@ class Form extends Component
     public function setProductVendor(string | null $product_vendor): void
     {
         $this->form->product_vendor = $product_vendor;
+        $this->validateOnly('product_vendor'); 
     }
 
     #[On('destroy-product-vendor')]
@@ -114,12 +119,14 @@ class Form extends Component
     public function setOptions(array $product_options): void
     {
         $this->form->product_options = $product_options;
+        $this->validateOnly('product_options'); 
     }
 
     #[On('set-product-variations')]
     public function setVariations(array $product_variations): void
     {
         $this->form->product_variations = $product_variations;
+        $this->validateOnly('product_variations'); 
     }
 
     public function save()

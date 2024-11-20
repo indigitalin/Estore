@@ -116,8 +116,8 @@
                         this.parent_name = category.parent_name;
                         this.setCategoryTree(category);
                         //this.preloadCategory();
+                        this.setCategoryId();
                     }
-                    this.setCategoryId();
                 },
                 showChildCategories(category) {
                     document.querySelectorAll("label.category-item").forEach(el => {
