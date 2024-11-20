@@ -120,7 +120,7 @@
 
         <!-- Close Button -->
         <div class="mt-5 flex">
-            <x-secondary-button type="button" @click="showEditingModal = false" class="ms-auto me-2">
+            <x-secondary-button type="button" @click="showEditingModal = false" class="ms-auto">
                 Close
             </x-secondary-button>
         </div>

@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use SoftDeletes;
     use HasRoles;
     use \App\Helper\Upload;
+    
     /**
      * The attributes that are lazy loaded.
      *

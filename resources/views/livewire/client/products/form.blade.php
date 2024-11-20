@@ -400,7 +400,9 @@
                     </div>
                 </div>
             </div>
-            @livewire('image-library')
+            @livewire('image-library', [
+                'type' => 'product',
+            ])
         </form>
     </div>
 </div>

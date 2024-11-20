@@ -23,4 +23,17 @@ class Attachment extends Model
         'attachment_type',
         'client_id',
     ];
+
+    /**
+     * The attributes that are lazy loaded.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'file_url',
+    ];
+
+    public function getFileUrlAttribute(){
+        return file_url($this->file_path);
+    }
 }
