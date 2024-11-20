@@ -38,8 +38,7 @@
                                     <div class="mt-2">
                                         <x-input-label :value="__('Description')" />
                                         <x-textarea rows="5" placeholder="Description"
-                                            wire:model="form.description" class="mt-1 block w-full"
-                                            type="text" />
+                                            wire:model="form.description" class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
                                     </div>
                                 </div>
@@ -80,16 +79,15 @@
                                         <x-input-label :value="__('Compare-at price')" />
                                         <x-text-input @change="compare_price=$event.target.value, processPrice()"
                                             min="0" placeholder="Compare-at price"
-                                            wire:model="form.compare_price" class="mt-1 block w-full"
-                                            type="number" />
+                                            wire:model="form.compare_price" class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.compare_price')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch @change="charge_tax = $event.target.checked"
-                                            id="charge_tax" wire:model="form.charge_tax" :label="__('Charge tax on this product')"
-                                            :value="1" :checked="$this->product && $this->product->charge_tax == '1'
+                                        <x-toggle-switch @change="charge_tax = $event.target.checked" id="charge_tax"
+                                            wire:model="form.charge_tax" :label="__('Charge tax on this product')" :value="1"
+                                            :checked="$this->product && $this->product->charge_tax == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.charge_tax')" class="mt-2" />
@@ -97,9 +95,9 @@
                                 </div>
                                 <div x-show="charge_tax" class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch @change="custom_tax = $event.target.checked"
-                                            id="custom_tax" wire:model="form.custom_tax" :label="__('Charge custom tax')"
-                                            :value="1" :checked="$this->product && $this->product->custom_tax == '1'
+                                        <x-toggle-switch @change="custom_tax = $event.target.checked" id="custom_tax"
+                                            wire:model="form.custom_tax" :label="__('Charge custom tax')" :value="1"
+                                            :checked="$this->product && $this->product->custom_tax == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.custom_tax')" class="mt-2" />
@@ -109,8 +107,7 @@
                                     <div class="mt-2">
                                         <x-input-label :value="__('Custom tax rate')" />
                                         <x-text-input min="0" placeholder="Custom tax rate"
-                                            wire:model="form.tax_rate" class="mt-1 block w-full"
-                                            type="number" />
+                                            wire:model="form.tax_rate" class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.tax_rate')" class="mt-2" />
                                     </div>
                                 </div>
@@ -121,7 +118,7 @@
                                         <x-text-input min="0"
                                             @change="cost_per_item=$event.target.value,processPrice()"
                                             placeholder="Cost per item" wire:model="form.cost_per_item"
-                                             class="mt-1 block w-full" type="number" />
+                                            class="mt-1 block w-full" type="number" />
                                         <x-input-error :messages="$errors->get('form.cost_per_item')" class="mt-2" />
                                     </div>
                                 </div>
@@ -135,7 +132,8 @@
                                 <div class="w-full md:w-1/3 p-2">
                                     <div class="mt-2">
                                         <x-input-label :value="__('Margin')" />
-                                        <x-text-input x-bind:value="margin" disabled placeholder="Margin" class="mt-1 block w-full" type="text" />
+                                        <x-text-input x-bind:value="margin" disabled placeholder="Margin"
+                                            class="mt-1 block w-full" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +153,8 @@
                                     <div class="mt-2">
                                         <div class="mt-2">
                                             <x-input-label :value="__('SKU')" />
-                                            <x-text-input min="0" placeholder="SKU" wire:model="form.sku" class="mt-1 block w-full" type="text" />
+                                            <x-text-input min="0" placeholder="SKU" wire:model="form.sku"
+                                                class="mt-1 block w-full" type="text" />
                                             <x-input-error :messages="$errors->get('form.sku')" class="mt-2" />
                                         </div>
                                     </div>
@@ -163,8 +162,8 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-toggle-switch @change="track_quantity = $event.target.checked"
-                                            id="track_quantity" wire:model="form.track_quantity"
-                                            :label="__('Track quantity')" :value="1" :checked="$this->product && $this->product->track_quantity == '1'
+                                            id="track_quantity" wire:model="form.track_quantity" :label="__('Track quantity')"
+                                            :value="1" :checked="$this->product && $this->product->track_quantity == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.track_quantity')" class="mt-2" />
@@ -172,9 +171,8 @@
                                 </div>
                                 <div x-show="track_quantity" class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch id="sell_without_stock"
-                                            wire:model="form.sell_without_stock" :label="__('Continue selling when out of stock')" :value="1"
-                                            :checked="$this->product && $this->product->sell_without_stock == '1'
+                                        <x-toggle-switch id="sell_without_stock" wire:model="form.sell_without_stock"
+                                            :label="__('Continue selling when out of stock')" :value="1" :checked="$this->product && $this->product->sell_without_stock == '1'
                                                 ? true
                                                 : false" />
                                         <x-input-error :messages="$errors->get('form.sell_without_stock')" class="mt-2" />
@@ -182,9 +180,9 @@
                                 </div>
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
-                                        <x-toggle-switch @change="physical = $event.target.checked"
-                                            id="physical" wire:model="form.physical" :label="__('This is a physical product')"
-                                            :value="1" :checked="$this->product && $this->product->physical == '1' ? true : false" />
+                                        <x-toggle-switch @change="physical = $event.target.checked" id="physical"
+                                            wire:model="form.physical" :label="__('This is a physical product')" :value="1"
+                                            :checked="$this->product && $this->product->physical == '1' ? true : false" />
                                         <x-input-error :messages="$errors->get('form.physical')" class="mt-2" />
                                     </div>
                                 </div>
@@ -194,8 +192,7 @@
                                         <div class="mt-2">
                                             <x-input-label :value="__('Weight')" />
                                             <x-text-input min="0" placeholder="Weight"
-                                                wire:model="form.weight" class="mt-1 block w-full"
-                                                type="number" />
+                                                wire:model="form.weight" class="mt-1 block w-full" type="number" />
                                             <x-input-error :messages="$errors->get('form.weight')" class="mt-2" />
                                         </div>
                                     </div>
@@ -205,7 +202,8 @@
                                         <div class="mt-2">
                                             <x-input-label :value="__('Weight type')" />
                                             <x-select min="0" :selected="$this->form->weight_type" :options="config('constants.weights')"
-                                                placeholder="Weight type" wire:model="form.weight_type" class="mt-1 block w-full" type="text" />
+                                                placeholder="Weight type" wire:model="form.weight_type"
+                                                class="mt-1 block w-full" type="text" />
                                             <x-input-error :messages="$errors->get('form.weight_type')" class="mt-2" />
                                         </div>
                                     </div>
@@ -213,7 +211,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div
                         class="rounded-sm border border-stroke shadow-default mt-7 bg-white dark:border-strokedark dark:bg-boxdark">
                         <div class="border-b border-stroke px-7 py-4 dark:border-strokedark">
@@ -237,14 +235,15 @@
                                     @forelse ($stores as $store)
                                         <div class="flex flex-wrap items-center -mx-2 border-bottom mb-2">
                                             <div class="w-3/4 p-2">
-                                                <x-toggle-switch  @change="$event.target.checked ? selectedStores.push({{ $store->id }}) : selectedStores.splice(selectedStores.indexOf({{ $store->id }}), 1)" id="stores_{{ $store->id }}"
-                                                    wire:model="form.stores" :label="__($store->name . ', ' . $store->city)" :value="$store->id"
-                                                    :checked="false" />
+                                                <x-toggle-switch
+                                                    @change="$event.target.checked ? selectedStores.push({{ $store->id }}) : selectedStores.splice(selectedStores.indexOf({{ $store->id }}), 1)"
+                                                    id="stores_{{ $store->id }}" wire:model="form.stores"
+                                                    :label="__($store->name . ', ' . $store->city)" :value="$store->id" :checked="false" />
                                             </div>
                                             <div x-show="track_quantity && !has_variations" class="w-1/4 p-2">
                                                 <x-text-input wire:model="form.stocks.{{ $store->id }}"
-                                                    min="0" placeholder="Stock" class="mt-1 block w-full !py-2"
-                                                    type="number" />
+                                                    min="0" placeholder="Stock"
+                                                    class="mt-1 block w-full !py-2" type="number" />
                                             </div>
                                         </div>
                                     @empty
@@ -307,7 +306,8 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label :value="__('Seo title')" />
-                                        <x-text-input placeholder="Seo title" wire:model="form.seo_title" class="mt-1 block w-full" type="text" />
+                                        <x-text-input placeholder="Seo title" wire:model="form.seo_title"
+                                            class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.seo_title')" class="mt-2" />
                                     </div>
                                 </div>
@@ -315,8 +315,8 @@
                                     <div class="mt-2">
                                         <x-input-label :value="__('Seo description')" />
                                         <x-textarea rows="2" placeholder="Seo description"
-                                            wire:model="form.seo_description"
-                                            class="mt-1 block w-full" type="text" />
+                                            wire:model="form.seo_description" class="mt-1 block w-full"
+                                            type="text" />
                                         <x-input-error :messages="$errors->get('form.seo_description')" class="mt-2" />
                                     </div>
                                 </div>
@@ -324,8 +324,8 @@
                                     <div class="mt-2">
                                         <x-input-label :value="__('Seo keywords')" />
                                         <x-textarea rows="2" placeholder="Seo keywords"
-                                            wire:model="form.seo_keywords"
-                                            class="mt-1 block w-full" type="text" />
+                                            wire:model="form.seo_keywords" class="mt-1 block w-full"
+                                            type="text" />
                                         <x-input-error :messages="$errors->get('form.seo_keywords')" class="mt-2" />
                                     </div>
                                 </div>
@@ -410,17 +410,17 @@
             return {
                 profit: '--',
                 margin: '--',
-                cost_per_item: {{ $this->form->cost_per_item ?? 0 }},
-                price: {{ $this->form->price ?? 0 }},
-                compare_price: {{ $this->form->compare_price ?? 0 }},
+                cost_per_item: @entangle('form.cost_per_item'),
+                price: @entangle('form.price'),
+                compare_price: @entangle('form.compare_price'),
                 charge_tax: {{ $this->form->charge_tax == '1' ? 1 : 0 }},
                 tax_rate: {{ $this->form->tax_rate ?? 0 }},
                 custom_tax: {{ $this->form->custom_tax == '1' ? 1 : 0 }},
                 physical: {{ $this->form->physical == '1' ? 1 : 0 }},
                 track_quantity: {{ $this->form->track_quantity == '1' ? 1 : 0 }},
                 selectedStores: @js($this->form->stores),
-                has_variations:@entangle('form.has_variations'),
-                init(){
+                has_variations: @entangle('form.has_variations'),
+                init() {
                     this.processPrice();
                 },
                 processPrice() {

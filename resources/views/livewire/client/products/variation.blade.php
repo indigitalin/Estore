@@ -172,7 +172,7 @@
                 options: @js($this->product_options),
                 variations: @js($this->product_variations),
                 weight_types: @js(config('constants.weights')),
-                editingVariation: {},
+                editingVariation: {stores:[]},
                 showEditingModal: false,
                 stores: @js($stores),
                 websites: @js($websites),
