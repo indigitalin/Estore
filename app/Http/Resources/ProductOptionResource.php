@@ -17,7 +17,10 @@ class ProductOptionResource extends JsonResource
         return [
             'id' => $this->uid,
             'name' => $this->name,
-            'option_values' => self::collection($this->values),
+            'option_values' => self::collection($this->values)->push([
+                //empty value to show add new option field.
+                'id' => strtoupper(\Illuminate\Support\Str::random(12)),
+            ]),
         ];
     }
 }
