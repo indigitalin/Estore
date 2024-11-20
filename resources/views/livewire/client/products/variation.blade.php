@@ -10,7 +10,7 @@
             <div class="w-full md:w-1/1 p-2">
                 <div class="mt-2">
                     <x-toggle-switch @change="show = has_variations = $event.target.checked" id="variation-toggle"
-                        :label="'This product has variations'" :value="1" :checked="false" />
+                        :label="'This product has variations'" :value="1" x-bind:checked="show" :checked="false" />
                 </div>
                 <div x-show="show" class="mt-4">
                     <div>
@@ -135,13 +135,13 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <x-text-input @change="updateVariation('price', $event.target.value)"
+                                                <x-text-input @change="updateVariation('price', $event.target.value, variation)"
                                                     autocomplete="off" placeholder="Price"
                                                     x-bind:value="variation.price" class="mt-1 block w-full !py-2"
                                                     type="number" min="0" />
                                             </td>
                                             <td class="px-6 py-4">
-                                                <x-text-input @change="updateVariation('sku', $event.target.value)"
+                                                <x-text-input @change="updateVariation('sku', $event.target.value, variation)"
                                                     autocomplete="off" placeholder="SKU" x-bind:value="variation.sku"
                                                     class="mt-1 block w-full !py-2" type="text" />
                                             </td>
@@ -168,9 +168,9 @@
     <script>
         function variationComponent() {
             return {
-                show: true,
+                show: {{ $this->form->has_variations ? 1 : 0 }},
                 options: @js($this->product_options),
-                variations: [],
+                variations: @js($this->product_variations),
                 weight_types: @js(config('constants.weights')),
                 editingVariation: {},
                 showEditingModal: false,
@@ -178,8 +178,8 @@
                 websites: @js($websites),
                 init() {
                     this.setOptions()
-                    this.setVariations()
                     this.loadVariations();
+                    this.setVariations()
                 },
                 adOption() {
                     this.options.push({
@@ -288,7 +288,7 @@
                         this.loadVariations();
                     }
                 },
-                loadVariations() {
+                async loadVariations() {
                     const options = this.options
                         // .filter(option => !option.editing)
                         .map(option => ({
@@ -323,7 +323,7 @@
                     };
 
                     // Generate new variations, retaining data for matching combinations
-                    this.variations = combinations.map(combination => {
+                    this.variations = await combinations.map(combination => {
                         const newKey = combination.map(item => item.name.toLowerCase()).join('-');
                         const newName = combination.map(item => item.name).join(' / ');
                         const newOptionIds = combination.map(item => item.id);
@@ -347,11 +347,17 @@
                                 option_ids: newOptionIds, // Store option value IDs for matching
                                 price: null,
                                 sku: null,
-                                stock: null,
+                                //stock: null,
                                 image: null,
                                 status: true,
+                                compare_price: null,
+                                cost_per_item: null,
+                                weight: null,
+                                weight_type: null,
+                                stores:[]
                             };
                     });
+                    this.setVariations();
                 },
                 cartesianProduct(arrays) {
                     return arrays.reduce((acc, curr) =>
@@ -364,13 +370,16 @@
                     this.showEditingModal = true;
                     this.processPrice(variation);
                 },
-                updateVariation(property, value) {
+                updateVariation(property, value, variation) {
+                    this.editingVariation = variation ? variation : this.editingVariation;
                     this.editingVariation[property] = value;
                     this.processPrice(this.editingVariation);
                     this.setVariations();
                 },
                 setVariations() {
-                    console.log(this.variations);
+                    Livewire.dispatch('set-product-variations', {
+                        product_variations: this.variations
+                    });
                 },
                 processPrice(variation) {
                     variation.profit = (variation.cost_per_item && variation.price) ?

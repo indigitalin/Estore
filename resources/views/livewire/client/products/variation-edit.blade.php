@@ -67,7 +67,7 @@
                             type="text" />
                     </div>
                 </div>
-
+                <div class="w-full md:w-1/1 p-0"></div>
                 <!-- Weight and Weight Type (Only for physical products) -->
                 <div x-show="physical" class="w-full md:w-1/3 p-2">
                     <x-input-label :value="__('Weight')" />

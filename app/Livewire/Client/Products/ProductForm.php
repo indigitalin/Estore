@@ -40,6 +40,8 @@ class ProductForm extends Form
     public int|null $product_vendor_id = null;
     public array|null $product_tags = [];
     public array|null $product_options = [];
+    public array|null $product_variations = [];
+    public bool $has_variations = false;
 
     public function setProduct(?Product $product = null): void
     {
@@ -75,7 +77,7 @@ class ProductForm extends Form
         $this->product_type = $product->product_type_name;
         $this->product_vendor = $product->product_vendor_name;
         $this->product_tags = $product->product_tags->pluck('name')->toArray();
-        $this->product_options = [];
+        $this->has_variations = $product->product_variations()->count();
     }
 
     public function save()
@@ -114,8 +116,6 @@ class ProductForm extends Form
             ]));
 
             $this->product->stores()->sync([]);
-            $this->product->websites()->sync([]);
-            $this->product->collections()->sync([]);
 
             /**
              * Sync websites of the product
@@ -146,7 +146,7 @@ class ProductForm extends Form
             }
 
             /**
-             * Delete product options
+             * Product options
              */
             $incomingOptionIds = collect($this->product_options ?? [])
                 ->pluck('id')
@@ -159,20 +159,42 @@ class ProductForm extends Form
                 if ($option['name'] ?? null) {
                     $productOption = $this->product->product_options()->updateOrCreate([
                         'uid' => $option['id'],
-                    ], [
-                        'name' => $option['name'] ?? null,
-                    ]);
+                    ], ['name' => $option['name'] ?? null]);
                     foreach (($option['option_values'] ?? []) as $value) {
-
                         if ($value['name'] ?? null) {
                             $productOption->values()->updateOrCreate([
                                 'uid' => $value['id'],
-                            ], [
-                                'name' => $value['name'],
-                            ]);
+                            ], ['name' => $value['name']]);
                         }
                     }
                 }
+            }
+            /**
+             * Product variations
+             */
+            foreach ($this->product_variations ?? [] as $variation) {
+                $productVariation = $this->product->product_variations()->updateOrCreate([
+                    'uid' => $variation['id'],
+                ], [
+                    'price' => $variation['price'],
+                    'compare_price' => $variation['compare_price'],
+                    'cost_per_item' => $variation['cost_per_item'],
+                    'weight' => $variation['weight'],
+                    'weight_type' => $variation['weight_type'],
+                    'name' => $variation['variation_name'],
+                    'sku' => $variation['sku'],
+                    'status' => $variation['status'] ? '1' : '0',
+                    'option_id' => implode('-', $variation['option_ids']),
+                    'option_key' => $variation['key'],
+                    'option_name' => $variation['name'],
+                ]);
+                $productVariation->stores()->sync([]);
+                foreach ($variation['stores'] ?? [] as $store) {
+                    $productVariation->stores()->attach($store['id'], [
+                        'quantity' => ($store['stock'] ?? null),
+                    ]);
+                }
+
             }
             return ([
                 'status' => 'success',
@@ -182,8 +204,7 @@ class ProductForm extends Form
 
         } catch (\Exception $e) {
             return $this->error($e);
-        }
-    }
+        }}
 
     /**
      * Before validation, prepare the values and do necessary changes
@@ -251,6 +272,8 @@ class ProductForm extends Form
             'product_options' => ['array'],
             'product_options.*' => ['array'],
             'product_options.*.option_values' => ['array'],
+            'product_variations' => ['array'],
+            'product_variations.*' => ['array'],
         ];
     }
 }

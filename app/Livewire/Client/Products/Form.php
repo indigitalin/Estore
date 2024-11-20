@@ -1,12 +1,14 @@
 <?php
 namespace App\Livewire\Client\Products;
 
+use App\Http\Resources\{
+    ProductOptionResource, ProductVariationResource
+};
 use App\Livewire\Component;
-
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
-use App\Http\Resources\ProductOptionResource;
+
 class Form extends Component
 {
     public $product;
@@ -18,6 +20,7 @@ class Form extends Component
     public $product_types = [];
     public $product_vendors = [];
     protected $product_options = [];
+    protected $product_variations = [];
 
     #[On('refresh-list')]
     public function refresh()
@@ -33,6 +36,8 @@ class Form extends Component
         if ($product) {
             $this->form->setProduct($this->product = auth()->user()->client->products()->findOrfail($product));
             $this->product_options = ProductOptionResource::collection($this->product->product_options);
+            $this->product_variations = ProductVariationResource::collection($this->product->product_variations);
+            // dd(json_decode(json_encode($this->product_variations)));
         }
     }
 
@@ -83,7 +88,7 @@ class Form extends Component
         auth()->user()->client->product_types()->findOrfail($id)->delete();
         $this->product_types = (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray());
         $this->dispatch('productTypeDeleted', [
-            'product_types' => $this->product_types
+            'product_types' => $this->product_types,
         ]);
         $this->toasterSuccess(__("Product type deleted successfully."));
     }
@@ -100,7 +105,7 @@ class Form extends Component
         auth()->user()->client->product_vendors()->findOrfail($id)->delete();
         $this->product_vendors = (auth()->user()->client->product_vendors()->select(['id', 'name'])->get()->toArray());
         $this->dispatch('productVendorDeleted', [
-            'product_vendors' => $this->product_vendors
+            'product_vendors' => $this->product_vendors,
         ]);
         $this->toasterSuccess(__("Product vendor deleted successfully."));
     }
@@ -109,6 +114,12 @@ class Form extends Component
     public function setOptions(array $product_options): void
     {
         $this->form->product_options = $product_options;
+    }
+
+    #[On('set-product-variations')]
+    public function setVariations(array $product_variations): void
+    {
+        $this->form->product_variations = $product_variations;
     }
 
     public function save()

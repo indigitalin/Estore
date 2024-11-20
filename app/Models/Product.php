@@ -87,31 +87,43 @@ class Product extends Model
         return $this->belongsToMany(Website::class, 'store_products', 'product_id', 'store_id')->website()->using(StoreProduct::class)->withPivot('quantity');
     }
 
-    public function collections(){
+    public function collections()
+    {
         return $this->belongsToMany(Collection::class, 'collection_products', 'product_id', 'collection_id')->using(CollectionProduct::class);
     }
 
-    public function product_type(){
+    public function product_type()
+    {
         return $this->belongsTo(ProductType::class);
     }
 
-    public function getProductTypeNameAttribute(){
+    public function getProductTypeNameAttribute()
+    {
         return $this->product_type->name ?? null;
     }
 
-    public function product_vendor(){
+    public function product_vendor()
+    {
         return $this->belongsTo(ProductVendor::class);
     }
 
-    public function getProductVendorNameAttribute(){
+    public function getProductVendorNameAttribute()
+    {
         return $this->product_vendor->name ?? null;
     }
 
-    public function product_tags(){
+    public function product_tags()
+    {
         return $this->hasMany(ProductTag::class);
     }
 
-    public function product_options(){
+    public function product_options()
+    {
         return $this->hasMany(ProductOption::class);
+    }
+
+    public function product_variations()
+    {
+        return $this->hasMany(ProductVariation::class);
     }
 }
