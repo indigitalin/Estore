@@ -12,14 +12,13 @@
         class="z-[100] absolute rounded border border-stroke text-black bg-white focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary mt-1 block w-full">
 
         <template x-for="collection in collections">
-            <label :for="'collections_'+collection.id" class="block">
+            <label class="block">
                 <div @click="show = false; setCollection(collection)"
                     class="p-2 px-4 flex items-center gap-3 cursor-pointer" :class="selectedCollectionIds.includes(collection.id) ? 'bg-indigo-200' : 'hover:bg-gray-100'">
                     <div class="">
                         <p class="font-medium sm:block capitalize" x-text="collection.name"></p>
                     </div>
                 </div>
-                <input x-show="false" type="radio" hidden :value="collection.id" name="collections" x-bind:wire:model="'form.collections.'+collection.id" :id="'collections_'+collection.id">
             </label>
         </template>
     </div>

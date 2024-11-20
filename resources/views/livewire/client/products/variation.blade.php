@@ -168,7 +168,7 @@
     <script>
         function variationComponent() {
             return {
-                show: {{ $this->form->has_variations ? 1 : 0 }},
+                show: @entangle('form.has_variations'),
                 options: @js($this->product_options),
                 variations: @js($this->product_variations),
                 weight_types: @js(config('constants.weights')),

@@ -419,7 +419,7 @@
                 physical: {{ $this->form->physical == '1' ? 1 : 0 }},
                 track_quantity: {{ $this->form->track_quantity == '1' ? 1 : 0 }},
                 selectedStores: @js($this->form->stores),
-                has_variations:false,
+                has_variations:@entangle('form.has_variations'),
                 init(){
                     this.processPrice();
                 },
