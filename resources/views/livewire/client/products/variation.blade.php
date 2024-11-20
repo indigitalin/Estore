@@ -129,7 +129,7 @@
                                                 </div>
                                             </th>
                                             <td class="px-6 py-4">
-                                                <div class="cursor-pointer">
+                                                <div @click="showImageLibraryModal=true" class="cursor-pointer">
                                                     <img class="w-10 h-10 rounded object-cover object-center"
                                                         src="{{ file_url('default.png') }}" alt="">
                                                 </div>

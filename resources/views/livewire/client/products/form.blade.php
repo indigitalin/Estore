@@ -400,6 +400,7 @@
                     </div>
                 </div>
             </div>
+            @livewire('image-library')
         </form>
     </div>
 </div>
@@ -408,6 +409,7 @@
     <script>
         function producutComponent() {
             return {
+                showImageLibraryModal:false,
                 profit: '--',
                 margin: '--',
                 cost_per_item: @entangle('form.cost_per_item'),
