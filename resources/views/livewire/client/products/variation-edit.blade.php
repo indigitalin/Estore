@@ -5,9 +5,14 @@
     <div class="bg-gray-500 opacity-75 absolute inset-0" @click="showEditingModal = false"></div>
 
     <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6 z-50">
-        <div class="text-lg font-semibold mb-5" x-text="editingVariation.name"></div>
+        <div class="text-lg font-semibold mb-5 px-2" x-text="editingVariation.name"></div>
 
-        <div>
+        <div
+            class="max-h-[80vh] overflow-y-auto px-2 [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
             <div class="text-base mb-3">Price</div>
             <hr>
             <div class="flex flex-wrap -mx-2">
@@ -103,9 +108,8 @@
                                 <div class="ms-auto">
                                     <x-text-input
                                         x-bind:value="(editingVariation.stores.find(s => s.id === store.id) || {}).stock || null"
-                                        @change="setStock(store, $event.target.value); setVariations()"
-                                        min="0" placeholder="Stock" class="mt-1 block w-full !py-2"
-                                        type="number" />
+                                        @change="setStock(store, $event.target.value); setVariations()" min="0"
+                                        placeholder="Stock" class="mt-1 block w-full !py-2" type="number" />
                                 </div>
                             </div>
                         </template>
