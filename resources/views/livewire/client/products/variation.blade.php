@@ -5,7 +5,7 @@
             Variations
         </h3>
     </div>
-    <div x-data="variationComponent()" class="p-7 pt-0">
+    <div x-ref="variation" x-data="variationComponent()" class="p-7 pt-0">
         <div class="flex flex-wrap -mx-2">
             <div class="w-full md:w-1/1 p-2">
                 <div class="mt-2">
@@ -129,19 +129,21 @@
                                                 </div>
                                             </th>
                                             <td class="px-6 py-4">
-                                                <div @click="showImageLibraryModal=true" class="cursor-pointer">
+                                                <div @click="openImageModal(variation)" class="cursor-pointer">
                                                     <img class="w-10 h-10 rounded object-cover object-center"
-                                                        src="{{ file_url('default.png') }}" alt="">
+                                                        :src="variation.thumbnail ? variation.thumbnail : '{{ file_url('default.png') }}'" alt="">
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <x-text-input @change="updateVariation('price', $event.target.value, variation)"
+                                                <x-text-input
+                                                    @change="updateVariation('price', $event.target.value, variation)"
                                                     autocomplete="off" placeholder="Price"
                                                     x-bind:value="variation.price" class="mt-1 block w-full !py-2"
                                                     type="number" min="0" />
                                             </td>
                                             <td class="px-6 py-4">
-                                                <x-text-input @change="updateVariation('sku', $event.target.value, variation)"
+                                                <x-text-input
+                                                    @change="updateVariation('sku', $event.target.value, variation)"
                                                     autocomplete="off" placeholder="SKU" x-bind:value="variation.sku"
                                                     class="mt-1 block w-full !py-2" type="text" />
                                             </td>
@@ -162,6 +164,9 @@
             </div>
         </div>
         @include('livewire.client.products.variation-edit')
+        @livewire('client.products.image', [
+            'product' => $this->product,
+        ])
     </div>
 </div>
 @push('scripts')
@@ -172,14 +177,32 @@
                 options: @js($this->product_options),
                 variations: @js($this->product_variations),
                 weight_types: @js(config('constants.weights')),
-                editingVariation: {stores:[]},
+                editingVariation: {
+                    stores: []
+                },
                 showEditingModal: false,
                 stores: @js($stores),
                 websites: @js($websites),
+                selectedImages: [],
+                imageVariation: {
+                    images: []
+                },
+                showImageLibraryModal: false,
+                images: @json($this->product_images),
                 init() {
                     this.setOptions()
                     this.loadVariations();
                     this.setVariations()
+
+                    window.addEventListener('imageDeleted', (event) => {
+                        this.selectedImages = this.selectedImages.filter(
+                            (image) => image.id !== event.detail[0].image_id
+                        );
+                    });
+
+                    window.addEventListener('imageUploaded', (event) => {
+                        this.selectedImages.push(event.detail[0].image);
+                    });
                 },
                 adOption() {
                     this.options.push({
@@ -317,7 +340,8 @@
                             const existingIds = existingVariation.option_ids || [];
                             const newIds = combination.map(item => item.id);
                             // Match by comparing option value IDs
-                            return JSON.stringify(existingIds) === JSON.stringify(newIds.slice(0, existingIds
+                            return JSON.stringify(existingIds) === JSON.stringify(newIds.slice(0,
+                                existingIds
                                 .length));
                         });
                     };
@@ -348,13 +372,13 @@
                                 price: null,
                                 sku: null,
                                 //stock: null,
-                                image: null,
+                                images: null,
                                 status: true,
                                 compare_price: null,
                                 cost_per_item: null,
                                 weight: null,
                                 weight_type: null,
-                                stores:[]
+                                stores: []
                             };
                     });
                     this.setVariations();
@@ -415,7 +439,66 @@
                     Livewire.dispatch('set-product-options', {
                         product_options: this.options
                     });
-                }
+                },
+                /**
+                 * Image component
+                 */
+                async setImageType(image, type) {
+                    if (type === 'thumbnail') {
+                        // Update all images except the passed one to have type 'extra'
+                        this.images = await this.images.map(img => ({
+                            ...img, // Keep existing properties
+                            type: img.id === image.id ? type :
+                                'extra' // Set type to 'extra' unless the image matches the passed one
+                        }));
+                    }
+                    this.selectedImages = await this.selectedImages.map(img => ({
+                        ...img, // Keep existing properties
+                        type: img.id === image.id ? type :
+                            'extra' // Set type to 'extra' unless the image matches the passed one
+                    }));
+
+                    this.setImage();
+                },
+                async openImageModal(variation) {
+                    this.imageVariation = variation;
+                    this.selectedImages = this.imageVariation.images;
+                    this.showImageLibraryModal = true;
+
+                    this.images = await this.images.map(img => {
+                        // Find the matching image in selectedImages based on img.id
+                        const selectedImage = this.selectedImages.find(selImg => selImg.id === img.id);
+
+                        // If a match is found, use the type from selectedImages
+                        const type = selectedImage ? selectedImage.type : 'extra'; // Default to 'extra' if no match
+
+                        return {
+                            ...img, // Keep existing properties
+                            type: type // Set type to the selectedImage's type if found, otherwise 'extra'
+                        };
+                    });
+
+                },
+                pushImage(image) {
+                    if (this.selectedImages.some(el => el.id === image.id)) {
+                        this.selectedImages = this.selectedImages.filter(
+                            (el) => el.id != image.id
+                        );
+                    } else {
+                        this.selectedImages.push({
+                            id: image.id,
+                            type: image.type ? image.type : 'extra'
+                        });
+                    }
+                    this.imageVariation.thumbnail = image.type == 'thumbnail' ? image.image_url : (
+                        this.imageVariation.thumbnail ? this.imageVariation.thumbnail : image.image_url
+                    )
+                    this.setImage();
+                },
+                setImage() {
+                    this.imageVariation.images = this.selectedImages;
+                    this.setVariations();
+                },
             }
         }
     </script>

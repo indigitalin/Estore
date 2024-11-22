@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Client\Products;
 
 use App\Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 
-class ImageLibrary extends Component
+class Image extends Component
 {
     use WithFileUploads;
     public $product;
@@ -22,7 +22,7 @@ class ImageLibrary extends Component
     }
     public function render()
     {
-        return view('livewire.image-library')->withProductImages(
+        return view('livewire.client.products.image')->withProductImages(
             $this->product_images
         );
     }
@@ -31,7 +31,7 @@ class ImageLibrary extends Component
     {
         foreach ($this->images as $image) {
             $fileName = $image->getClientOriginalName();
-            if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'webp'])) {
+            if ($image->isValid() && in_array(strtolower($image->getClientOriginalExtension()), $this->allowed_images)) {
                 // Check if the size is more than 2MB (2MB = 2097152 bytes)
                 if ($image->getSize() > 2097152) {
                     // Handle the case when the image size is more than 2MB

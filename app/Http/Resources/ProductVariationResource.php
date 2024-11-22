@@ -27,6 +27,7 @@ class ProductVariationResource extends JsonResource
             'cost_per_item' => $this->cost_per_item,
             'weight' => $this->weight,
             'weight_type' => $this->weight_type,
+            'images' => [],
             'stores' => $this->stores->map(function ($store) {
                 return [
                     'id' => $store->id, // Assuming 'store_id' is a property of the store object

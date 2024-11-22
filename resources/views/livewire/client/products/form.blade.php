@@ -13,7 +13,7 @@
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
-    <div class="" x-data="imageLibrary">
+    <div class="">
         <form wire:submit.prevent="save" x-data="producutComponent()">
             <div class="grid grid-cols-6 gap-8">
                 <div class="col-span-6 xl:col-span-4">
@@ -402,9 +402,6 @@
             </div>
 
         </form>
-        @livewire('image-library', [
-            'product' => $this->product,
-        ])
     </div>
     
 </div>

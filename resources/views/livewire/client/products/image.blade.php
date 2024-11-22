@@ -5,8 +5,8 @@
         class="fixed inset-0 flex items-center justify-center z-[9999]">
         <div class="bg-gray-500 opacity-75 absolute inset-0"></div>
         <div class="bg-white rounded-lg shadow-lg max-w-6xl w-full p-6 z-50 relative">
-            <input wire:model.defer="images" wire:ignore class="1absolute w-full h-full top-0 start-0" multiple
-                type="file" accept="image/jpeg, image/png, image/webp, image/jpg" />
+            <input wire:model="images" wire:ignore class="1absolute w-full h-full top-0 start-0" multiple type="file"
+                accept="image/jpeg, image/png, image/webp, image/jpg" />
             <div wire:loading class="absolute w-full h-full bg-slate-50/90 top-0 start-0 rounded z-50">
                 <div class="flex w-full h-full items-center">
                     <div role="status" class="m-auto">
@@ -24,8 +24,10 @@
                     </div>
                 </div>
             </div>
-            <div class="text-lg font-semibold mb-5 px-2">Image Library</div>
-
+            <div class="mb-5 px-2">
+                <div class="text-lg font-semibold">Image Library</div>
+                <p x-text="imageVariation.variation_name"></p>
+            </div>
             <div
                 class="h-[75vh] overflow-y-auto px-2 [&::-webkit-scrollbar]:w-2
                 [&::-webkit-scrollbar-track]:bg-gray-100
@@ -35,18 +37,29 @@
                 <div :class="images.length ? 'items-top' : 'items-center h-full'" class="flex flex-wrap -mx-2">
                     <template x-for="image in images">
                         <div class="w-1/2 sm:w-1/3 md:w-1/4 p-2">
-                            <div class="cursor-pointer relative border border-1 rounded border-gray-100">
+                            <div @click="pushImage(image)"
+                                class="cursor-pointer relative border border-1 rounded border-gray-100">
                                 <img class="rounded h-40 object-cover w-full" :src="image.image_url" alt="">
-                                <div class="absolute w-full h-full z-100 top-0 start-0 opacity-0 hover:opacity-100">
-                                    <div class="w-full h-full relative">
-                                        <div class="p-2 absolute bottom-0 end-0 opacity-85">
-                                            <x-action-button
-                                                @click="confirmAction(image.id, 'destroy', 'Are you sure want to delete this image?')"
-                                                x-data="{ tooltip: 'Delete' }" x-tooltip="tooltip" role="button">
-                                                <box-icon size="20px" color="#888" name='trash'></box-icon>
-                                            </x-action-button>
-                                        </div>
+                                <div @click.stop="" class="p-2 absolute bottom-0 start-0 z-100 w-full">
+                                    <div class="flex items-center w-full">
+                                        <select @change="setImageType(image, $event.target.value)" @click.prevent=""
+                                            class="relative z-20 me-auto py-1 w-auto appearance-none rounded border border-stroke  outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+                                            <option :selected="image.type == 'extra'" value="extra">Extra</option>
+                                            <option :selected="image.type == 'thumbnail'" value="thumbnail">Thumbnail
+                                            </option>
+                                        </select>
+                                        <x-action-button class="opacity-85"
+                                            @click="confirmAction(image.id, 'destroy', 'Are you sure want to delete this image?')"
+                                            x-data="{ tooltip: 'Delete' }" x-tooltip="tooltip" role="button">
+                                            <box-icon size="20px" color="#888" name='trash'></box-icon>
+                                        </x-action-button>
                                     </div>
+                                </div>
+                                <div x-show='selectedImages.some(el => el.id === image.id)'
+                                    class="p-2 absolute top-0 end-0 opacity-85">
+                                    <x-action-button>
+                                        <box-icon color="#3c50e0" name='check'></box-icon>
+                                    </x-action-button>
                                 </div>
                             </div>
                         </div>
@@ -73,24 +86,3 @@
 
     </div>
 </form>
-@push('scripts')
-    <script>
-        function imageLibrary() {
-            return {
-                showImageLibraryModal: true,
-                images: @json($productImages),
-                init() {
-                    window.addEventListener('imageDeleted', (event) => {
-                        this.images = this.images.filter(
-                            (image) => image.id !== event.detail[0].image_id
-                        );
-                    });
-
-                    window.addEventListener('imageUploaded', (event) => {
-                        this.images.push(event.detail[0].image);
-                    });
-                },
-            };
-        }
-    </script>
-@endpush

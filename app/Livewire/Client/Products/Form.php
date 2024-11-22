@@ -21,7 +21,8 @@ class Form extends Component
     public $product_vendors = [];
     protected $product_options = [];
     protected $product_variations = [];
-
+    protected $product_images = [];
+    
     #[On('refresh-list')]
     public function refresh()
     {}
@@ -37,6 +38,7 @@ class Form extends Component
             $this->form->setProduct($this->product = auth()->user()->client->products()->findOrfail($product));
             $this->product_options = ProductOptionResource::collection($this->product->product_options);
             $this->product_variations = ProductVariationResource::collection($this->product->product_variations);
+            $this->product_images = $this->product->product_images->toArray();
         }
     }
 
