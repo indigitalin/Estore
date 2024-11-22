@@ -146,7 +146,7 @@ class Client extends Model
         return $this->hasMany(ProductVendor::class);
     }
 
-    public function attachments(){
-        return $this->hasMany(Attachment::class);
+    public function product_images(){
+        return $this->hasMany(ProductImage::class);
     }
 }

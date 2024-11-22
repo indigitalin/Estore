@@ -126,4 +126,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariation::class);
     }
+
+    public function product_images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

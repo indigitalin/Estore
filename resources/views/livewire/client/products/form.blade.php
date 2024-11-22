@@ -13,7 +13,7 @@
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
-    <div class="">
+    <div class="" x-data="imageLibrary">
         <form wire:submit.prevent="save" x-data="producutComponent()">
             <div class="grid grid-cols-6 gap-8">
                 <div class="col-span-6 xl:col-span-4">
@@ -400,18 +400,19 @@
                     </div>
                 </div>
             </div>
-            @livewire('image-library', [
-                'type' => 'product',
-            ])
+
         </form>
+        @livewire('image-library', [
+            'product' => $this->product,
+        ])
     </div>
+    
 </div>
 <x-form-error :error="$errors" />
 @push('scripts')
     <script>
         function producutComponent() {
             return {
-                showImageLibraryModal:false,
                 profit: '--',
                 margin: '--',
                 cost_per_item: @entangle('form.cost_per_item'),

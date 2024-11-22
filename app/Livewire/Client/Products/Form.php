@@ -37,7 +37,6 @@ class Form extends Component
             $this->form->setProduct($this->product = auth()->user()->client->products()->findOrfail($product));
             $this->product_options = ProductOptionResource::collection($this->product->product_options);
             $this->product_variations = ProductVariationResource::collection($this->product->product_variations);
-            // dd(json_decode(json_encode($this->product_variations)));
         }
     }
 
