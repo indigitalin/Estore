@@ -317,7 +317,7 @@
                         .map(option => ({
                             ...option,
                             option_values: option.option_values.filter(value => value.name != null)
-                        }));
+                        })).filter(option => option.option_values.length);
 
                     const optionValuesArrays = options.map(option =>
                         option.option_values.map(value => ({
