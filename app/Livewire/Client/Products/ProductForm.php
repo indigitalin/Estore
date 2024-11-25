@@ -82,6 +82,7 @@ class ProductForm extends Form
 
     public function save()
     {
+        //dd($this);
         $this->prepareValidation();
         $this->validate();
         try {
@@ -192,6 +193,14 @@ class ProductForm extends Form
                 foreach ($variation['stores'] ?? [] as $store) {
                     $productVariation->stores()->attach($store['id'], [
                         'quantity' => ($store['stock'] ?? null),
+                    ]);
+                }
+                $productVariation->images()->delete();
+                foreach($variation['images'] ?? [] as $image){
+                    $productVariation->images()->create([
+                        'product_id' => $this->product->id,
+                        'product_image_id' => $image['id'] ?? null,
+                        'image_type' => $image['type'] ?? 'extra',
                     ]);
                 }
 

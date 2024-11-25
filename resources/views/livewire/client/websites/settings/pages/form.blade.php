@@ -92,8 +92,6 @@
                     @this.set('form.content', editor.getData());
                 })
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch(error => {});
     </script>
 @endpush

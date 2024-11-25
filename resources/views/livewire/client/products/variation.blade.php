@@ -131,7 +131,9 @@
                                             <td class="px-6 py-4">
                                                 <div @click="openImageModal(variation)" class="cursor-pointer">
                                                     <img class="w-10 h-10 rounded object-cover object-center"
-                                                        :src="variation.thumbnail ? variation.thumbnail : '{{ file_url('default.png') }}'" alt="">
+                                                        :src="variation.thumbnail ? variation.thumbnail :
+                                                            '{{ file_url('default.png') }}'"
+                                                        alt="">
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
@@ -190,6 +192,7 @@
                 showImageLibraryModal: false,
                 images: @json($this->product_images),
                 init() {
+                    console.log(this.variations);
                     this.setOptions()
                     this.loadVariations();
                     this.setVariations()
@@ -470,7 +473,8 @@
                         const selectedImage = this.selectedImages.find(selImg => selImg.id === img.id);
 
                         // If a match is found, use the type from selectedImages
-                        const type = selectedImage ? selectedImage.type : 'extra'; // Default to 'extra' if no match
+                        const type = selectedImage ? selectedImage.type :
+                        'extra'; // Default to 'extra' if no match
 
                         return {
                             ...img, // Keep existing properties
@@ -487,16 +491,18 @@
                     } else {
                         this.selectedImages.push({
                             id: image.id,
-                            type: image.type ? image.type : 'extra'
+                            type: image?.type || 'extra',
+                            image_url : image.image_url
                         });
                     }
-                    this.imageVariation.thumbnail = image.type == 'thumbnail' ? image.image_url : (
-                        this.imageVariation.thumbnail ? this.imageVariation.thumbnail : image.image_url
-                    )
                     this.setImage();
                 },
                 setImage() {
                     this.imageVariation.images = this.selectedImages;
+                    const image = this.selectedImages.find(image => image.type === 'thumbnail') ||
+                        this.selectedImages[0] ||
+                        null;
+                    this.imageVariation.thumbnail = image?.image_url || null
                     this.setVariations();
                 },
             }

@@ -37,4 +37,17 @@ class ProductVariation extends Model
     {
         return $this->belongsToMany(Store::class, 'store_product_variations', 'product_variation_id', 'store_id')->store()->using(StoreProductVariation::class)->withPivot('quantity');
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProductVariationImage::class);
+    }
+
+    public function getThumbnailImageUrlAttribute(){
+        if($image = $this->images()->whereImageType('thumbnail')->first()){
+            return $image->image_url ?? null;
+        }else{
+            return $this->images()->first()->image_url ?? null;
+        }
+    }
 }
