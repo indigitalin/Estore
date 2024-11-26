@@ -3,7 +3,7 @@
     x-show="showImageLibraryModal" x-cloak class="fixed inset-0 flex items-center justify-center z-[9999]">
     <div class="bg-gray-500 opacity-75 absolute inset-0"></div>
     <div class="bg-white rounded-lg shadow-lg max-w-6xl w-full p-6 z-50 relative">
-        <input wire:model="images" wire:ignore class="1absolute w-full h-full top-0 start-0" multiple type="file"
+        <input id="images" wire:model="images" wire:ignore class="1absolute w-full h-full top-0 start-0" multiple type="file"
             accept="image/jpeg, image/png, image/webp, image/jpg" />
         <div wire:loading class="absolute w-full h-full bg-slate-50/90 top-0 start-0 rounded z-50">
             <div class="flex w-full h-full items-center">
@@ -47,7 +47,7 @@
                                         </option>
                                     </select>
                                     <x-action-button class="opacity-85"
-                                        @click="confirmAction(image.id, 'destroy', 'Are you sure want to delete this image?')"
+                                        @click="confirmAction(image.id, 'destroy-image', 'Are you sure want to delete this image?')"
                                         x-data="{ tooltip: 'Delete' }" x-tooltip="tooltip" role="button">
                                         <box-icon size="20px" color="#888" name='trash'></box-icon>
                                     </x-action-button>
@@ -72,7 +72,7 @@
         </div>
         <!-- Close Button -->
         <div class="mt-5 flex px-2">
-            <label for="image_upload" role="button"
+            <label for="images" role="button"
                 class="relative capitalize flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90 ms-auto me-2">
                 Upload images
             </label>

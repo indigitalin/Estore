@@ -116,6 +116,10 @@
                     </div>
                 </div>
             </div>
+            <div class="text-base mb-3 mt-3">Images</div>
+            <hr>
+            <div @click="openImageModal(editingVariation)" class="text-primary font-semibold mt-5 cursor-pointer"
+                x-text="editingVariation.images.length ? 'Change images' : 'Add images'"></div>
         </div>
 
         <!-- Close Button -->

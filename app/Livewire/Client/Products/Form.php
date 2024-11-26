@@ -1,9 +1,8 @@
 <?php
 namespace App\Livewire\Client\Products;
 
-use App\Http\Resources\{
-    ProductOptionResource, ProductVariationResource
-};
+use App\Http\Resources\ProductOptionResource;
+use App\Http\Resources\ProductVariationResource;
 use App\Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -22,7 +21,10 @@ class Form extends Component
     protected $product_options = [];
     protected $product_variations = [];
     protected $product_images = [];
-    
+
+    public $images = [];
+    private $allowed_images = ['jpeg', 'jpg', 'png', 'webp'];
+
     #[On('refresh-list')]
     public function refresh()
     {}
@@ -63,28 +65,28 @@ class Form extends Component
     public function setCategory(string $category): void
     {
         $this->form->category_id = $category;
-        $this->validateOnly('category_id'); 
+        $this->validateOnly('category_id');
     }
 
     #[On('set-collections')]
     public function setCollections(array $collections): void
     {
         $this->form->collections = $collections;
-        $this->validateOnly('collections'); 
+        $this->validateOnly('collections');
     }
 
     #[On('set-product-tags')]
     public function setProductTags(array $product_tags): void
     {
         $this->form->product_tags = $product_tags;
-        $this->validateOnly('product_tags'); 
+        $this->validateOnly('product_tags');
     }
 
     #[On('set-product-type')]
     public function setProductType(string | null $product_type): void
     {
         $this->form->product_type = $product_type;
-        $this->validateOnly('product_type'); 
+        $this->validateOnly('product_type');
     }
 
     #[On('destroy-product-type')]
@@ -102,7 +104,7 @@ class Form extends Component
     public function setProductVendor(string | null $product_vendor): void
     {
         $this->form->product_vendor = $product_vendor;
-        $this->validateOnly('product_vendor'); 
+        $this->validateOnly('product_vendor');
     }
 
     #[On('destroy-product-vendor')]
@@ -120,19 +122,56 @@ class Form extends Component
     public function setOptions(array $product_options): void
     {
         $this->form->product_options = $product_options;
-        $this->validateOnly('product_options'); 
+        $this->validateOnly('product_options');
     }
 
     #[On('set-product-variations')]
     public function setVariations(array $product_variations): void
     {
         $this->form->product_variations = $product_variations;
-        $this->validateOnly('product_variations'); 
+        $this->validateOnly('product_variations');
     }
 
     public function save()
     {
         $response = $this->form->save();
         $this->toasterAlert($response);
+    }
+
+    #[On('destroy-image')]
+    public function destroyImage($id): void
+    {
+        auth()->user()->client->product_images()->findOrfail($id)->remove();
+        $this->dispatch('imageDeleted', [
+            'image_id' => $id,
+        ]);
+        $this->toasterSuccess(__("Image deleted successfully."));
+    }
+
+    public function updatedImages()
+    {
+        foreach ($this->images as $image) {
+            $fileName = $image->getClientOriginalName();
+            if ($image->isValid() && in_array(strtolower($image->getClientOriginalExtension()), $this->allowed_images)) {
+                // Check if the size is more than 2MB (2MB = 2097152 bytes)
+                if ($image->getSize() > 2097152) {
+                    // Handle the case when the image size is more than 2MB
+                    // For example, you can throw an error or skip processing this image
+                    $this->toasterError(__("{$fileName} is larger than 2mb."));
+                } else {
+                    $productImage = auth()->user()->client->product_images()->create([
+                        'product_id' => $this->product->id ?? null,
+                    ]);
+                    $productImage->updateImage($image);
+
+                    $this->dispatch('imageUploaded', [
+                        'image' => $productImage,
+                    ]);
+                }
+            } else {
+                // Handle invalid image files (non-image files or unsupported file formats)
+                $this->toasterError(__("{$fileName} is not an image."));
+            }
+        }
     }
 }

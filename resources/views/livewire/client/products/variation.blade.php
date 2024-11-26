@@ -166,9 +166,10 @@
             </div>
         </div>
         @include('livewire.client.products.variation-edit')
-        @livewire('client.products.image', [
+        @include('livewire.client.products.image')
+        {{-- @livewire('client.products.image', [
             'product' => $this->product,
-        ])
+        ]) --}}
     </div>
 </div>
 @push('scripts')
@@ -180,7 +181,8 @@
                 variations: @js($this->product_variations),
                 weight_types: @js(config('constants.weights')),
                 editingVariation: {
-                    stores: []
+                    stores: [],
+                    images: [],
                 },
                 showEditingModal: false,
                 stores: @js($stores),
