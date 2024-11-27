@@ -16,14 +16,15 @@ class Form extends Component
     use WithFileUploads;
 
     protected $listeners = ['refreshList' => '$refresh'];
-    public $product_types = [];
-    public $product_vendors = [];
+    public array $product_types = [];
+    public array $product_vendors = [];
     protected $product_options = [];
     protected $product_variations = [];
-    protected $product_images = [];
+    protected array $product_images = [];
 
-    public $images = [];
-    private $allowed_images = ['jpeg', 'jpg', 'png', 'webp'];
+    public array $images = [];
+    private array $allowed_images = ['jpeg', 'jpg', 'png', 'webp'];
+    public bool $uploading = false;
 
     #[On('refresh-list')]
     public function refresh()
@@ -150,6 +151,7 @@ class Form extends Component
 
     public function updatedImages()
     {
+        $this->uploading = true;
         foreach ($this->images as $image) {
             $fileName = $image->getClientOriginalName();
             if ($image->isValid() && in_array(strtolower($image->getClientOriginalExtension()), $this->allowed_images)) {
@@ -173,5 +175,6 @@ class Form extends Component
                 $this->toasterError(__("{$fileName} is not an image."));
             }
         }
+        $this->uploading = false;
     }
 }

@@ -203,10 +203,15 @@
                         this.selectedImages = this.selectedImages.filter(
                             (image) => image.id !== event.detail[0].image_id
                         );
+
+                        this.images = this.images.filter(
+                            (image) => image.id !== event.detail[0].image_id
+                        );
                     });
 
                     window.addEventListener('imageUploaded', (event) => {
                         this.selectedImages.push(event.detail[0].image);
+                        this.images.push(event.detail[0].image);
                     });
                 },
                 adOption() {
