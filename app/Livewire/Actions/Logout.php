@@ -14,7 +14,6 @@ class Logout
     public function __invoke(): void
     {
         try{
-            storeLogActivity(auth()->user()->id,'Account Log out','account logouted at '. date('d-M-Y H:i:s'));
             Auth::guard('web')->logout();
             Session::invalidate();
             Session::regenerateToken();

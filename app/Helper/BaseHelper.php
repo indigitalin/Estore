@@ -69,12 +69,6 @@ function isClient(){
     return hasRole('client admin|client admin user');
 }
 
-/*Create the ActivityLog function */
-function storeLogActivity($user_id,$action = '',$description = '') : void
-{
-    event(new UserActivityLogged($user_id, $action, $description));
-}
-
 /*Store and Send Noitification function */
 function storeAndSendNotification($user_id,$subject = '',$description = '',$route ='') : void
 {

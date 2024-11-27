@@ -27,7 +27,6 @@ new #[Layout('layouts.guest')] class extends Component {
             ->update([
                 'last_login' => now(),
             ]);
-        storeLogActivity(auth()->user()->id, 'Account Log in', 'Account Log in at ' . date('d-M-Y H:i:s'));
         \Toaster::success(__('Hello :name, welcome back!', ['name' => auth()->user()->name]));
         $this->redirectIntended(default: route('index', absolute: false), navigate: true);
     }
