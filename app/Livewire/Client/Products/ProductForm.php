@@ -17,9 +17,9 @@ class ProductForm extends Form
     public array|null $websites = [];
     public array|null $collections = [];
 
-    public string|null $seo_title = null;
-    public string|null $seo_keywords = null;
-    public string|null $seo_description = null;
+    public string|null $seo_title;
+    public string|null $seo_description;
+    public string|null $seo_keywords;
     public string|null $track_quantity = null;
     public string|null $physical = null;
     public string|null $weight = null;
@@ -333,6 +333,9 @@ class ProductForm extends Form
             'product_variations.*.status' => ['nullable'],
             'product_variations.*.weight' => ['sometimes', 'nullable', 'numeric', 'min:0'],
             'product_variations.*.weight_type' => ['sometimes', 'nullable', 'in:gm,kg,ml,l'],
+            'seo_title' => ['sometimes', 'nullable', 'string'],
+            'seo_keywords' => ['sometimes', 'nullable', 'string'],
+            'seo_description' => ['sometimes', 'nullable', 'string'],
         ];
     }
 }

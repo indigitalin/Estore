@@ -19,6 +19,10 @@ class CategoryForm extends Form
     public ?UploadedFile $picture = null;
     public int $picture_removed = 0;
 
+    public string|null $seo_title;
+    public string|null $seo_description;
+    public string|null $seo_keywords;
+
     public function setCategory(?Category $category = null): void
     {
         $this->category = $category;
@@ -28,6 +32,10 @@ class CategoryForm extends Form
         $this->description = $category->description;
         $this->parent_id = $category->parent_id;
         $this->tax_rate = $category->tax_rate;
+
+        $this->seo_title = $category->seo_title;
+        $this->seo_description = $category->seo_description;
+        $this->seo_keywords = $category->seo_keywords;
     }
 
     public function save()
@@ -44,6 +52,11 @@ class CategoryForm extends Form
                     $this->only(['name', 'handle', 'status', 'description', 'parent_id', 'tax_rate'])
                 );
             }
+            $this->category->update($this->only([
+                'seo_title',
+                'seo_keywords',
+                'seo_description',
+            ]));
             $this->category->updatePicture($this->picture, (int) $this->picture_removed);
             return ([
                 'status' => 'success',
@@ -83,6 +96,9 @@ class CategoryForm extends Form
             'status' => ['nullable'],
             'parent_id' => ['nullable', 'sometimes', 'exists:categories,id'],
             'picture' => ["bail", "nullable", "image", "mimes:webp,jpg,png,jpeg", "max:2048"],
+            'seo_title' => ['sometimes', 'nullable', 'string'],
+            'seo_keywords' => ['sometimes', 'nullable', 'string'],
+            'seo_description' => ['sometimes', 'nullable', 'string'],
         ];
     }
 }
