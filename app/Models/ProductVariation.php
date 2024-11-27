@@ -43,10 +43,11 @@ class ProductVariation extends Model
         return $this->hasMany(ProductVariationImage::class);
     }
 
-    public function getThumbnailImageUrlAttribute(){
-        if($image = $this->images()->whereImageType('thumbnail')->first()){
+    public function getThumbnailImageUrlAttribute()
+    {
+        if ($image = $this->images()->whereImageType('thumbnail')->first()) {
             return $image->image_url ?? null;
-        }else{
+        } else {
             return $this->images()->first()->image_url ?? null;
         }
     }

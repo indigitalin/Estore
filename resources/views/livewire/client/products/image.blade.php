@@ -24,8 +24,17 @@
                 </div>
             </div>
             <div class="mb-5 px-2">
-                <div class="text-lg font-semibold">Image Library</div>
-                <p x-text="imageVariation.variation_name"></p>
+                <div class="flex items-center">
+                    <div class="">
+                        <div class="text-lg font-semibold">Image Library</div>
+                        <p x-text="imageVariation.variation_name"></p>
+                    </div>
+                    <label for="images" role="button"
+                        class="relative capitalize flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90 ms-auto me-2">
+                        Upload images
+                    </label>
+                </div>
+
             </div>
             <div
                 class="h-[75vh] overflow-y-auto px-2 [&::-webkit-scrollbar]:w-2
@@ -73,11 +82,7 @@
             </div>
             <!-- Close Button -->
             <div class="mt-5 flex px-2">
-                <label for="images" role="button"
-                    class="relative capitalize flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90 ms-auto me-2">
-                    Upload images
-                </label>
-                <x-secondary-button type="button" @click="showImageLibraryModal = false" class="ms-2">
+                <x-secondary-button type="button" @click="showImageLibraryModal = false" class="ms-auto">
                     Close
                 </x-secondary-button>
             </div>

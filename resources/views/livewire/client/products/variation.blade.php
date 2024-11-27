@@ -5,7 +5,7 @@
             Variations
         </h3>
     </div>
-    <div x-ref="variation" x-data="variationComponent()" class="p-7 pt-0">
+    <div x-ref="variation" class="p-7 pt-0">
         <div class="flex flex-wrap -mx-2">
             <div class="w-full md:w-1/1 p-2">
                 <div class="mt-2">
@@ -191,10 +191,10 @@
                 imageVariation: {
                     images: []
                 },
+                mainProduct:@entangle('main_product'),
                 showImageLibraryModal: false,
                 images: @json($this->product_images),
                 init() {
-                    console.log(this.variations);
                     this.setOptions()
                     this.loadVariations();
                     this.setVariations()
@@ -210,7 +210,7 @@
                     });
 
                     window.addEventListener('imageUploaded', (event) => {
-                        this.selectedImages.push(event.detail[0].image);
+                        // this.selectedImages.push(event.detail[0].image);
                         this.images.push(event.detail[0].image);
                     });
                 },
@@ -382,7 +382,7 @@
                                 price: null,
                                 sku: null,
                                 //stock: null,
-                                images: null,
+                                images: [],
                                 status: true,
                                 compare_price: null,
                                 cost_per_item: null,
@@ -412,7 +412,8 @@
                 },
                 setVariations() {
                     Livewire.dispatch('set-product-variations', {
-                        product_variations: this.variations
+                        product_variations: this.variations,
+                        product_images: this.mainProduct.images
                     });
                 },
                 processPrice(variation) {
@@ -471,10 +472,10 @@
                     this.setImage();
                 },
                 async openImageModal(variation) {
+                    
                     this.imageVariation = variation;
                     this.selectedImages = this.imageVariation.images;
                     this.showImageLibraryModal = true;
-
                     this.images = await this.images.map(img => {
                         // Find the matching image in selectedImages based on img.id
                         const selectedImage = this.selectedImages.find(selImg => selImg.id === img.id);

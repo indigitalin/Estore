@@ -25,6 +25,7 @@ class Form extends Component
     public array $images = [];
     private array $allowed_images = ['jpeg', 'jpg', 'png', 'webp'];
     public bool $uploading = false;
+    public array $main_product = [];
 
     #[On('refresh-list')]
     public function refresh()
@@ -32,16 +33,36 @@ class Form extends Component
 
     public function mount($product = null): void
     {
+        /**
+         * Delete previsouly discarded images if any
+         */
+        auth()->user()->client->product_images()->whereNull('product_id')->forceDelete();
+        $this->main_product = [
+            'images' => [],
+        ];
+
         $this->product_types = (auth()->user()->client->product_types()->select(['id', 'name'])->get()->toArray());
         $this->product_vendors = (auth()->user()->client->product_vendors()->select(['id', 'name'])->get()->toArray());
         /**
          * Set product if product id is passed in route
          */
+        
         if ($product) {
             $this->form->setProduct($this->product = auth()->user()->client->products()->findOrfail($product));
             $this->product_options = ProductOptionResource::collection($this->product->product_options);
             $this->product_variations = ProductVariationResource::collection($this->product->product_variations);
             $this->product_images = $this->product->product_images->toArray();
+            $this->main_product = [
+                'variation_name' => $this->product->name,
+                'images' => $this->product->images->map(function ($image) {
+                    return [
+                        'id' => $image->product_image_id,
+                        'type' => $image->image_type,
+                        'image_url' => $image->product_image->image_url,
+                    ];
+                })->toArray(),
+                'thumbnail' => $this->product->thumbnail_image_url,
+            ];
         }
     }
 
@@ -127,9 +148,10 @@ class Form extends Component
     }
 
     #[On('set-product-variations')]
-    public function setVariations(array $product_variations): void
+    public function setVariations(array $product_variations, array $product_images): void
     {
         $this->form->product_variations = $product_variations;
+        $this->form->product_images = $product_images;
         $this->validateOnly('product_variations');
     }
 

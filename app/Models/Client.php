@@ -104,7 +104,7 @@ class Client extends Model
         return $this->hasMany(Category::class);
     }
 
-     /**
+    /**
      * Collections of the client
      */
     public function collections()
@@ -130,23 +130,28 @@ class Client extends Model
         return $this->hasMany(Website::class)->website();
     }
 
-    public function menus(){
+    public function menus()
+    {
         return $this->hasMany(Menu::class)->menu();
     }
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
-    public function product_types(){
+    public function product_types()
+    {
         return $this->hasMany(ProductType::class);
     }
 
-    public function product_vendors(){
+    public function product_vendors()
+    {
         return $this->hasMany(ProductVendor::class);
     }
 
-    public function product_images(){
+    public function product_images()
+    {
         return $this->hasMany(ProductImage::class);
     }
 }

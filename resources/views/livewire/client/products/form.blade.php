@@ -13,7 +13,7 @@
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
 
-    <div class="">
+    <div class="" x-data="variationComponent()">
         <form wire:submit.prevent="save" x-data="producutComponent()">
             <div class="grid grid-cols-6 gap-8">
                 <div class="col-span-6 xl:col-span-4">
@@ -29,7 +29,7 @@
                                 <div class="w-full md:w-1/1 p-2">
                                     <div class="mt-2">
                                         <x-input-label :value="__('Name')" />
-                                        <x-text-input placeholder="Name" wire:model="form.name"
+                                        <x-text-input @change="mainProduct.variation_name = $event.target.value" placeholder="Name" wire:model="form.name"
                                             class="mt-1 block w-full" type="text" />
                                         <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
                                     </div>
@@ -363,8 +363,14 @@
                                 </h3>
                             </div>
                             <div class="p-7 pt-0 mt-4">
-                                <x-image-upload :default="$this->product->default_picture_url ?? file_url('/default.png')" :uploaded="$this->product->picture_url ?? file_url('/default.png')"
-                                    :name="'form.picture'"></x-image-upload>
+                                <div class="cursor-pointer" @click="openImageModal(mainProduct)">
+                                    <img class="w-full h-60 object-cover"
+                                        :src="mainProduct.thumbnail ? mainProduct.thumbnail :
+                                            '{{ file_url('default.png') }}'"
+                                        alt="">
+                                </div>
+                                {{-- <x-image-upload :default="$this->product->default_picture_url ?? file_url('/default.png')" :uploaded="$this->product->picture_url ?? file_url('/default.png')"
+                                    :name="'form.picture'"></x-image-upload> --}}
                             </div>
                         </div>
                         <div
@@ -403,7 +409,7 @@
 
         </form>
     </div>
-    
+
 </div>
 <x-form-error :error="$errors" />
 @push('scripts')

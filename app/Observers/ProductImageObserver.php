@@ -2,14 +2,14 @@
 
 namespace App\Observers;
 
-use App\Models\ProductImage as ProductImageModel;
+use App\Models\ProductImage;
 
-class ProductImage
+class ProductImageObserver
 {
     /**
      * Handle the ProductImage "created" event.
      */
-    public function created(ProductImageModel $productImage): void
+    public function created(ProductImage $productImage): void
     {
         //
     }
@@ -17,7 +17,7 @@ class ProductImage
     /**
      * Handle the ProductImage "updated" event.
      */
-    public function updated(ProductImageModel $productImage): void
+    public function updated(ProductImage $productImage): void
     {
         //
     }
@@ -25,7 +25,7 @@ class ProductImage
     /**
      * Handle the ProductImage "deleted" event.
      */
-    public function deleted(ProductImageModel $productImage): void
+    public function deleted(ProductImage $productImage): void
     {
         //
     }
@@ -33,7 +33,7 @@ class ProductImage
     /**
      * Handle the ProductImage "restored" event.
      */
-    public function restored(ProductImageModel $productImage): void
+    public function restored(ProductImage $productImage): void
     {
         //
     }
@@ -41,8 +41,8 @@ class ProductImage
     /**
      * Handle the ProductImage "force deleted" event.
      */
-    public function forceDeleted(ProductImageModel $productImage): void
+    public function forceDeleted(ProductImage $productImage): void
     {
-        
+        $productImage->remove();
     }
 }

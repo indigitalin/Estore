@@ -59,24 +59,6 @@ class Product extends Model
         return $this->status == "1" ? 'Active' : 'Inactive';
     }
 
-    public function getPictureAttribute($picture)
-    {
-        return $picture ?: 'default.png';
-    }
-
-    public function getPictureUrlAttribute($picture)
-    {
-        if ($this->picture == 'default.png') {
-            return $this->default_picture_url;
-        }
-        return file_url($this->picture);
-    }
-
-    public function getDefaultPictureUrlAttribute()
-    {
-        return ('https://ui-avatars.com/api//?background=5c60f5&color=fff&name=' . $this->name);
-    }
-
     public function stores()
     {
         return $this->belongsToMany(Store::class, 'store_products', 'product_id', 'store_id')->store()->using(StoreProduct::class)->withPivot('quantity');
@@ -130,5 +112,19 @@ class Product extends Model
     public function product_images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductVariationImage::class, 'product_id', 'id')->whereNull('product_variation_id');
+    }
+
+    public function getThumbnailImageUrlAttribute()
+    {
+        if ($image = $this->images()->whereImageType('thumbnail')->first()) {
+            return $image->image_url ?? null;
+        } else {
+            return $this->images()->first()->image_url ?? null;
+        }
     }
 }

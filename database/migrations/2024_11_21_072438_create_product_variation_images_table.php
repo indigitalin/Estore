@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('product_image_id')->references('id')->on('product_images')->onDelete("cascade");
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete("cascade");
-            $table->bigInteger('product_variation_id')->unsigned();
+            $table->bigInteger('product_variation_id')->unsigned()->nullable();
             $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete("cascade");
             $table->timestamps();
         });

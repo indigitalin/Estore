@@ -42,6 +42,7 @@ class ProductForm extends Form
     public array|null $product_options = [];
     public array|null $product_variations = [];
     public bool $has_variations = false;
+    public array $product_images = [];
 
     public function setProduct(?Product $product = null): void
     {
@@ -170,6 +171,18 @@ class ProductForm extends Form
                     }
                 }
             }
+
+            /**
+             * Main product image
+             */
+            $this->product->images()->delete();
+            foreach ($this->product_images ?? [] as $image) {
+                $this->product->images()->create([
+                    'product_image_id' => $image['id'] ?? null,
+                    'image_type' => $image['type'] ?? 'extra',
+                ]);
+            }
+
             /**
              * Product variations
              */
@@ -196,7 +209,7 @@ class ProductForm extends Form
                     ]);
                 }
                 $productVariation->images()->delete();
-                foreach($variation['images'] ?? [] as $image){
+                foreach ($variation['images'] ?? [] as $image) {
                     $productVariation->images()->create([
                         'product_id' => $this->product->id,
                         'product_image_id' => $image['id'] ?? null,
@@ -205,6 +218,14 @@ class ProductForm extends Form
                 }
 
             }
+
+            /**
+             * Set images as product images
+             */
+            auth()->user()->client->product_images()->whereNull('product_id')->update([
+                'product_id' => $this->product->id,
+            ]);
+
             return ([
                 'status' => 'success',
                 'message' => $this->product->wasRecentlyCreated ? 'Product created successfully.' : 'Product updated successfully.',
@@ -213,7 +234,8 @@ class ProductForm extends Form
 
         } catch (\Exception $e) {
             return $this->error($e);
-        }}
+        }
+    }
 
     /**
      * Before validation, prepare the values and do necessary changes
@@ -296,6 +318,8 @@ class ProductForm extends Form
             'product_tags.*' => ['string'],
             'product_options' => ['array'],
             'product_options.*' => ['array'],
+            // 'product_images' => ['array'],
+            // 'product_images.*' => ['array'],
             'product_options.*.name' => ['string', 'sometimes', 'nullable'],
             'product_options.*.option_values' => ['array'],
             'product_variations' => ['array'],
