@@ -61,7 +61,7 @@
                                         alt="Brand" />
                                 </div>
                                 <div class="">
-                                    <p class="hidden font-medium text-black dark:text-white sm:block capitalize">
+                                    <p class="hidden font-medium max-w-40 truncate text-black dark:text-white sm:block capitalize">
                                         {{ $product->name }}
                                     </p>
                                 </div>

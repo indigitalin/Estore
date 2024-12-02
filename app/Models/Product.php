@@ -122,9 +122,9 @@ class Product extends Model
     public function getThumbnailImageUrlAttribute()
     {
         if ($image = $this->images()->whereImageType('thumbnail')->first()) {
-            return $image->image_url ?? null;
+            return $image->image_url ?? file_url('default.png');
         } else {
-            return $this->images()->first()->image_url ?? null;
+            return $this->images()->first()->image_url ?? file_url('default.png');
         }
     }
 }
