@@ -18,9 +18,9 @@ class CollectionForm extends Form
     public ?UploadedFile $picture = null;
     public int $picture_removed = 0;
 
-    public string|null $seo_title;
-    public string|null $seo_description;
-    public string|null $seo_keywords;
+    public string|null $seo_title = null;
+    public string|null $seo_description = null;
+    public string|null $seo_keywords = null;
 
     public function setCollection(?Collection $collection = null): void
     {
