@@ -3,7 +3,6 @@
         <h2 class="text-title-md2 font-bold text-black dark:text-white">
             Product collections
         </h2>
-
         <nav>
             <ol class="flex items-center gap-2">
                 <li>

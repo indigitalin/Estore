@@ -12,7 +12,6 @@
     @endphp
     <x-admin-breadcrumb :pageTitle=$pageTitle :navigationLinks=$navigationLinks :pageDescription=$pageDescription
         :rightSideBtnText=$rightSideBtnText :rightSideBtnRoute=$rightSideBtnRoute />
-
     <div class="">
         <form wire:submit.prevent="save" x-data="imagePreviewer('{{ $user ? $user->picture_url : file_url('/default.png') }}')">
             <div class="grid grid-cols-6 gap-8">
@@ -23,7 +22,6 @@
                                 Personal information
                             </h3>
                         </div>
-
                         <div class="p-7 pt-0">
                             <div class="flex flex-wrap -mx-2">
                                 <div class="w-full md:w-1/2 p-2">
